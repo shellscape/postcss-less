@@ -1,5 +1,5 @@
 # PostCSS LESS syntax
-[Build Status](https://secure.travis-ci.org/webschik/postcss-less.png?branch=master)](https://travis-ci.org/webschik/postcss-less)
+[![Build Status](https://secure.travis-ci.org/webschik/postcss-less.png?branch=master)](https://travis-ci.org/webschik/postcss-less)
 [![npm](https://img.shields.io/npm/dm/postcss-less.svg)](https://www.npmjs.com/package/postcss-less)
 [![npm](https://img.shields.io/npm/l/postcss-less.svg)](https://www.npmjs.com/package/postcss-less)
 
