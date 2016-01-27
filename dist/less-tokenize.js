@@ -25,7 +25,7 @@ var COMMA = 44; // ','
 var DOT = 46; // '.'
 var AT = 64; // `@'
 var HASH = 35; // `#'
-var RE_AT_END = /[ \n\t\r\{\(\)'"\\;/]/g;
+var RE_AT_END = /[ \n\t\r\(\)'"\\;/]/g;
 var RE_WORD_END = /[ \n\t\r\(\)\{\}:;@!'"\\#]|\/(?=\*)/g;
 var RE_BAD_BRACKET = /.[\\\/\("'\n]/;
 var extendSelector = ':extend';
