@@ -1,0 +1,36 @@
+{
+  "name": "postcss-less",
+  "version": "0.1.0",
+  "description": "LESS parser for PostCSS",
+  "keywords": [
+    "css",
+    "postcss",
+    "postcss-syntax",
+    "parser",
+    "less"
+  ],
+  "main": "dist/less-syntax.js",
+  "scripts": {
+    "test": "echo No tests",
+    "build": "./node_modules/.bin/babel lib --out-dir dist",
+    "prepublish": "npm test && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webschik/postcss-less.git"
+  },
+  "author": "webschik",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/webschik/postcss-less/issues"
+  },
+  "homepage": "https://github.com/webschik/postcss-less#readme",
+  "devDependencies": {
+    "babel-cli": "^6.4.5",
+    "babel-preset-es2015": "^6.3.13",
+    "postcss-parser-tests": "^5.0.5"
+  },
+  "dependencies": {
+    "postcss": "^5.0.14"
+  }
+}
