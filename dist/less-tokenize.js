@@ -245,9 +245,8 @@ function lessTokenize(input) {
                         //skip inner extend
                         next = css.indexOf(String.fromCharCode(SEMICOLON), next + extendSelectorLength) + 1;
 
-                        tokens.push(['extend', css.slice(pos, next), line, pos - offset, line + 1, next - offset]);
+                        tokens.push(['extend', css.slice(pos, next), line, pos - offset, line, next - offset]);
 
-                        line++;
                         pos = next;
                         break;
                     }
