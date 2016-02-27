@@ -20,4 +20,4 @@ postcss(plugins).process(yourLessCode, {syntax: syntax}).then((result) => {
 * This plugin skips all **inner mixins** and **&:extend()** selector
 
 # Appreciation
-Current module is based on great [postcss-scss](https://github.com/postcss/postcss-scss) library and inspired by another CSS parser for PostCSS - [postcss-less](https://github.com/gilt/postcss-less)
+Current module is based on great [postcss-scss](https://github.com/postcss/postcss-scss) library and inspired by another LESS parser for PostCSS - [postcss-less](https://github.com/gilt/postcss-less)
