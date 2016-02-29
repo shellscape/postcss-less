@@ -1,0 +1,23 @@
+{
+    "preset": "airbnb",
+    "requireSpacesInsideObjectBrackets": null,
+    "disallowQuotedKeysInObjects": "allButReserved",
+    "validateLineBreaks": null,
+    "maximumLineLength": 120,
+    "validateIndentation": 4,
+    "validateQuoteMarks": "'",
+    "safeContextKeyword": null,
+    "disallowSpacesInFunctionDeclaration": null,
+    "disallowSpacesInFunctionExpression": null,
+    "disallowSpacesInAnonymousFunctionExpression": null,
+    "requireTrailingComma": null,
+    "requireLineFeedAtFileEnd": null,
+    "disallowImplicitTypeConversion": ["numeric", "boolean", "string"],
+    "requirePaddingNewLinesAfterBlocks": {
+        "allExcept": ["inArrayExpressions"]
+    },
+    "excludeFiles": ["node_modules/**", "build/**"],
+    "maxErrors": null,
+    "esnext": true,
+    "verbose": true
+}
