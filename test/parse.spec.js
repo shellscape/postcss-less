@@ -5,7 +5,8 @@ import cases from 'postcss-parser-tests';
 describe('#parse()', () => {
     cases.each((name, css, json) => {
         it(`parses ${name}`, () => {
-            const parsed = cases.jsonify(parse(css, {from: name}));
+            const root = parse(css, {from: name});
+            const parsed = cases.jsonify(root);
             expect(parsed).to.eql(json);
         });
     });
@@ -74,10 +75,5 @@ describe('#parse()', () => {
     it('parses interpolation inside word', () => {
         let root = parse('.@{class} {}');
         expect(root.first.selector).to.eql('.@{class}');
-    });
-
-    it('parses non-interpolation', () => {
-        let root = parse('\\@{ color: black }');
-        expect(root.first.selector).to.eql('\\@');
     });
 });

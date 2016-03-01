@@ -8,8 +8,7 @@ function testTokens (css, tokens) {
 
 describe('Tokenizer', () => {
     it('tokenizes inline comments', () => {
-        testTokens('// a\n', [['comment', '// a', 1, 1, 1, 4, 'inline'],
-            ['space', '\n']]);
+        testTokens('// a\n', [['comment', '// a', 1, 1, 1, 4, 'inline'], ['space', '\n']]);
     });
 
     it('tokenizes inline comments in end of file', () => {
