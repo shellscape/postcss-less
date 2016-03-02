@@ -7,15 +7,19 @@ function testTokens (css, tokens) {
 }
 
 describe('Tokenizer', () => {
-    it('tokenizes inline comments', () => {
-        testTokens('// a\n', [['comment', '// a', 1, 1, 1, 4, 'inline'], ['space', '\n']]);
+    describe('Comments', () => {
+        it('tokenizes inline comments', () => {
+            testTokens('// a\n', [['comment', '// a', 1, 1, 1, 4, 'inline'], ['space', '\n']]);
+        });
+
+        it('tokenizes inline comments in end of file', () => {
+            testTokens('// a', [['comment', '// a', 1, 1, 1, 4, 'inline']]);
+        });
     });
 
-    it('tokenizes inline comments in end of file', () => {
-        testTokens('// a', [['comment', '// a', 1, 1, 1, 4, 'inline']]);
-    });
-
-    it('tokenizes interpolation', () => {
-        testTokens('@{a\nb}', [['word', '@{a\nb}', 1, 1, 2, 2]]);
+    describe('Variables', () => {
+        it('tokenizes interpolation', () => {
+            testTokens('@{a\nb}', [['word', '@{a\nb}', 1, 1, 2, 2]]);
+        });
     });
 });
