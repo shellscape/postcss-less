@@ -9,6 +9,7 @@
     "disallowQuotedKeysInObjects": "allButReserved",
     "disallowSpacesInFunctionDeclaration": null,
     "disallowSpacesInFunctionExpression": null,
+    "disallowSpacesInsideTemplateStringPlaceholders": null,
     "disallowSpacesInAnonymousFunctionExpression": null,
     "disallowImplicitTypeConversion": ["numeric", "boolean", "string"],
     "requireSpacesInsideObjectBrackets": null,

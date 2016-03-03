@@ -3,184 +3,355 @@ import {expect} from 'chai';
 import cases from 'postcss-parser-tests';
 
 describe('#parse()', () => {
-    //describe('CSS for PostCSS', () => {
-    //    cases.each((name, css, json) => {
-    //        it(`parses ${name}`, () => {
-    //            const root = parse(css, {from: name});
-    //            const parsed = cases.jsonify(root);
-    //            expect(parsed).to.eql(json);
-    //        });
-    //    });
-    //
-    //    it('parses nested rules', () => {
-    //        const root = parse('a { b {} }');
-    //        expect(root.first.first.selector).to.eql('b');
-    //    });
-    //
-    //    it('parses at-rules inside rules', () => {
-    //        const root = parse('a { @media {} }');
-    //        expect(root.first.first.name).to.eql('media');
-    //    });
-    //});
-    //
-    //describe('Variables', () => {
-    //    it('parses variables', () => {
-    //        const root = parse('@var: 1;');
-    //        expect(root.first.prop).to.eql('@var');
-    //        expect(root.first.value).to.eql('1');
-    //    });
-    //
-    //    it('parses interpolation', () => {
-    //        const root = parse('@{selector}:hover { @{prop}-size: @{color} }');
-    //        expect(root.first.selector).to.eql('@{selector}:hover');
-    //        expect(root.first.first.prop).to.eql('@{prop}-size');
-    //        expect(root.first.first.value).to.eql('@{color}');
-    //    });
-    //
-    //    it('parses interpolation inside word', () => {
-    //        const root = parse('.@{class} {}');
-    //        expect(root.first.selector).to.eql('.@{class}');
-    //    });
-    //});
-    //
-    //describe('Comments', () => {
-    //    it('parses inline comments', () => {
-    //        const root = parse('\n// a \n/* b */');
-    //        expect(root.nodes).to.have.length(2);
-    //        expect(root.first.text).to.eql('a');
-    //        expect(root.first.raws).to.eql({
-    //            before: '\n',
-    //            left: ' ',
-    //            right: ' ',
-    //            inline: true
-    //        });
-    //
-    //        expect(root.last.text).to.eql('b');
-    //    });
-    //
-    //    it('parses empty inline comments', () => {
-    //        const root = parse('//\n// ');
-    //        expect(root.first.text).to.eql('');
-    //        expect(root.first.raws).to.eql({
-    //            before: '',
-    //            left: '',
-    //            right: '',
-    //            inline: true
-    //        });
-    //
-    //        expect(root.last.text).to.eql('');
-    //        expect(root.last.raws).to.eql({
-    //            before: '\n',
-    //            left: ' ',
-    //            right: '',
-    //            inline: true
-    //        });
-    //    });
-    //
-    //    it('does not parse comments inside brackets', () => {
-    //        const root = parse('a { cursor: url(http://ya.ru) }');
-    //        expect(root.first.first.value).to.eql('url(http://ya.ru)');
-    //    });
-    //});
-    //
-    //describe('Extend', () => {
-    //    it('parses inline &:extend()', () => {
-    //        const css = '.a:extend(.b) {color: red;}';
-    //        const root = parse(css);
-    //        expect(root.first.selector).to.eql('.a:extend(.b)');
-    //    });
-    //
-    //    it('parses inline &:extend() with multiple parameters', () => {
-    //        const css = '.e:extend(.f, .g) {}';
-    //        const root = parse(css);
-    //        expect(root.first.selector).to.eql('.e:extend(.f, .g)');
-    //    });
-    //
-    //    it('parses inline &:extend() with nested selector in parameters', () => {
-    //        const css = '.e:extend(.a .g, b span) {}';
-    //        const root = parse(css);
-    //        expect(root.first.selector).to.eql('.e:extend(.a .g, b span)');
-    //    });
-    //
-    //    it('parses multiline &:extend()', () => {
-    //        const css = '.a {\n&:extend(.b);\n}';
-    //        const root = parse(css);
-    //        expect(root.first.selector).to.eql('.a');
-    //        expect(root.first.first.prop).to.eql('&');
-    //        expect(root.first.first.value).to.eql('extend(.b)');
-    //    });
-    //
-    //    it('parses :extend() after selector', () => {
-    //        const css = 'pre:hover:extend(div pre){}';
-    //        const root = parse(css);
-    //        expect(root.first.selector).to.eql('pre:hover:extend(div pre)');
-    //    });
-    //
-    //    it('parses :extend() after selector. 2', () => {
-    //        const css = 'pre:hover :extend(div pre){}';
-    //        const root = parse(css);
-    //        expect(root.first.selector).to.eql('pre:hover :extend(div pre)');
-    //    });
-    //
-    //    it('parses multiple extends', () => {
-    //        const css = 'pre:hover:extend(div pre):extend(.bucket tr) { }';
-    //        const root = parse(css);
-    //        expect(root.first.selector).to.eql('pre:hover:extend(div pre):extend(.bucket tr)');
-    //    });
-    //
-    //    it('parses nth expression in extend', () => {
-    //        const css = ':nth-child(1n+3) {color: blue;} .child:extend(:nth-child(n+3)) {}';
-    //        const root = parse(css);
-    //        expect(root.first.selector).to.eql(':nth-child(1n+3)');
-    //        expect(root.nodes[1].selector).to.eql('.child:extend(:nth-child(n+3))');
-    //    });
-    //
-    //    it('parses extend "all"', () => {
-    //        const css = '.replacement:extend(.test all) {}';
-    //        const root = parse(css);
-    //        expect(root.first.selector).to.eql('.replacement:extend(.test all)');
-    //    });
-    //
-    //    it('parses extend with interpolation', () => {
-    //        const css = '.bucket {color: blue;}\n.some-class:extend(@{variable}) {}\n@variable: .bucket;';
-    //        const root = parse(css);
-    //        expect(root.nodes[0].selector).to.eql('.bucket');
-    //        expect(root.nodes[1].selector).to.eql('.some-class:extend(@{variable})');
-    //    });
-    //});
+    describe('CSS for PostCSS', () => {
+        cases.each((name, code, json) => {
+            it(`parses ${name}`, () => {
+                const root = parse(code, {from: name});
+                const parsed = cases.jsonify(root);
+                expect(parsed).to.eql(json);
+            });
+        });
+
+        it('parses nested rules', () => {
+            const root = parse('a { b {} }');
+            expect(root.first.first.selector).to.eql('b');
+        });
+
+        it('parses at-rules inside rules', () => {
+            const root = parse('a { @media {} }');
+            expect(root.first.first.name).to.eql('media');
+        });
+    });
+
+    describe('Variables', () => {
+        it('parses variables', () => {
+            const root = parse('@var: 1;');
+            expect(root.first.prop).to.eql('@var');
+            expect(root.first.value).to.eql('1');
+        });
+
+        it('parses interpolation', () => {
+            const root = parse('@{selector}:hover { @{prop}-size: @{color} }');
+            expect(root.first.selector).to.eql('@{selector}:hover');
+            expect(root.first.first.prop).to.eql('@{prop}-size');
+            expect(root.first.first.value).to.eql('@{color}');
+        });
+
+        it('parses interpolation inside word', () => {
+            const root = parse('.@{class} {}');
+            expect(root.first.selector).to.eql('.@{class}');
+        });
+
+        it('parses interpolation inside word', () => {
+            const root = parse('.@{class} {}');
+            expect(root.first.selector).to.eql('.@{class}');
+        });
+
+        it('parses escaping', () => {
+            const code = `
+                .m_transition (...) {
+                    @props: ~\`"@{arguments}".replace(/[\[\]]/g, '')\`;
+                    @var: ~ a;
+                    -webkit-transition: @props;
+                    -moz-transition: @props;
+                    -o-transition: @props;
+                    transition: @props;
+                }
+
+                .a {
+                    & ~ .stock-bar__content .stock-bar__control_pause {
+                        display: none;
+                    }
+                }
+            `;
+
+            const root = parse(code);
+            expect(root.first.selector).to.eql('.m_transition (...)');
+            expect(root.first.first.prop).to.eql('@props');
+            expect(root.first.first.value).to.eql('~`"@{arguments}".replace(/[\[\]]/g, \'\')`');
+            expect(root.nodes[1].first.selector).to.eql('& ~ .stock-bar__content .stock-bar__control_pause');
+        });
+    });
+
+    describe('Comments', () => {
+        it('parses inline comments', () => {
+            const root = parse('\n// a \n/* b */');
+            expect(root.nodes).to.have.length(2);
+            expect(root.first.text).to.eql('a');
+            expect(root.first.raws).to.eql({
+                before: '\n',
+                left: ' ',
+                right: ' ',
+                inline: true
+            });
+
+            expect(root.last.text).to.eql('b');
+        });
+
+        it('parses empty inline comments', () => {
+            const root = parse('//\n// ');
+            expect(root.first.text).to.eql('');
+            expect(root.first.raws).to.eql({
+                before: '',
+                left: '',
+                right: '',
+                inline: true
+            });
+
+            expect(root.last.text).to.eql('');
+            expect(root.last.raws).to.eql({
+                before: '\n',
+                left: ' ',
+                right: '',
+                inline: true
+            });
+        });
+
+        it('does not parse comments inside brackets', () => {
+            const root = parse('a { cursor: url(http://site.com) }');
+            expect(root.first.first.value).to.eql('url(http://site.com)');
+        });
+    });
+
+    describe('Extend', () => {
+        it('parses inline &:extend()', () => {
+            const code = '.a:extend(.b) {color: red;}';
+            const root = parse(code);
+            expect(root.first.selector).to.eql('.a:extend(.b)');
+        });
+
+        it('parses inline &:extend() with multiple parameters', () => {
+            const code = '.e:extend(.f, .g) {}';
+            const root = parse(code);
+            expect(root.first.selector).to.eql('.e:extend(.f, .g)');
+        });
+
+        it('parses inline &:extend() with nested selector in parameters', () => {
+            const code = '.e:extend(.a .g, b span) {}';
+            const root = parse(code);
+            expect(root.first.selector).to.eql('.e:extend(.a .g, b span)');
+        });
+
+        it('parses nested &:extend()', () => {
+            const code = '.a {\n&:extend(.b);\n}';
+            const root = parse(code);
+            expect(root.first.selector).to.eql('.a');
+            expect(root.first.nodes.length).to.eql(0);
+        });
+
+        it('parses :extend() after selector', () => {
+            const code = 'pre:hover:extend(div pre){}';
+            const root = parse(code);
+            expect(root.first.selector).to.eql('pre:hover:extend(div pre)');
+        });
+
+        it('parses :extend() after selector. 2', () => {
+            const code = 'pre:hover :extend(div pre){}';
+            const root = parse(code);
+            expect(root.first.selector).to.eql('pre:hover :extend(div pre)');
+        });
+
+        it('parses multiple extends', () => {
+            const code = 'pre:hover:extend(div pre):extend(.bucket tr) { }';
+            const root = parse(code);
+            expect(root.first.selector).to.eql('pre:hover:extend(div pre):extend(.bucket tr)');
+        });
+
+        it('parses nth expression in extend', () => {
+            const code = ':nth-child(1n+3) {color: blue;} .child:extend(:nth-child(n+3)) {}';
+            const root = parse(code);
+            expect(root.first.selector).to.eql(':nth-child(1n+3)');
+            expect(root.nodes[1].selector).to.eql('.child:extend(:nth-child(n+3))');
+        });
+
+        it('parses extend "all"', () => {
+            const code = '.replacement:extend(.test all) {}';
+            const root = parse(code);
+            expect(root.first.selector).to.eql('.replacement:extend(.test all)');
+        });
+
+        it('parses extend with interpolation', () => {
+            const code = '.bucket {color: blue;}\n.some-class:extend(@{variable}) {}\n@variable: .bucket;';
+            const root = parse(code);
+            expect(root.nodes[0].selector).to.eql('.bucket');
+            expect(root.nodes[1].selector).to.eql('.some-class:extend(@{variable})');
+        });
+    });
 
     describe('Mixins', () => {
-        it('parses nested mixins', () => {
-            //const css = `.highlight {
-            //    @t_trans-duration: 0.9s;
-            //    @c_less: @c_red2;
-            //    @c_more: @c_green2;
-            //    @s_padding: round(10/3);
-            //
-            //    .icon {
-            //        display: block;
-            //    }
-            //
-            //    .m_transition(background-color @t_trans-duration, color @t_trans-duration) ;
-            //
-            //    &_more,
-            //    &_less {
-            //        .m_transition (none);
-            //        color: @c_white;
-            //    }
-            //
-            //    &_less {
-            //        background-color: @c_less;
-            //    }
-            //
-            //    &_more {
-            //        background-color: @c_more;
-            //    }
-            //}`;
+        describe('Nested mixin', () => {
+            it('parses nested mixins with class and id selectors', () => {
+                const code = `
+                    .mixin-class {
+                      .a();
+                    }
+                    .mixin-id {
+                      #b();
+                    }
 
-            const css = '.a{\n.m_transition (none); \n.b {}}';
-            const root = parse(css);
-            console.log(root.first.first.selector);
+                    .class {
+                        .mixin1 (
+
+
+                        )
+
+
+                        ;
+
+                        .mixin2
+                    }
+                `;
+
+                const root = parse(code);
+                const rules = ['.mixin-class', '.mixin-id', '.class'];
+
+                rules.forEach((selector, i) => {
+                    expect(root.nodes[i].selector).to.eql(selector);
+                    expect(root.nodes[i].nodes.length).to.eql(0);
+                });
+            });
+
+            it('parses non-outputting mixins', () => {
+                const code = `
+                    .class {
+                      .my-mixin;
+                      .my-other-mixin;
+                    }
+                `;
+
+                const root = parse(code);
+                expect(root.first.selector).to.eql('.class');
+                expect(root.first.nodes.length).to.eql(0);
+            });
+
+            it('parsers nested mixins with namespaces', () => {
+                const code = `
+                    .c {
+                      #outer > .inner;
+                      #space > .importer-1();
+                    }
+                `;
+
+                const root = parse(code);
+                expect(root.first.selector).to.eql('.c');
+                expect(root.first.nodes.length).to.eql(0);
+            });
+
+            it('parsers nested mixins with guarded namespaces', () => {
+                const code = `
+                    #namespace when (@mode=huge) {
+                      .mixin() { /* */ }
+                    }
+
+                    #namespace {
+                      .mixin() when (@mode=huge) { /* */ }
+                    }
+                `;
+
+                const root = parse(code);
+                expect(root.nodes[1].first.selector).to.eql('.mixin() when (@mode=huge)');
+            });
+
+            it('parsers nested mixins with `!important`', () => {
+                const code = `
+                    .unimportant {
+                      .foo();
+                    }
+                    .important {
+                      .foo() !important;
+                    }
+                `;
+
+                const root = parse(code);
+                const rules = ['.unimportant', '.important'];
+
+                rules.forEach((selector, i) => {
+                    expect(root.nodes[i].selector).to.eql(selector);
+                    expect(root.nodes[i].nodes.length).to.eql(0);
+                });
+            });
+
+            it('parsers nested mixins with params', () => {
+                const code = `
+                    .class1 {
+                      .mixin(@margin: 20px; @color: #33acfe);
+                    }
+
+                    .class2 {
+                      .mixin(#efca44; @padding: 40px);
+                    }
+
+                    .class3 {
+                      .name(1, 2, 3; something, else);
+                    }
+
+                    .class4 {
+                      .name(1, 2, 3)
+                    }
+
+                    .class5 {
+                      .name(1, 2, 3;)
+                    }
+
+                    .class6 {
+                      .name(@param1: red, blue;)
+                    }
+
+                    .class7 {
+                      .mixin(@margin: 20px; @color: #33acfe);
+                    }
+
+                    .class8 {
+                      .mixin(#efca44; @padding: 40px);
+                    }
+
+                    .class9 {
+                      .mixin(@switch; #888);
+                    }
+                `;
+
+                const root = parse(code);
+                const rules = [
+                    '.class1',
+                    '.class2',
+                    '.class3',
+                    '.class4',
+                    '.class5',
+                    '.class6',
+                    '.class7',
+                    '.class8',
+                    '.class9'
+                ];
+
+                rules.forEach((selector, i) => {
+                    expect(root.nodes[i].selector).to.eql(selector);
+                    expect(root.nodes[i].nodes.length).to.eql(0);
+                });
+            });
+
+            it('parsers nested mixins with the rule set', () => {
+                const code = `
+                    header {
+                      .desktop-and-old-ie({
+                        background-color: red;
+                      });
+                    }
+                `;
+
+                const root = parse(code);
+                expect(root.first.selector).to.eql('header');
+                expect(root.first.nodes.length).to.eql(0);
+            });
+
+            it('parsers nested mixins in global scope', () => {
+                const code = `
+                    .mixin;
+                    .mixin2();
+                `;
+
+                const root = parse(code);
+                expect(root.nodes.length).to.eql(0);
+            });
         });
     });
 });
