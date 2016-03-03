@@ -7,6 +7,10 @@ A [LESS](http://lesscss.org/) parser for [PostCSS](https://github.com/postcss/po
 
 This module does not compile LESS. It simply parses mixins as custom at-rules & variables as properties, so that PostCSS plugins can then transform LESS source code alongside CSS.
 
+# Use cases
+* lint your LESS code with a plugin such as [Stylelint](http://stylelint.io/).
+* apply PostCSS transformations (such as [Autoprefixer](https://github.com/postcss/autoprefixer)) directly to the LESS source code
+
 # Usage
 
 ````js
@@ -16,8 +20,11 @@ postcss(plugins).process(yourLessCode, {syntax: syntax}).then((result) => {
 });
 ````
 
-# Problems
-* This plugin skips all **inner mixins** and **&:extend()** selector
+# Restrictions
+
+## Skipped blocks:
+* nested mixins with custom token `nested-mixin`
+* nested &:extend(); with custom token `nested-extend`
 
 # Appreciation
 Current module is based on great [postcss-scss](https://github.com/postcss/postcss-scss) library and inspired by another LESS parser for PostCSS - [postcss-less](https://github.com/gilt/postcss-less)

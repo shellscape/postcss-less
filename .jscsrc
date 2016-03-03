@@ -1,18 +1,35 @@
 {
     "preset": "airbnb",
-    "requireSpacesInsideObjectBrackets": null,
-    "disallowQuotedKeysInObjects": "allButReserved",
-    "validateLineBreaks": null,
     "maximumLineLength": 120,
     "validateIndentation": 4,
     "validateQuoteMarks": "'",
+    "validateLineBreaks": null,
     "safeContextKeyword": null,
+    "disallowEmptyBlocks": true,
+    "disallowQuotedKeysInObjects": "allButReserved",
     "disallowSpacesInFunctionDeclaration": null,
     "disallowSpacesInFunctionExpression": null,
+    "disallowSpacesInsideTemplateStringPlaceholders": null,
     "disallowSpacesInAnonymousFunctionExpression": null,
+    "disallowImplicitTypeConversion": ["numeric", "boolean", "string"],
+    "requireSpacesInsideObjectBrackets": null,
     "requireTrailingComma": null,
     "requireLineFeedAtFileEnd": null,
-    "disallowImplicitTypeConversion": ["numeric", "boolean", "string"],
+    "requireCapitalizedConstructors": true,
+    "requireCurlyBraces": true,
+    "requireDotNotation": true,
+    "requireParenthesesAroundIIFE": true,
+    "requireSemicolons": true,
+    "requireSpaceAfterComma": true,
+    "requireSpaceBetweenArguments": true,
+    "requireSpacesInFunction": {
+        "beforeOpeningRoundBrace": true,
+        "beforeOpeningCurlyBrace": true
+    },
+    "validateAlignedFunctionParameters": {
+        "lineBreakAfterOpeningBrace": true,
+        "lineBreakBeforeClosingBrace": true
+    },
     "requirePaddingNewLinesAfterBlocks": {
         "allExcept": ["inArrayExpressions"]
     },
