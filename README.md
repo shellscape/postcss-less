@@ -2,6 +2,7 @@
 [![Build Status](https://secure.travis-ci.org/webschik/postcss-less.png?branch=master)](https://travis-ci.org/webschik/postcss-less)
 [![npm](https://img.shields.io/npm/dt/postcss-less.svg)](https://www.npmjs.com/package/postcss-less)
 [![npm](https://img.shields.io/npm/l/postcss-less.svg)](https://www.npmjs.com/package/postcss-less)
+[![npm](https://img.shields.io/npm/v/postcss-less.svg)](https://www.npmjs.com/package/postcss-less)
 
 A [LESS](http://lesscss.org/) parser for [PostCSS](https://github.com/postcss/postcss).
 
