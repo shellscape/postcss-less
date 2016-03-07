@@ -1,6 +1,6 @@
 {
   "name": "postcss-less",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "LESS parser for PostCSS",
   "keywords": [
     "css",
@@ -28,6 +28,7 @@
   "homepage": "https://github.com/webschik/postcss-less#readme",
   "devDependencies": {
     "babel-cli": "^6.4.5",
+    "babel-plugin-add-module-exports": "^0.1.2",
     "babel-preset-es2015": "^6.3.13",
     "babel-register": "^6.5.2",
     "chai": "^3.5.0",
