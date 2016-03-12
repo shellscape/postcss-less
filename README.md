@@ -66,4 +66,4 @@ one will automatically convert single line comments into block comments.
 
 ## Attribution
 
-Current module is based on the work of [postcss-scss](https://github.com/postcss/postcss-scss) library and includes the `LESS` parser efforts of [github:gilt/postcss-less](https://github.com/gilt/postcss-less) and [github:webschik/postcss-less](https://github.com/webschik/postcss-less)
+This module is based on the work of [postcss-scss](https://github.com/postcss/postcss-scss) library and includes the `LESS` parser efforts of [github:gilt/postcss-less](https://github.com/gilt/postcss-less)
