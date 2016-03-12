@@ -1,4 +1,0 @@
---inline-diffs
---reporter spec
---compilers js:babel-register
-test/*.spec.js
