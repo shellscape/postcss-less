@@ -3,6 +3,7 @@
 * cleanup of various files (license, readme, gulp file)
 * added a number of new tests to capture integration failures
 * resolved remaining integration failures
+* further linting cleanup (eslint strict)
 
 ## 0.2.0
 * Cleanup of source and build files (eslint standards)
