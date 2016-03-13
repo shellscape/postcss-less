@@ -51,6 +51,7 @@
     "less": "^2.5.3",
     "mocha": "^2.4.5",
     "postcss-parser-tests": "^5.0.5",
-    "run-sequence": "^1.1.5"
+    "run-sequence": "^1.1.5",
+    "through": "^2.3.8"
   }
 }
