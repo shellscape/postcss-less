@@ -1,21 +1,14 @@
 {
-  "env": {
-    "commonjs": true,
-    "mocha": true,
-    "es6": true,
-    "node": true
-  },
-
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module"
   },
 
-  "extends": "eslint:recommended",
+  "extends": ["strict", "strict/es6", "strict/mocha"],
 
   "rules": {
-    "semi": [2, "always"],
-    "semi-spacing": [2, {"before": false, "after": true}],
-    "quotes": [2, "single", "avoid-escape"]
+    // JUSTIFICATION: code cleanliness
+    // separation of variable declarations and logic makes source code more readable
+    "newline-after-var": [2, "always"]
   }
 }

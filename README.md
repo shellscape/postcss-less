@@ -16,6 +16,7 @@
 [![npm Downloads](https://img.shields.io/npm/dt/postcss-less.svg)](https://www.npmjs.com/package/postcss-less)
 [![npm Version](https://img.shields.io/npm/v/postcss-less.svg)](https://www.npmjs.com/package/postcss-less)
 [![npm License](https://img.shields.io/npm/l/postcss-less.svg)](https://www.npmjs.com/package/postcss-less)
+[![js-strict-standard-style](https://img.shields.io/badge/code%20style-strict-117D6B.svg)](https://github.com/keithamus/eslint-config-strict)
 
 A [LESS] parser for [PostCSS].
 
