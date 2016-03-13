@@ -1,10 +1,10 @@
-/* global describe, xdescribe, it, xit */
+// chai uses expressions for validation
+/* eslint no-unused-expressions: 0 */
 
-import stringify from '../lib/less-stringify';
-import parse from '../lib/less-parse';
-
-import { expect } from 'chai';
 import cases from 'postcss-parser-tests';
+import { expect } from 'chai';
+import parse from '../lib/less-parse';
+import stringify from '../lib/less-stringify';
 
 describe('#stringify()', () => {
   describe('CSS for PostCSS', () => {
@@ -13,7 +13,7 @@ describe('#stringify()', () => {
         return;
       }
 
-      it(`stringifies ${name}`, () => {
+      it(`stringifies ${ name }`, () => {
         const root = parse(css);
         let result = '';
 

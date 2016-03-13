@@ -1,9 +1,9 @@
-/* global describe, xdescribe, it, xit */
-
-import postcss from 'postcss';
-import lessSyntax from '../lib/less-syntax';
+// chai uses expressions for validation
+/* eslint no-unused-expressions: 0 */
 
 import { expect } from 'chai';
+import lessSyntax from '../lib/less-syntax';
+import postcss from 'postcss';
 
 describe('#postcss', () => {
   it('can process LESS syntax', () => {
