@@ -1,6 +1,7 @@
 .babelrc
 .editorconfig
-.eslintrc.json
+.eslintignore
+.eslintrc
 .gitignore
 .idea
 .npmignore
