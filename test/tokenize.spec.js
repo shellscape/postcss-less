@@ -20,6 +20,15 @@ describe('#tokenize()', () => {
     ]);
   });
 
+  it('tokenizes escaped characters', () => {
+    testTokens('color: \\;', [
+      [ 'word', 'color', 1, 1, 1, 5 ],
+      [ ':', ':', 1, 6 ],
+      [ 'space', ' ' ],
+      [ 'word', '\\;', 1, 8, 1, 9 ],
+    ]);
+  });
+
   it('tokenizes css hash colors', () => {
     testTokens('a { border: 1px solid #c0c0c0; }', [
       [ 'word', 'a', 1, 1, 1, 1 ],
