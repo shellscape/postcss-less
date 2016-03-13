@@ -12,7 +12,7 @@
      title="Philosopher's stone, logo of PostCSS"
      src="http://postcss.github.io/postcss/logo.svg">
 
-[![Build Status](https://img.shields.io/travis/patsissons/postcss-less.svg?branch=develop)](https://travis-ci.org/patsissons/postcss-less)
+[![Build Status](https://img.shields.io/travis/webschik/postcss-less.svg?branch=develop)](https://travis-ci.org/patsissons/postcss-less)
 [![npm Downloads](https://img.shields.io/npm/dt/postcss-less.svg)](https://www.npmjs.com/package/postcss-less)
 [![npm Version](https://img.shields.io/npm/v/postcss-less.svg)](https://www.npmjs.com/package/postcss-less)
 [![npm License](https://img.shields.io/npm/l/postcss-less.svg)](https://www.npmjs.com/package/postcss-less)
