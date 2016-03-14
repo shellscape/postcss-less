@@ -8,6 +8,8 @@ A [LESS](http://lesscss.org/) parser for [PostCSS](https://github.com/postcss/po
 
 This module does not compile LESS. It simply parses mixins as custom at-rules & variables as properties, so that PostCSS plugins can then transform LESS source code alongside CSS.
 
+* Contribution guidelines: [CONTRIBUTING.md](./CONTRIBUTING.md)
+
 # Use cases
 * lint your LESS code with a plugin such as [Stylelint](http://stylelint.io/).
 * apply PostCSS transformations (such as [Autoprefixer](https://github.com/postcss/autoprefixer)) directly to the LESS source code
