@@ -1,0 +1,58 @@
+{
+  "preset": "airbnb",
+  "maximumLineLength": 120,
+  "validateIndentation": 4,
+  "validateQuoteMarks": "'",
+  "validateLineBreaks": null,
+  "safeContextKeyword": null,
+  "disallowEmptyBlocks": true,
+  "disallowQuotedKeysInObjects": "allButReserved",
+  "disallowSpacesInFunctionDeclaration": null,
+  "disallowSpacesInFunctionExpression": null,
+  "disallowSpacesInsideTemplateStringPlaceholders": null,
+  "disallowSpacesInAnonymousFunctionExpression": null,
+  "disallowImplicitTypeConversion": [
+    "numeric",
+    "boolean",
+    "string"
+  ],
+  "requireSpacesInsideObjectBrackets": null,
+  "requireShorthandArrowFunctions": null,
+  "requireTrailingComma": null,
+  "requireLineFeedAtFileEnd": null,
+  "requireCapitalizedConstructors": true,
+  "requireDotNotation": true,
+  "requireParenthesesAroundIIFE": true,
+  "requireSemicolons": true,
+  "requireSpaceAfterComma": true,
+  "requireSpaceBetweenArguments": true,
+  "requireSpacesInFunction": {
+    "beforeOpeningRoundBrace": true,
+    "beforeOpeningCurlyBrace": true
+  },
+  "requireCurlyBraces": [
+    "if",
+    "else",
+    "for",
+    "while",
+    "do",
+    "try",
+    "catch"
+  ],
+  "validateAlignedFunctionParameters": {
+    "lineBreakAfterOpeningBrace": true,
+    "lineBreakBeforeClosingBrace": true
+  },
+  "requirePaddingNewLinesAfterBlocks": {
+    "allExcept": [
+      "inArrayExpressions"
+    ]
+  },
+  "excludeFiles": [
+    "node_modules/**",
+    "build/**"
+  ],
+  "maxErrors": null,
+  "esnext": true,
+  "verbose": true
+}
