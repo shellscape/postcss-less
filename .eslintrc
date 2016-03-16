@@ -1,25 +1,27 @@
 {
-    "env": {
-        "commonjs": true,
-        "mocha": true,
-        "es6": true,
-        "node": true
-    },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
 
-    "parserOptions": {
-        "ecmaVersion": 6,
-        "sourceType": "module"
-    },
+  "extends": ["strict", "strict/es6", "strict/mocha"],
 
-    "extends": "eslint:recommended",
-
-    "rules": {
-        "semi": [2, "always"],
-        "no-extra-semi": 0,
-        "no-console": 0,
-        "no-debugger": 0,
-        "no-undef": 0,
-        "semi-spacing": [2, {"before": false, "after": true}],
-        "quotes": [2, "single", "avoid-escape"]
-    }
+  "rules": {
+    // JUSTIFICATION: code cleanliness
+    // separation of variable declarations and logic makes source code more readable
+    "newline-after-var": [2, "always"],
+    "semi": [2, "always"],
+    "space-before-function-paren": [2, "always"],
+    "comma-dangle": [2, "never"],
+    "array-bracket-spacing": [2, "never"],
+    "object-curly-spacing": [2, "never"],
+    
+    //let JSCS to validate indentations
+    "indent": [0],
+    "eol-last": [0],
+    "no-trailing-spaces": [2],
+    "no-extra-semi": 0,
+    "semi-spacing": [2, {"before": false, "after": true}],
+    "quotes": [2, "single", "avoid-escape"]
+  }
 }
