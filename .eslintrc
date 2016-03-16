@@ -15,11 +15,11 @@
     "comma-dangle": [2, "never"],
     "array-bracket-spacing": [2, "never"],
     "object-curly-spacing": [2, "never"],
+    "no-trailing-spaces": [2, { "skipBlankLines": true }],
     
     //let JSCS to validate indentations
     "indent": [0],
     "eol-last": [0],
-    "no-trailing-spaces": [2],
     "no-extra-semi": 0,
     "semi-spacing": [2, {"before": false, "after": true}],
     "quotes": [2, "single", "avoid-escape"]
