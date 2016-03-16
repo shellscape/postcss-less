@@ -58,21 +58,21 @@ describe('Parser', () => {
 
         it('parses escaping', () => {
             const code = `
-      .m_transition (...) {
-        @props: ~\`"@{arguments}".replace(/[\[\]]/g, '')\`;
-        @var: ~ a;
-        -webkit-transition: @props;
-        -moz-transition: @props;
-        -o-transition: @props;
-        transition: @props;
-      }
+                .m_transition (...) {
+                    @props: ~\`"@{arguments}".replace(/[\[\]]/g, '')\`;
+                    @var: ~ a;
+                    -webkit-transition: @props;
+                    -moz-transition: @props;
+                    -o-transition: @props;
+                    transition: @props;
+                }
 
-      .a {
-        & ~ .stock-bar__content .stock-bar__control_pause {
-        display: none;
-        }
-      }
-      `;
+                .a {
+                    & ~ .stock-bar__content .stock-bar__control_pause {
+                        display: none;
+                    }
+                }
+            `;
 
             const root = parse(code);
 

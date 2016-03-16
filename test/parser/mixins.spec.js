@@ -22,25 +22,25 @@ describe('Parser', () => {
             /* eslint-disable no-multiple-empty-lines */
             it('parses nested mixins with class and id selectors', () => {
                 const code = `
-          .mixin-class {
-            .a();
-          }
-          .mixin-id {
-            #b();
-          }
-
-          .class {
-            .mixin1 (
-
-
-            )
-
-
-            ;
-
-            .mixin2
-          }
-        `;
+                    .mixin-class {
+                        .a();
+                    }
+                    .mixin-id {
+                        #b();
+                    }
+        
+                    .class {
+                        .mixin1 (
+        
+        
+                        )
+        
+        
+                        ;
+        
+                        .mixin2
+                    }
+                `;
 
                 const root = parse(code);
                 const rules = ['.mixin-class', '.mixin-id', '.class'];
@@ -54,11 +54,11 @@ describe('Parser', () => {
 
             it('parses non-outputting mixins', () => {
                 const code = `
-          .class {
-            .my-mixin;
-            .my-other-mixin;
-          }
-        `;
+                    .class {
+                        .my-mixin;
+                        .my-other-mixin;
+                    }
+                `;
 
                 const root = parse(code);
 
@@ -68,11 +68,11 @@ describe('Parser', () => {
 
             it('parses nested mixins with namespaces', () => {
                 const code = `
-          .c {
-            #outer > .inner;
-            #space > .importer-1();
-          }
-        `;
+                    .c {
+                        #outer > .inner;
+                        #space > .importer-1();
+                    }
+                `;
 
                 const root = parse(code);
 
@@ -82,14 +82,14 @@ describe('Parser', () => {
 
             it('parses nested mixins with guarded namespaces', () => {
                 const code = `
-          #namespace when (@mode=huge) {
-            .mixin() { /* */ }
-          }
+                    #namespace when (@mode=huge) {
+                        .mixin() { /* */ }
+                    }
 
-          #namespace {
-            .mixin() when (@mode=huge) { /* */ }
-          }
-        `;
+                    #namespace {
+                        .mixin() when (@mode=huge) { /* */ }
+                    }
+                `;
 
                 const root = parse(code);
 
@@ -98,13 +98,13 @@ describe('Parser', () => {
 
             it('parses nested mixins with `!important`', () => {
                 const code = `
-          .unimportant {
-            .foo();
-          }
-          .important {
-            .foo() !important;
-          }
-        `;
+                    .unimportant {
+                        .foo();
+                    }
+                    .important {
+                        .foo() !important;
+                    }
+                `;
 
                 const root = parse(code);
                 const rules = ['.unimportant', '.important'];
@@ -117,42 +117,42 @@ describe('Parser', () => {
 
             it('parses nested mixins with params', () => {
                 const code = `
-          .class1 {
-            .mixin(@margin: 20px; @color: #33acfe);
-          }
-
-          .class2 {
-            .mixin(#efca44; @padding: 40px);
-          }
-
-          .class3 {
-            .name(1, 2, 3; something, else);
-          }
-
-          .class4 {
-            .name(1, 2, 3)
-          }
-
-          .class5 {
-            .name(1, 2, 3;)
-          }
-
-          .class6 {
-            .name(@param1: red, blue;)
-          }
-
-          .class7 {
-            .mixin(@margin: 20px; @color: #33acfe);
-          }
-
-          .class8 {
-            .mixin(#efca44; @padding: 40px);
-          }
-
-          .class9 {
-            .mixin(@switch; #888);
-          }
-        `;
+                    .class1 {
+                        .mixin(@margin: 20px; @color: #33acfe);
+                    }
+        
+                    .class2 {
+                        .mixin(#efca44; @padding: 40px);
+                    }
+        
+                    .class3 {
+                        .name(1, 2, 3; something, else);
+                    }
+        
+                    .class4 {
+                        .name(1, 2, 3)
+                    }
+        
+                    .class5 {
+                        .name(1, 2, 3;)
+                    }
+        
+                    .class6 {
+                        .name(@param1: red, blue;)
+                    }
+        
+                    .class7 {
+                        .mixin(@margin: 20px; @color: #33acfe);
+                    }
+        
+                    .class8 {
+                        .mixin(#efca44; @padding: 40px);
+                    }
+        
+                    .class9 {
+                        .mixin(@switch; #888);
+                    }
+                `;
 
                 const root = parse(code);
                 const rules = [
@@ -175,12 +175,12 @@ describe('Parser', () => {
 
             it('parses nested mixins with the rule set', () => {
                 const code = `
-          header {
-            .desktop-and-old-ie({
-            background-color: red;
-            });
-          }
-        `;
+                    header {
+                        .desktop-and-old-ie({
+                            background-color: red;
+                        });
+                    }
+                `;
 
                 const root = parse(code);
 
@@ -190,13 +190,69 @@ describe('Parser', () => {
 
             it('parses nested mixins in global scope', () => {
                 const code = `
-          .mixin;
-          .mixin2();
-        `;
+                    .mixin;
+                    .mixin2();
+                `;
 
                 const root = parse(code);
 
                 expect(root.nodes.length).to.eql(0);
+            });
+
+            it('should parse nested mixin', () => {
+                const code = `
+                    .badge-quality {
+                        &:extend(.label, .m_text-uppercase);
+                        font-size: 85%;
+                        font-weight: normal;
+                        min-width: 2rem;
+                        height: 2rem;
+                        padding: 0.2rem 0.3rem;
+                        display: inline-block;
+                        border-radius: 0;
+                        cursor: default;
+                        line-height: 1.6rem;
+                        color: @c_white;
+                        background-color: @c_blue1;
+                    
+                        &_info {
+                            background-color: @c_blue5;
+                        }
+                    
+                        &_danger {
+                            background-color: @c_red2;
+                        }
+                    
+                        &_success {
+                            background-color: @c_green3;
+                        }
+                    
+                        &_warning {
+                            background-color: @c_yellow1;
+                            color: @c_black1;
+                        }
+                    }
+                    
+                    .badge-category {
+                        &:extend(.m_badge-default);
+                    }
+                    
+                    .buy-sell-badge {
+                        .m_text-uppercase();
+                    
+                        &_buy {
+                            &:extend(.m_text-success);
+                        }
+                    
+                        &_sell {
+                            &:extend(.m_text-error);
+                        }
+                    }
+                `;
+
+                const root = parse(code);
+
+                expect(root.nodes.length).to.eql(3);
             });
         });
     });
