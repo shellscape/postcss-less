@@ -1,7 +1,10 @@
-import stringify from '../lib/less-stringify';
-import parse from '../lib/less-parse';
-import {expect} from 'chai';
+// chai uses expressions for validation
+/* eslint no-unused-expressions: 0 */
+
 import cases from 'postcss-parser-tests';
+import {expect} from 'chai';
+import parse from '../lib/less-parse';
+import stringify from '../lib/less-stringify';
 
 describe('#stringify()', () => {
     describe('CSS for PostCSS', () => {
@@ -10,10 +13,11 @@ describe('#stringify()', () => {
                 return;
             }
 
-            it(`stringifies ${name}`, () => {
+            it(`stringifies ${ name }`, () => {
                 const root = parse(css);
                 let result = '';
-                stringify(root, i => {
+
+                stringify(root, (i) => {
                     result += i;
                 });
 
@@ -26,7 +30,8 @@ describe('#stringify()', () => {
         it('stringifies inline comment', () => {
             const root = parse('// comment\na {}');
             let result = '';
-            stringify(root, i => {
+
+            stringify(root, (i) => {
                 result += i;
             });
 
@@ -36,6 +41,7 @@ describe('#stringify()', () => {
         it('stringifies inline comment in the end of file', () => {
             const root = parse('// comment');
             let result = '';
+
             stringify(root, (i) => {
                 result += i;
             });
