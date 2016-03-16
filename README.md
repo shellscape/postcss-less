@@ -65,6 +65,9 @@ one will automatically convert single line comments into block comments.
 * nested mixins with custom token `nested-mixin`
 * nested &:extend(); with custom token `nested-extend`
 
+## Contribution
+Please, check our guidelines: [CONTRIBUTING.md](./CONTRIBUTING.md)
+
 ## Attribution
 
 This module is based on the work of [postcss-scss](https://github.com/postcss/postcss-scss) library and includes the `LESS` parser efforts of [github:gilt/postcss-less](https://github.com/gilt/postcss-less)
