@@ -10,6 +10,7 @@ describe('Parser', () => {
             const root = parse('.foo (@bar; @baz...) { border: @{baz}; }');
 
             expect(root.first.type).to.eql('mixin');
+            expect(root.first.name).to.eql('foo');
             expect(root.first.selector).to.eql('.foo (@bar; @baz...)');
             expect(root.first.params[0].name).to.eql('bar');
             expect(root.first.params[1].name).to.eql('baz...');
