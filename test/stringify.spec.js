@@ -49,4 +49,17 @@ describe('#stringify()', () => {
             expect(result).to.eql('// comment');
         });
     });
+    
+    describe('Mixins', () => {
+        it('stringifies mixins', () => {
+            const root = parse('.foo (@bar; @baz...) { border: @{baz}; }');
+            let result = '';
+
+            stringify(root, (i) => {
+                result += i;
+            });
+
+            expect(result).to.eql('.foo (@bar; @baz...) { border: @{baz}; }');
+        });
+    });
 });
