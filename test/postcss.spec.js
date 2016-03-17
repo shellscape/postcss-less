@@ -19,4 +19,18 @@ describe('#postcss', () => {
                 done();
             });
     });
+    
+    it('can parse LESS mixins as at rules', (done) => {
+        const lessText = '.foo (@bar; @baz...) { border: @{baz}; }';
+
+        postcss()
+            .process(lessText, {syntax: lessSyntax, mixinsAsAtRules: true})
+            .then((result) => {
+                expect(result).to.be.not.null;
+                expect(result.css).to.equal(lessText);
+                expect(result.content).to.equal(lessText);
+                
+                done();
+            });
+    });
 });

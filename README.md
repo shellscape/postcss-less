@@ -20,9 +20,7 @@
 
 A [LESS] parser for [PostCSS].
 
-**This module does not compile LESS.** It simply parses mixins as custom
-at-rules & variables as properties, so that PostCSS plugins can then transform
-LESS source code alongside CSS.
+**This module does not compile LESS.** It simply parses mixins and variables so that PostCSS plugins can then transform LESS source code alongside CSS.
 
 ## Use Cases
 
@@ -35,12 +33,20 @@ LESS source code alongside CSS.
 
 The main use case of this plugin is to apply PostCSS transformations directly
 to LESS source code. For example, if you ship a theme written in LESS and need
-[Autoprefixer] to add the appropriate vendor prefixes to it; or you need to
-lint LESS with a plugin such as [Stylelint].
+[Autoprefixer] to add the appropriate vendor prefixes to it.
 
 ```js
 const syntax = require('postcss-less');
 postcss(plugins).process(lessText, { syntax: syntax }).then(function (result) {
+    result.content // LESS with transformations
+});
+```
+
+When you want to lint LESS with a plugin such as [Stylelint], you will need to tell `postcss-less` to _fake_ LESS-specific syntax.
+
+```js
+const syntax = require('postcss-less');
+postcss().process(lessText, { syntax: syntax, mixinsAsAtRules: true }).then(function (result) {
     result.content // LESS with transformations
 });
 ```
