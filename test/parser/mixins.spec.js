@@ -18,6 +18,12 @@ describe('Parser', () => {
             expect(root.first.first.prop).to.eql('border');
             expect(root.first.first.value).to.eql('@{baz}');
         });
+        
+        it('can parse basic mixins as at rules', () => {
+            const root = parse('.foo (@bar; @baz...) { border: @{baz}; }', {mixinsAsAtRules: true});
+
+            expect(root.first.type).to.eql('atrule');
+        });
 
         describe('Nested mixin', () => {
             /* eslint-disable no-multiple-empty-lines */
