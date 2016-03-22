@@ -54,7 +54,7 @@ describe('#stringify()', () => {
         it('stringifies mixins', () => {
             const root = parse('.foo (@bar; @baz...) { border: @{baz}; }');
             let result = '';
-
+            
             stringify(root, (i) => {
                 result += i;
             });

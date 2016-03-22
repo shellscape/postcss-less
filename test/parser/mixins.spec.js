@@ -9,20 +9,38 @@ describe('Parser', () => {
         it('parses basic mixins', () => {
             const root = parse('.foo (@bar; @baz...) { border: @{baz}; }');
 
-            expect(root.first.type).to.eql('mixin');
+            expect(root.first.type).to.eql('mixinRule');
             expect(root.first.name).to.eql('foo');
             expect(root.first.selector).to.eql('.foo (@bar; @baz...)');
             expect(root.first.params[0].name).to.eql('bar');
             expect(root.first.params[1].name).to.eql('baz...');
-            expect(root.first.params[1].variableDict).to.be.true;
+            expect(root.first.params[1].restVariables).to.eql(true, 'did not parse rest variables');
             expect(root.first.first.prop).to.eql('border');
             expect(root.first.first.value).to.eql('@{baz}');
         });
-        
+
         it('can parse basic mixins as at rules', () => {
             const root = parse('.foo (@bar; @baz...) { border: @{baz}; }', {mixinsAsAtRules: true});
 
             expect(root.first.type).to.eql('atrule');
+        });
+
+        it('can parse basic mixins as at rules and all inner mixins as simple rules', () => {
+            const less = '.for(@n: 1) when (@n <= 10) { .n-@{n} #foo { .inner-mixin () {}} .for(@n + 1) }';
+
+            const root = parse(less, {
+                mixinsAsAtRules: true,
+                innerMixinsAsRules: true
+            });
+
+            expect(root.first.type).to.eql('atrule');
+            expect(root.first.selector).to.eql('.for(@n: 1) when (@n <= 10)');
+
+            expect(root.first.first.selector).to.eql('.n-@{n} #foo');
+            expect(root.first.first.type).to.eql('rule');
+
+            expect(root.first.first.first.selector).to.eql('.inner-mixin ()');
+            expect(root.first.first.first.type).to.eql('rule');
         });
 
         describe('Nested mixin', () => {
@@ -50,11 +68,12 @@ describe('Parser', () => {
                 `;
 
                 const root = parse(code);
+
                 const rules = ['.mixin-class', '.mixin-id', '.class'];
 
                 rules.forEach((selector, i) => {
-                    expect(root.nodes[i].selector).to.eql(selector);
-                    expect(root.nodes[i].nodes.length).to.eql(0);
+                    expect(root.nodes[i].selector).to.eql(selector, `invalid selector in nested mixin ${ selector }`);
+                    expect(root.nodes[i].nodes.length).to.eql(0, `invalid nodes in nested mixin ${ selector }`);
                 });
             });
             /* eslint-enable no-multiple-empty-lines */

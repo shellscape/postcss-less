@@ -88,7 +88,7 @@ gulp.task('build:all', ['build:lib', 'build:test']);
 
 gulp.task('build:lib', ['clean:lib'], () => {
     return gulp
-        .src(path.join(config.dirs.lib, '*.js'))
+        .src(path.join(config.dirs.lib, '**', '*.js'))
         .pipe(babel())
         .pipe(gulp.dest(path.join(config.dirs.build, config.builds.lib)));
 });
