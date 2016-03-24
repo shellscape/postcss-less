@@ -17,7 +17,7 @@ describe('#postcss', () => {
                 expect(result.content).to.equal(lessText);
                 
                 done();
-            });
+            }).catch(done);
     });
     
     it('can parse LESS mixins as at rules', (done) => {
@@ -31,6 +31,6 @@ describe('#postcss', () => {
                 expect(result.content).to.equal(lessText);
                 
                 done();
-            });
+            }).catch(done);
     });
 });
