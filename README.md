@@ -42,11 +42,24 @@ postcss(plugins).process(lessText, { syntax: syntax }).then(function (result) {
 });
 ```
 
-When you want to lint LESS with a plugin such as [Stylelint], you will need to tell `postcss-less` to _fake_ LESS-specific syntax.
+#### Parser options
+* mixinsAsAtRules - parse all mixins as [AtRule nodes](https://github.com/postcss/postcss/blob/master/docs/api.md#atrule-node)
+
+* innerMixinsAsRules - parse all inner mixins as [Rule nodes](https://github.com/postcss/postcss/blob/master/docs/api.md#rule-node)
+
+It makes sense to use this option with `mixinsAsAtRules` if you want to parse mixins on the [root level](https://github.com/postcss/postcss/blob/master/docs/api.md#root-node) as `AtRule` and all inner mixins as `Rule` nodes.
+
+Options help you to tell `postcss-less` to _fake_ LESS-specific syntax. For example, [Stylelint] requires the next options:
 
 ```js
 const syntax = require('postcss-less');
-postcss().process(lessText, { syntax: syntax, mixinsAsAtRules: true }).then(function (result) {
+const postcssParserOptions = { 
+    syntax: syntax, 
+    mixinsAsAtRules: true,
+    innerMixinsAsRules: true
+};
+
+postcss().process(lessText, postcssParserOptions).then(function (result) {
     result.content // LESS with transformations
 });
 ```
@@ -67,9 +80,19 @@ one will automatically convert single line comments into block comments.
 
 ## Restrictions
 
-### Skipped blocks:
-* nested mixins with custom token `nested-mixin`
-* nested &:extend(); with custom token `nested-extend`
+### Skipping mixins without body
+`postcss-less` parses all mixins without body as custom nodes with specifix types:
+
+````less
+.foo(); //'mixin-function' node
+.foo; // 'mixin-inline' node
+````
+
+`PostCSS` skips all these mixins, so you won't have them in the result.
+
+### Skipping inner extend
+`postcss-less` parses nested `&:extend` constructions as custom nodes with type `nested-extend`. 
+`PostCSS` doesn't parse this node type and you won't have these constructions in the result.
 
 ## Contribution
 Please, check our guidelines: [CONTRIBUTING.md](./CONTRIBUTING.md)
