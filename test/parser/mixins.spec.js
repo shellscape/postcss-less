@@ -25,6 +25,14 @@ describe('Parser', () => {
             expect(root.first.type).to.eql('atrule');
         });
 
+        it('should parse parametric mixins', () => {
+            const root = parse('.foo(@bar) { color: @bar;}', {mixinsAsAtRules: true, innerMixinsAsRules: true});
+
+            expect(root.first.type).to.eql('atrule');
+            expect(root.first.params[0].type).to.eql('atrule');
+            expect(root.first.params[0].lessType).to.eql('mixin-param');
+        });
+
         it('can parse basic mixins as at rules and all inner mixins as simple rules', () => {
             const less = '.for(@n: 1) when (@n <= 10) { .n-@{n} #foo { .inner-mixin () {}} .for(@n + 1) }';
 
