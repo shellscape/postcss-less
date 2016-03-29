@@ -33,7 +33,7 @@ describe('Parser', () => {
 
                 expect(root.first.first.type).to.eql('rule');
                 expect(root.first.first.selector).to.eql('.mixin-name');
-                expect(root.first.params).to.eql('');
+                expect(root.first.params).to.eql(undefined);
                 expect(root.first.first.ruleWithoutBody).to.eql(true);
             });
         });
@@ -77,7 +77,7 @@ describe('Parser', () => {
                 expect(/\(\s+\)/.test(root.nodes[2].nodes[0].params)).to.eql(true, '.mixin1: invalid params');
 
                 expect(root.nodes[2].nodes[1].selector).to.eql('.mixin2', '.mixin2: invalid selector');
-                expect(root.nodes[2].nodes[1].params).to.eql('', '.mixin2: invalid params');
+                expect(root.nodes[2].nodes[1].params).to.eql(undefined, '.mixin2: invalid params');
             });
 
             it('parses nested mixins with namespaces', () => {
