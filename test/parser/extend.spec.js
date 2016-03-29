@@ -28,11 +28,13 @@ describe('Parser', () => {
         });
 
         it('parses nested &:extend()', () => {
-            const code = '.a {\n&:extend(.b);\n}';
+            const code = '.a {\n      &:extend(.bucket tr);\n}';
             const root = parse(code);
 
             expect(root.first.selector).to.eql('.a');
-            expect(root.first.nodes.length).to.eql(0);
+            expect(root.first.first.selector).to.eql('&:extend(.bucket tr)');
+            expect(root.first.first.params).to.eql('(.bucket tr)');
+            expect(root.first.first.extend).to.eql(true);
         });
 
         it('parses :extend() after selector', () => {

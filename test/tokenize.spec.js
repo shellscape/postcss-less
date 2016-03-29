@@ -6,7 +6,6 @@ import {expect} from 'chai';
 import tokenize from '../lib/less-tokenize';
 
 function testTokens (css, tokens) {
-    // console.log(tokenize(new Input(css)));
     expect(tokenize(new Input(css))).to.eql(tokens);
 }
 
@@ -121,9 +120,10 @@ describe('#tokenize()', () => {
             ['word', '.foo', 1, 1, 1, 4],
             ['space', ' '],
             ['(', '(', 1, 6],
-            ['mixin-param', '@bar', 1, 7, 1, 10],
+            ['at-word', '@bar', 1, 7, 1, 10],
             [';', ';', 1, 11],
             ['space', ' '],
+            [ 'at-word', '@baz...', 1, 13, 1, 19 ],
             [')', ')', 1, 20],
             ['space', ' '],
             ['{', '{', 1, 22],
