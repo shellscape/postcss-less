@@ -24,7 +24,7 @@ describe('#postcss', () => {
         const lessText = '.foo (@bar; @baz...) { border: @{baz}; }';
 
         postcss()
-            .process(lessText, {syntax: lessSyntax, mixinsAsAtRules: true})
+            .process(lessText, {syntax: lessSyntax})
             .then((result) => {
                 expect(result).to.be.not.null;
                 expect(result.css).to.equal(lessText);

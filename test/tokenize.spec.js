@@ -124,7 +124,6 @@ describe('#tokenize()', () => {
             ['mixin-param', '@bar', 1, 7, 1, 10],
             [';', ';', 1, 11],
             ['space', ' '],
-            ['mixin-param', '@baz...', 1, 13, 1, 19, 'rest-variables'],
             [')', ')', 1, 20],
             ['space', ' '],
             ['{', '{', 1, 22],
