@@ -24,7 +24,7 @@ A [LESS] parser for [PostCSS].
 
 ## Use Cases
 
-* lint your LESS code with a plugin such as [Stylelint](http://stylelint.io/).
+* lint your LESS code with 3rd-part plugins.
 * apply PostCSS transformations (such as [Autoprefixer](https://github.com/postcss/autoprefixer)) directly to the LESS source code
 
 ## Usage
@@ -55,6 +55,9 @@ This module also enables parsing of single-line comments in CSS source code.
 
 Note that you don't need a special stringifier to handle the output; the default
 one will automatically convert single line comments into block comments.
+
+### Stylelint support
+`postcss-less` parser **is not compatible** with `Stylelint`, because `Stylelint` can't process syntax tree from `postcss-less`!
 
 ## Contribution
 Please, check our guidelines: [CONTRIBUTING.md](./CONTRIBUTING.md)
