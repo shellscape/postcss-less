@@ -42,7 +42,7 @@ postcss(plugins).process(lessText, { syntax: syntax }).then(function (result) {
 });
 ```
 
-### Comment Node
+### Comments
 
 #### Inline comments
 
