@@ -8,6 +8,14 @@ import parse from '../../lib/less-parse';
 describe('Parser', () => {
     describe('CSS for PostCSS', () => {
         cases.each((name, code, json) => {
+            /**
+             * @description
+             *  - Skip comments.css, because we have an extended Comment node
+             */
+            if (name === 'comments.css') {
+                return;
+            }
+            
             it(`parses ${ name }`, () => {
                 const root = parse(code, {from: name});
                 const parsed = cases.jsonify(root);

@@ -42,19 +42,71 @@ postcss(plugins).process(lessText, { syntax: syntax }).then(function (result) {
 });
 ```
 
-### Inline Comments for PostCSS
+### Comment Node
+
+#### Inline comments
 
 This module also enables parsing of single-line comments in CSS source code.
 
-```less
+````less
 :root {
     // Main theme color
     --color: red;
 }
-```
+````
 
 Note that you don't need a special stringifier to handle the output; the default
-one will automatically convert single line comments into block comments.
+one will automatically convert single line comments into block comments. 
+If you need to get inline comments, use stringifier from `postcss-less` module:
+
+````js
+import postCssLess from 'postcss-less';
+
+const root = postCssLess.parse('// Hello world');
+
+root.first.toString(); // returns '/* Hello world */'
+
+root.first.toString({
+    stringify: postCssLess.stringify
+}); // returns '// Hello world'
+````
+
+#### Comment Node
+
+`postcss-less` extends the [default structure](https://github.com/postcss/postcss/blob/master/docs/api.md#comment-node) of Comment node
+
+##### comment.inline
+It's inline comment or not.
+````js
+import postCssLess from 'postcss-less';
+
+const root = postCssLess.parse('// Hello world');
+
+root.first.inline // => true
+````
+
+##### comment.block
+It's block comment or not.
+````js
+import postCssLess from 'postcss-less';
+
+const root = postCssLess.parse('/* Hello world */');
+
+root.first.block // => true
+````
+
+##### comment.raws.begin
+Precending characters of comment node: `//` or `/*`.
+
+##### comment.raws.content
+Raw content of the comment.
+````js
+import postCssLess from 'postcss-less';
+
+const root = postCssLess.parse('// Hello world');
+
+root.first.raws.content // => '// Hello world'
+````
 
 ### Stylelint support
 `postcss-less` parser **is not compatible** with `Stylelint`, because `Stylelint` can't process syntax tree from `postcss-less`!
