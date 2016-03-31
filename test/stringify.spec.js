@@ -35,7 +35,7 @@ describe('#stringify()', () => {
                 result += i;
             });
 
-            expect(result).to.eql('// comment\na {}');
+            expect(result).to.eql('// comment \na {}');
         });
 
         it('stringifies inline comment in the end of file', () => {
@@ -46,7 +46,7 @@ describe('#stringify()', () => {
                 result += i;
             });
 
-            expect(result).to.eql('// comment');
+            expect(result).to.eql('// comment ');
         });
     });
     
