@@ -71,11 +71,64 @@ root.first.toString({
 }); // returns '// Hello world'
 ````
 
-#### Comment Node
+### Rule node
+[PostCSS Rule Node](https://github.com/postcss/postcss/blob/master/docs/api.md#rule-node)
 
-`postcss-less` extends the [default structure](https://github.com/postcss/postcss/blob/master/docs/api.md#comment-node) of Comment node
+#### rule.ruleWithoutBody
+It shows that Rule node has body or not.
 
-##### comment.inline
+````js
+import postCssLess from 'postcss-less';
+const less = `
+    .class2 {
+        &:extend(.class1);
+        .mixin-name(@param1, @param2);
+    }
+`;
+const root = postCssLess.parse(less);
+
+root.first.nodes[0].ruleWithoutBody // => true for &:extend
+root.first.nodes[1].ruleWithoutBody // => true for calling of mixin
+````
+#### rule.nodes
+
+Array of children nodes. 
+**Note** that rules without body don't have this property.
+
+````js
+import postCssLess from 'postcss-less';
+const less = `
+    .class2 {
+        &:extend(.class1);
+        .mixin-name(@param1, @param2);
+    }
+`;
+const root = postCssLess.parse(less);
+
+root.first.nodes[0].nodes // => undefined for &:extend
+root.first.nodes[1].nodes // => undefined for mixin calling
+````
+
+#### rule.extendRule
+It shows that Rule node is a nested [extend](http://lesscss.org/features/#extend-feature-extend-inside-ruleset) rule.
+
+````js
+import postCssLess from 'postcss-less';
+const less = `
+    .class2 {
+        &:extend(.class1);
+    }
+`;
+const root = postCssLess.parse(less);
+
+root.first.nodes[0].extendRule // => true
+````
+
+### Comment Node
+
+[PostCSS Comment Node](https://github.com/postcss/postcss/blob/master/docs/api.md#comment-node)
+
+#### comment.inline
 It's inline comment or not.
 ````js
 import postCssLess from 'postcss-less';
@@ -85,7 +138,7 @@ const root = postCssLess.parse('// Hello world');
 root.first.inline // => true
 ````
 
-##### comment.block
+#### comment.block
 It's block comment or not.
 ````js
 import postCssLess from 'postcss-less';
@@ -95,10 +148,10 @@ const root = postCssLess.parse('/* Hello world */');
 root.first.block // => true
 ````
 
-##### comment.raws.begin
+#### comment.raws.begin
 Precending characters of comment node: `//` or `/*`.
 
-##### comment.raws.content
+#### comment.raws.content
 Raw content of the comment.
 ````js
 import postCssLess from 'postcss-less';
