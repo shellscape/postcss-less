@@ -161,9 +161,6 @@ const root = postCssLess.parse('// Hello world');
 root.first.raws.content // => '// Hello world'
 ````
 
-### Stylelint support
-`postcss-less` parser **is not compatible** with `Stylelint`, because `Stylelint` can't process syntax tree from `postcss-less`!
-
 ## Contribution
 Please, check our guidelines: [CONTRIBUTING.md](./CONTRIBUTING.md)
 
