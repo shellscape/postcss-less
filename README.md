@@ -1,4 +1,4 @@
-# PostCSS LESS Syntax - Work in Progress
+# PostCSS LESS Syntax
 
 [PostCSS]: https://github.com/postcss/postcss
 [PostCSS-SCSS]: https://github.com/postcss/postcss-scss
