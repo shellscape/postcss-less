@@ -57,7 +57,7 @@ This module also enables parsing of single-line comments in CSS source code.
 
 Note that you don't need a special stringifier to handle the output; the default
 one will automatically convert single line comments into block comments. 
-If you need to get inline comments, use [custom PostcssLess stringifier](#)
+If you need to get inline comments, use [custom PostCSSLess stringifier](#stringifier)
 
 ### Rule node
 [PostCSS Rule Node](https://github.com/postcss/postcss/blob/master/docs/api.md#rule-node)
