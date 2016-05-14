@@ -3,8 +3,10 @@
 
 import cases from 'postcss-parser-tests';
 import {expect} from 'chai';
-import parse from '../lib/less-parse';
-import stringify from '../lib/less-stringify';
+import parse from './../lib/less-parse';
+import postcss from 'postcss';
+import postcssLess from 'postcss-less';
+import stringify from 'postcss-less/less-stringify';
 
 describe('#stringify()', () => {
     describe('CSS for PostCSS', () => {
@@ -49,17 +51,73 @@ describe('#stringify()', () => {
             expect(result).to.eql('// comment ');
         });
     });
-    
+
+    describe('Extend', () => {
+        it('stringifies mixin without body. #1', (done) => {
+            const less = '.selector:extend(.f, .g)  {&:extend(.a);}';
+
+            postcss().process(less, {
+                syntax: postcssLess,
+                stringifier: stringify
+            }).then((result) => {
+                expect(result.content).to.eql(less);
+                done();
+            }).catch((error) => {
+                done(error);
+            });
+        });
+    });
+
     describe('Mixins', () => {
         it('stringifies mixins', () => {
             const root = parse('.foo (@bar; @baz...) { border: @{baz}; }');
             let result = '';
-            
+
             stringify(root, (i) => {
                 result += i;
             });
 
             expect(result).to.eql('.foo (@bar; @baz...) { border: @{baz}; }');
+        });
+
+        it('stringifies mixin without body. #1', (done) => {
+            const less = '.mix() {color: red} .selector {.mix()}';
+
+            postcss().process(less, {
+                syntax: postcssLess,
+                stringifier: stringify
+            }).then((result) => {
+                expect(result.content).to.eql(less);
+                done();
+            }).catch((error) => {
+                done(error);
+            });
+        });
+
+        it('stringifies mixin without body. #2', (done) => {
+            const less = `
+                .container {
+                    .mixin-1();
+                    .mixin-2;
+                    .mixin-3 (@width: 100px) {
+                        width: @width;
+                    }
+                }
+                
+                .rotation(@deg:5deg){
+                  .transform(rotate(@deg));
+                }
+            `;
+
+            postcss().process(less, {
+                syntax: postcssLess,
+                stringifier: stringify
+            }).then((result) => {
+                expect(result.content).to.eql(less);
+                done();
+            }).catch((error) => {
+                done(error);
+            });
         });
     });
 });

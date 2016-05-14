@@ -7,7 +7,6 @@ import babel from 'gulp-babel';
 import clean from 'gulp-rimraf';
 import eslint from 'gulp-eslint';
 import gulp from 'gulp';
-import jscs from 'gulp-jscs';
 import mocha from 'gulp-mocha';
 import path from 'path';
 import postcss from 'postcss';
@@ -37,9 +36,6 @@ const config = {
 function lint (srcPath) {
     return gulp
         .src(srcPath)
-        .pipe(jscs())
-        .pipe(jscs.reporter())
-        .pipe(jscs.reporter('failImmediately'))
         .pipe(eslint())
         .pipe(eslint.format())
         .pipe(eslint.failAfterError());

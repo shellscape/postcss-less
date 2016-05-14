@@ -57,19 +57,7 @@ This module also enables parsing of single-line comments in CSS source code.
 
 Note that you don't need a special stringifier to handle the output; the default
 one will automatically convert single line comments into block comments. 
-If you need to get inline comments, use stringifier from `postcss-less` module:
-
-````js
-import postCssLess from 'postcss-less';
-
-const root = postCssLess.parse('// Hello world');
-
-root.first.toString(); // returns '/* Hello world */'
-
-root.first.toString({
-    stringify: postCssLess.stringify
-}); // returns '// Hello world'
-````
+If you need to get inline comments, use [custom PostcssLess stringifier](#)
 
 ### Rule node
 [PostCSS Rule Node](https://github.com/postcss/postcss/blob/master/docs/api.md#rule-node)
@@ -159,6 +147,39 @@ import postCssLess from 'postcss-less';
 const root = postCssLess.parse('// Hello world');
 
 root.first.raws.content // => '// Hello world'
+````
+
+### Stringifier
+
+If you need to have LESS code without PostCSS transformation, you have to specify a custom stringifier:
+
+````js
+import postcss from 'postcss';
+import postcssLess from 'postcss-less';
+import stringify from 'postcss-less/less-stringify';
+
+const lessCode = `
+    // Non-css comment
+    
+    .container {
+        .mixin-1();
+        .mixin-2;
+        .mixin-3 (@width: 100px) {
+            width: @width;
+        }
+    }
+    
+    .rotation(@deg:5deg){
+      .transform(rotate(@deg));
+    }
+`;
+
+postcss().process(less, {
+    syntax: postcssLess,
+    stringifier: stringify
+}).then((result) => {
+    console.log(result.content); // this will be value of `lessCode` without changing of comment nodes and mixins
+});         
 ````
 
 ## Contribution
