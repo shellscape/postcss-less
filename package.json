@@ -1,6 +1,6 @@
 {
   "name": "postcss-less",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "LESS parser for PostCSS",
   "keywords": [
     "css",
@@ -8,6 +8,10 @@
     "postcss-syntax",
     "parser",
     "less"
+  ],
+  "main": "dist/less-syntax.js",
+  "files": [
+    "dist/*.js"
   ],
   "author": "Denys Kniazevych <webschik@gmail.com>",
   "contributors": [
@@ -37,13 +41,11 @@
     "babel-preset-es2015": "^6.6.0",
     "babel-register": "^6.7.2",
     "chai": "^3.5.0",
-    "eslint": "^2.5.1",
     "eslint-config-strict": "^8.5.0",
     "eslint-plugin-filenames": "^0.2.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-eslint": "^2.0.0",
-    "gulp-jscs": "^3.0.2",
     "gulp-json-editor": "2.2.1",
     "gulp-mocha": "^2.2.0",
     "gulp-rename": "^1.2.2",
