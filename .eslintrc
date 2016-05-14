@@ -54,6 +54,9 @@
     "no-extra-semi": [
       "off"
     ],
+    "no-return-assign": [
+      "off"
+    ],
     "semi-spacing": [
       "error",
       {
