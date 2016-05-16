@@ -11,7 +11,7 @@
   ],
   "main": "dist/less-syntax.js",
   "files": [
-    "dist/*.js"
+    "dist"
   ],
   "author": "Denys Kniazevych <webschik@gmail.com>",
   "contributors": [
