@@ -5,8 +5,8 @@ import Input from 'postcss/lib/input';
 import {expect} from 'chai';
 import tokenize from '../lib/less-tokenize';
 
-function testTokens (css, tokens) {
-    expect(tokenize(new Input(css))).to.eql(tokens);
+function testTokens (less, tokens) {
+    expect(tokenize(new Input(less))).to.eql(tokens);
 }
 
 describe('#tokenize()', () => {
@@ -162,7 +162,7 @@ describe('#tokenize()', () => {
             ]);
         });
 
-        it('tokenizes @ in a string in parens', () => {
+        it('tokenizes @ in a string in parentheses', () => {
             testTokens('("a@b")', [
                 ['(', '(', 1, 1],
                 ['string', '"a@b"', 1, 2, 1, 6],
