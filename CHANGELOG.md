@@ -1,3 +1,6 @@
+## 0.13.0
+* set the default stringifier for Rule
+
 ## 0.3.0
 * Merged in webschik's changes
 * cleanup of various files (license, readme, gulp file)
