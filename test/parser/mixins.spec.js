@@ -20,13 +20,15 @@ describe('Parser', () => {
 
         describe('Mixins without body', () => {
             it('mixin without body #1', () => {
-                const root = parse('.mixin-name (#FFF);');
+                const less = '.mixin-name (#FFF);';
+                const root = parse(less);
 
                 expect(root.first.type).to.eql('rule');
                 expect(root.first.selector).to.eql('.mixin-name (#FFF)');
                 expect(root.first.params).to.eql('(#FFF)');
                 expect(root.first.ruleWithoutBody).to.eql(true);
                 expect(root.first.nodes).to.be.an('undefined');
+                expect(root.first.toString()).to.be.eql('.mixin-name (#FFF)');
             });
 
             it('mixin without body #2', () => {
