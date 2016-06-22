@@ -127,11 +127,7 @@ gulp.task('test:run', ['build:test'], () => {
         .src(path.join(config.dirs.build, config.builds.test, '**', '*.spec.js'), {read: false})
         .pipe(mocha({
             reporter: config.test.reporter
-        }))
-        .on('error', function () {
-            // eslint-disable-next-line no-invalid-this
-            this.emit('end');
-        });
+        }));
 });
 
 gulp.task('test:integration', ['build:lib'], (done) => {
