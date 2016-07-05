@@ -15,21 +15,34 @@ describe('#postcss', () => {
                 expect(result).to.be.not.null;
                 expect(result.css).to.equal(lessText);
                 expect(result.content).to.equal(lessText);
-                
+
                 done();
             }).catch(done);
     });
-    
-    it('can parse LESS mixins as at rules', (done) => {
-        const lessText = '.foo (@bar; @baz...) { border: @{baz}; }';
 
+    it('can parse LESS mixins without body', (done) => {
+        const lessText = `.test4 {
+                            .mixin();
+                            background: red;
+                        }`;
+        
         postcss()
             .process(lessText, {syntax: lessSyntax})
             .then((result) => {
-                expect(result).to.be.not.null;
-                expect(result.css).to.equal(lessText);
-                expect(result.content).to.equal(lessText);
+                const [rule, declaration] = result.root.first.nodes;
                 
+                expect(rule.raws).to.deep.equal({
+                    before: '\n                            ',
+                    between: '',
+                    after: '',
+                    semicolon: true
+                });
+
+                expect(declaration.raws).to.deep.equal({
+                    before: '\n                            ',
+                    between: ': '
+                });
+
                 done();
             }).catch(done);
     });
