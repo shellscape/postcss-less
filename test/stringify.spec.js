@@ -5,8 +5,8 @@ import cases from 'postcss-parser-tests';
 import {expect} from 'chai';
 import parse from './../lib/less-parse';
 import postcss from 'postcss';
-import postcssLess from 'postcss-less';
-import stringify from 'postcss-less/less-stringify';
+import postcssLess from './../lib/less-syntax';
+import stringify from './../lib/less-stringify';
 
 describe('#stringify()', () => {
     describe('CSS for PostCSS', () => {
@@ -103,7 +103,7 @@ describe('#stringify()', () => {
                         width: @width;
                     }
                 }
-                
+
                 .rotation(@deg:5deg){
                   .transform(rotate(@deg));
                 }
