@@ -3,10 +3,10 @@
 
 import cases from 'postcss-parser-tests';
 import {expect} from 'chai';
-import parse from './../lib/less-parse';
 import postcss from 'postcss';
-import postcssLess from 'postcss-less';
-import stringify from 'postcss-less/less-stringify';
+import parse from './../lib/less-parse';
+import postcssLess from './../lib/less-syntax';
+import stringify from './../lib/less-stringify';
 
 describe('#stringify()', () => {
     describe('CSS for PostCSS', () => {
@@ -60,7 +60,7 @@ describe('#stringify()', () => {
                 syntax: postcssLess,
                 stringifier: stringify
             }).then((result) => {
-                expect(result.content).to.eql(less);
+                expect(result.content).to.eql('.selector:extend(.f, .g)  {&:extend(.a)}');
                 done();
             }).catch((error) => {
                 done(error);
@@ -103,17 +103,33 @@ describe('#stringify()', () => {
                         width: @width;
                     }
                 }
-                
+                                
                 .rotation(@deg:5deg){
                   .transform(rotate(@deg));
                 }
             `;
+            
+            function prepareOutput (str) {
+                return str.replace(/\s{2,}/g, ' ');
+            }
 
             postcss().process(less, {
                 syntax: postcssLess,
                 stringifier: stringify
             }).then((result) => {
-                expect(result.content).to.eql(less);
+                expect(prepareOutput(result.content)).to.eql(prepareOutput(`
+                    .container {
+                        .mixin-1()
+                        .mixin-2
+                        .mixin-3 (@width: 100px) {
+                            width: @width;
+                        }
+                    }
+                                    
+                    .rotation(@deg:5deg){
+                      .transform(rotate(@deg))
+                    }
+                `));
                 done();
             }).catch((error) => {
                 done(error);
