@@ -1,3 +1,6 @@
+## 0.14.0
+* fixed parsing of semicolon after mixin without body
+
 ## 0.13.0
 * set the default stringifier for Rule
 
