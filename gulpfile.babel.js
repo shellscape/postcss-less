@@ -123,14 +123,25 @@ gulp.task('test:all', (done) => {
 });
 
 gulp.task('test:run', ['build:test'], () => {
+    let mochaError = {};
+
     return gulp
         .src(path.join(config.dirs.build, config.builds.test, '**', '*.spec.js'), {read: false})
         .pipe(mocha({
             reporter: config.test.reporter
         }))
-        .on('error', function () {
+        .on('error', function (error) {
+            mochaError = error;
             // eslint-disable-next-line no-invalid-this
             this.emit('end');
+        })
+        .on('end', () => {
+            if (mochaError.message) {
+                throw new util.PluginError({
+                    plugin: 'gulp-mocha',
+                    message: mochaError.message
+                });
+            }
         });
 });
 
