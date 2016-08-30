@@ -60,7 +60,7 @@ describe('#stringify()', () => {
                 syntax: postcssLess,
                 stringifier: stringify
             }).then((result) => {
-                expect(result.content).to.eql('.selector:extend(.f, .g)  {&:extend(.a)}');
+                expect(result.content).to.eql(less);
                 done();
             }).catch((error) => {
                 done(error);
@@ -103,33 +103,17 @@ describe('#stringify()', () => {
                         width: @width;
                     }
                 }
-                                
+
                 .rotation(@deg:5deg){
                   .transform(rotate(@deg));
                 }
             `;
-            
-            function prepareOutput (str) {
-                return str.replace(/\s{2,}/g, ' ');
-            }
 
             postcss().process(less, {
                 syntax: postcssLess,
                 stringifier: stringify
             }).then((result) => {
-                expect(prepareOutput(result.content)).to.eql(prepareOutput(`
-                    .container {
-                        .mixin-1()
-                        .mixin-2
-                        .mixin-3 (@width: 100px) {
-                            width: @width;
-                        }
-                    }
-                                    
-                    .rotation(@deg:5deg){
-                      .transform(rotate(@deg))
-                    }
-                `));
+                expect(result.content).to.eql(less);
                 done();
             }).catch((error) => {
                 done(error);
