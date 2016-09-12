@@ -1,3 +1,6 @@
+## 0.15.0
+* reversed parsing of semicolon after mixin without body fix
+
 ## 0.14.0
 * fixed parsing of semicolon after mixin without body
 
