@@ -3,8 +3,8 @@
 
 import cases from 'postcss-parser-tests';
 import {expect} from 'chai';
-import postcss from 'postcss';
 import parse from './../lib/less-parse';
+import postcss from 'postcss';
 import postcssLess from './../lib/less-syntax';
 import stringify from './../lib/less-stringify';
 

@@ -1,5 +1,6 @@
 ## 0.15.0
 * reversed parsing of semicolon after mixin without body fix
+* added [shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap) file
 
 ## 0.14.0
 * fixed parsing of semicolon after mixin without body
