@@ -1,1 +1,1 @@
-module.exports = require('./dist/less-syntax');
+module.exports = require('./lib/less-syntax');
