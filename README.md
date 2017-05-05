@@ -27,6 +27,10 @@ A [LESS] parser for [PostCSS].
 * lint your LESS code with 3rd-part plugins.
 * apply PostCSS transformations (such as [Autoprefixer](https://github.com/postcss/autoprefixer)) directly to the LESS source code
 
+## CONTRIBUTORS WANTED!
+
+I've started developing this module as a necessary component in Front-End community, but now, for some reasons, I don't have enought time to support it on 100% :( I very welcome the contributors that have passion to develop this module.
+
 ## Usage
 
 ### LESS Transformations
