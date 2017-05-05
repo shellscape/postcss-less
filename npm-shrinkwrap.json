@@ -2376,9 +2376,9 @@
       "resolved": "https://registry.npmjs.org/pluralize/-/pluralize-1.2.1.tgz"
     },
     "postcss": {
-      "version": "5.0.21",
-      "from": "postcss@5.0.21",
-      "resolved": "https://registry.npmjs.org/postcss/-/postcss-5.0.21.tgz"
+      "version": "5.2.16",
+      "from": "postcss@5.2.16",
+      "resolved": "https://registry.npmjs.org/postcss/-/postcss-5.2.16.tgz"
     },
     "postcss-parser-tests": {
       "version": "5.0.6",
