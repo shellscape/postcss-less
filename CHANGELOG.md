@@ -1,3 +1,11 @@
+## 0.16.0
+* added support for PostCSS 5.2+
+* fixes output adding superfluous spaces in comments
+
+### PLEASE NOTE
+
+This will be the last version of PostCSS-LESS supporting Node 4.x.
+
 ## 0.15.0
 * reversed parsing of semicolon after mixin without body fix
 * added [shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap) file
