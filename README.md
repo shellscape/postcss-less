@@ -1,75 +1,66 @@
-# PostCSS LESS Syntax
-
 [PostCSS]: https://github.com/postcss/postcss
 [PostCSS-SCSS]: https://github.com/postcss/postcss-scss
 [LESS]: http://lesless.org
 [Autoprefixer]: https://github.com/postcss/autoprefixer
 [Stylelint]: http://stylelint.io/
 
-> This project is not stable and is in development. If you'd like to contribute, please submit a Pull Request.
+# PostCSS LESS Syntax [![Build Status](https://img.shields.io/travis/shellscape/postcss-less.svg?branch=develop)](https://travis-ci.org/webschik/postcss-less) [![npm Version](https://img.shields.io/npm/v/postcss-less.svg)](https://www.npmjs.com/package/postcss-less)
+
+[PostCSS] Syntax for parsing [LESS]
 
 <img align="right" width="95" height="95"
      title="Philosopher's stone, logo of PostCSS"
      src="http://postcss.github.io/postcss/logo.svg">
 
-[![Build Status](https://img.shields.io/travis/webschik/postcss-less.svg?branch=develop)](https://travis-ci.org/webschik/postcss-less)
-[![npm Downloads](https://img.shields.io/npm/dt/postcss-less.svg)](https://www.npmjs.com/package/postcss-less)
-[![npm Version](https://img.shields.io/npm/v/postcss-less.svg)](https://www.npmjs.com/package/postcss-less)
-[![npm License](https://img.shields.io/npm/l/postcss-less.svg)](https://www.npmjs.com/package/postcss-less)
-[![js-strict-standard-style](https://img.shields.io/badge/code%20style-strict-117D6B.svg)](https://github.com/keithamus/eslint-config-strict)
+Please note: poscss-less is not a LESS compiler. For compiling LESS, please use
+the official toolset for LESS.
 
-A [LESS] parser for [PostCSS].
+## Getting Started
 
-**This module does not compile LESS.** It simply parses mixins and variables so that PostCSS plugins can then transform LESS source code alongside CSS.
+First thing's first, install the module:
 
-## Use Cases
+```
+npm install postcss-less --save-dev
+```
 
-* lint your LESS code with 3rd-part plugins.
-* apply PostCSS transformations (such as [Autoprefixer](https://github.com/postcss/autoprefixer)) directly to the LESS source code
+## LESS Transformations
 
-## CONTRIBUTORS WANTED!
-
-I've started developing this module as a necessary component in Front-End community, but now, for some reasons, I don't have enought time to support it on 100% :( I very welcome the contributors that have passion to develop this module.
-
-## Usage
-
-### LESS Transformations
-
-The main use case of this plugin is to apply PostCSS transformations directly
-to LESS source code. For example, if you ship a theme written in LESS and need
-[Autoprefixer] to add the appropriate vendor prefixes to it.
+The most common use of `postcss-less` is for applying PostCSS transformations
+directly to LESS source. eg. ia theme written in LESS which uses [Autoprefixer]
+to add appropriate vendor prefixes.
 
 ```js
 const syntax = require('postcss-less');
-postcss(plugins).process(lessText, { syntax: syntax }).then(function (result) {
+postcss(plugins)
+  .process(lessText, { syntax: syntax })
+  .then(function (result) {
     result.content // LESS with transformations
 });
 ```
 
-### Comments
+## Inline Comments
 
-#### Inline comments
+Parsing of single-line comments in CSS is also supported.
 
-This module also enables parsing of single-line comments in CSS source code.
-
-````less
+```less
 :root {
     // Main theme color
     --color: red;
 }
-````
+```
 
-Note that you don't need a special stringifier to handle the output; the default
-one will automatically convert single line comments into block comments. 
-If you need to get inline comments, use [custom PostCSSLess stringifier](#stringifier)
+Note that you don't need a custom stringifier to handle the output; the default
+stringifier will automatically convert single line comments into block comments.
+If you need to support inline comments, please use a [custom PostCSSLess stringifier](#stringifier).
 
-### Rule node
+## Rule Node
+
 [PostCSS Rule Node](https://github.com/postcss/postcss/blob/master/docs/api.md#rule-node)
 
-#### rule.ruleWithoutBody
-It shows that Rule node has body or not.
+### rule.ruleWithoutBody
+Determines whether or not a rule has a body, or content.
 
-````js
+```js
 import postCssLess from 'postcss-less';
 const less = `
     .class2 {
@@ -81,13 +72,14 @@ const root = postCssLess.parse(less);
 
 root.first.nodes[0].ruleWithoutBody // => true for &:extend
 root.first.nodes[1].ruleWithoutBody // => true for calling of mixin
-````
-#### rule.nodes
+```
+### rule.nodes
 
-Array of children nodes. 
+An `Array` of child nodes.
+
 **Note** that rules without body don't have this property.
 
-````js
+```js
 import postCssLess from 'postcss-less';
 const less = `
     .class2 {
@@ -99,12 +91,14 @@ const root = postCssLess.parse(less);
 
 root.first.nodes[0].nodes // => undefined for &:extend
 root.first.nodes[1].nodes // => undefined for mixin calling
-````
+```
 
-#### rule.extendRule
-It shows that Rule node is a nested [extend](http://lesscss.org/features/#extend-feature-extend-inside-ruleset) rule.
+### rule.extendRule
 
-````js
+Determines whether or not a rule is nested (eg.
+ [extended](http://lesscss.org/features/#extend-feature-extend-inside-ruleset)).
+
+```js
 import postCssLess from 'postcss-less';
 const less = `
     .class2 {
@@ -114,57 +108,65 @@ const less = `
 const root = postCssLess.parse(less);
 
 root.first.nodes[0].extendRule // => true
-````
+```
 
-### Comment Node
+## Comment Node
 
 [PostCSS Comment Node](https://github.com/postcss/postcss/blob/master/docs/api.md#comment-node)
 
-#### comment.inline
-It's inline comment or not.
-````js
+### comment.inline
+
+Determines whether or not a comment is inline.
+
+```js
 import postCssLess from 'postcss-less';
 
 const root = postCssLess.parse('// Hello world');
 
 root.first.inline // => true
-````
+```
 
-#### comment.block
-It's block comment or not.
-````js
+### comment.block
+
+Determines whether or not a comment is a block comment.
+
+```js
 import postCssLess from 'postcss-less';
 
 const root = postCssLess.parse('/* Hello world */');
 
 root.first.block // => true
-````
+```
 
-#### comment.raws.begin
-Precending characters of comment node: `//` or `/*`.
+### comment.raws.begin
 
-#### comment.raws.content
+Precending characters of a comment node. eg. `//` or `/*`.
+
+### comment.raws.content
+
 Raw content of the comment.
-````js
+
+```js
 import postCssLess from 'postcss-less';
 
 const root = postCssLess.parse('// Hello world');
 
 root.first.raws.content // => '// Hello world'
-````
+```
 
-### Stringifier
+## Stringifying
 
-If you need to have LESS code without PostCSS transformation, you have to specify a custom stringifier:
+To process LESS code without PostCSS transformations, custom stringifier
+should be provided.
 
-````js
+```js
 import postcss from 'postcss';
 import postcssLess from 'postcss-less';
 import stringify from 'postcss-less/less-stringify';
 
 const lessCode = `
     // Non-css comment
-    
+
     .container {
         .mixin-1();
         .mixin-2;
@@ -172,23 +174,35 @@ const lessCode = `
             width: @width;
         }
     }
-    
+
     .rotation(@deg:5deg){
       .transform(rotate(@deg));
     }
 `;
 
-postcss().process(less, {
+postcss()
+  .process(less, {
     syntax: postcssLess,
     stringifier: stringify
-}).then((result) => {
-    console.log(result.content); // this will be value of `lessCode` without changing of comment nodes and mixins
-});         
-````
+  })
+  .then((result) => {
+    console.log(result.content); // this will be value of `lessCode` without changing comments or mixins
+});
+```
+
+## Use Cases
+
+* Lint LESS code with 3rd-party plugins.
+* Apply PostCSS transformations (such as [Autoprefixer](https://github.com/postcss/autoprefixer)) directly to the LESS source code
 
 ## Contribution
+
 Please, check our guidelines: [CONTRIBUTING.md](./CONTRIBUTING.md)
 
 ## Attribution
 
-This module is based on the work of [postcss-scss](https://github.com/postcss/postcss-scss) library and includes the `LESS` parser efforts of [github:gilt/postcss-less](https://github.com/gilt/postcss-less)
+This module is based on the [postcss-scss](https://github.com/postcss/postcss-scss) library.
+
+[![npm Downloads](https://img.shields.io/npm/dt/postcss-less.svg)](https://www.npmjs.com/package/postcss-less)
+[![npm License](https://img.shields.io/npm/l/postcss-less.svg)](https://www.npmjs.com/package/postcss-less)
+[![js-strict-standard-style](https://img.shields.io/badge/code%20style-strict-117D6B.svg)](https://github.com/keithamus/eslint-config-strict)
