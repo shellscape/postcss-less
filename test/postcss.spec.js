@@ -1,12 +1,13 @@
 // chai uses expressions for validation
 /* eslint no-unused-expressions: 0 */
 
+import CssSyntaxError from 'postcss/lib/css-syntax-error';
 import {expect} from 'chai';
 import lessSyntax from '../lib/less-syntax';
 import postcss from 'postcss';
 
 describe('#postcss', () => {
-    it('can process LESS syntax', (done) => {
+    it('should process LESS syntax', (done) => {
         const lessText = 'a { b {} }';
 
         postcss()
@@ -19,8 +20,8 @@ describe('#postcss', () => {
                 done();
             }).catch(done);
     });
-    
-    it('can parse LESS mixins as at rules', (done) => {
+
+    it('should parse LESS mixins as at rules', (done) => {
         const lessText = '.foo (@bar; @baz...) { border: @{baz}; }';
 
         postcss()
@@ -32,5 +33,16 @@ describe('#postcss', () => {
 
                 done();
             }).catch(done);
+    });
+
+    it('should not parse invalid LESS (#64)', (done) => {
+        const lessText = '.foo';
+
+        postcss()
+            .process(lessText, {syntax: lessSyntax})
+            .catch((err) => {
+                expect(err).to.be.an.instanceof(CssSyntaxError);
+                done();
+            });
     });
 });
