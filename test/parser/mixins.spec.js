@@ -52,16 +52,16 @@ describe('Parser', () => {
                     .mixin-id {
                         #b (@param1; @param2);
                     }
-        
+
                     .class {
                         .mixin1 (
-        
-        
+
+
                         )
-        
-        
+
+
                         ;
-        
+
                         .mixin2
                     }
                 `;
@@ -121,7 +121,7 @@ describe('Parser', () => {
                 `;
 
                 const root = parse(code);
-                
+
                 expect(root.first.selector).to.eql('.foo() !important');
                 expect(root.first.important).to.eql(true);
             });
@@ -153,36 +153,36 @@ describe('Parser', () => {
                         line-height: 1.6rem;
                         color: @c_white;
                         background-color: @c_blue1;
-                    
+
                         &_info {
                             background-color: @c_blue5;
                         }
-                    
+
                         &_danger {
                             background-color: @c_red2;
                         }
-                    
+
                         &_success {
                             background-color: @c_green3;
                         }
-                    
+
                         &_warning {
                             background-color: @c_yellow1;
                             color: @c_black1;
                         }
                     }
-                    
+
                     .badge-category {
                         &:extend(.m_badge-default);
                     }
-                    
+
                     .buy-sell-badge {
                         .m_text-uppercase();
-                    
+
                         &_buy {
                             &:extend(.m_text-success);
                         }
-                    
+
                         &_sell {
                             &:extend(.m_text-error);
                         }
