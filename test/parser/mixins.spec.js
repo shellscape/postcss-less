@@ -28,7 +28,7 @@ describe('Parser', () => {
                 expect(root.first.params).to.eql('(#FFF)');
                 expect(root.first.empty).to.eql(true);
                 expect(root.first.nodes).to.be.an('undefined');
-                expect(root.first.toString()).to.be.eql('.mixin-name (#FFF)');
+                expect(root.first.toString()).to.be.eql('.mixin-name (#FFF);');
             });
 
             it('mixin without body #2', () => {
@@ -122,7 +122,7 @@ describe('Parser', () => {
 
                 const root = parse(code);
 
-                expect(root.first.selector).to.eql('.foo() !important');
+                expect(root.first.selector).to.eql('.foo()');
                 expect(root.first.important).to.eql(true);
             });
 
