@@ -57,6 +57,24 @@ If you need to support inline comments, please use a [custom PostCSSLess stringi
 
 [PostCSS Rule Node](https://github.com/postcss/postcss/blob/master/docs/api.md#rule-node)
 
+### rule.empty
+
+Determines whether or not a rule contains declarations.
+
+```js
+import postCssLess from 'postcss-less';
+const less = `
+    .class2 {
+        &:extend(.class1);
+        .mixin-name(@param1, @param2);
+    }
+`;
+const root = postCssLess.parse(less);
+
+root.first.nodes[0].empty // => true for &:extend
+root.first.nodes[1].empty // => true for calling of mixin
+```
+
 ### rule.extend
 
 Determines whether or not a rule is [nested](http://lesscss.org/features/#extend-feature-extend-inside-ruleset).
@@ -123,23 +141,6 @@ const root = postCssLess.parse(less);
 
 root.first.nodes[0].nodes // => undefined for &:extend
 root.first.nodes[1].nodes // => undefined for mixin
-```
-
-### rule.ruleWithoutBody
-Determines whether or not a rule has a body, or content.
-
-```js
-import postCssLess from 'postcss-less';
-const less = `
-    .class2 {
-        &:extend(.class1);
-        .mixin-name(@param1, @param2);
-    }
-`;
-const root = postCssLess.parse(less);
-
-root.first.nodes[0].ruleWithoutBody // => true for &:extend
-root.first.nodes[1].ruleWithoutBody // => true for calling of mixin
 ```
 
 ## Comment Node

@@ -26,7 +26,7 @@ describe('Parser', () => {
                 expect(root.first.type).to.eql('rule');
                 expect(root.first.selector).to.eql('.mixin-name (#FFF)');
                 expect(root.first.params).to.eql('(#FFF)');
-                expect(root.first.ruleWithoutBody).to.eql(true);
+                expect(root.first.empty).to.eql(true);
                 expect(root.first.nodes).to.be.an('undefined');
                 expect(root.first.toString()).to.be.eql('.mixin-name (#FFF)');
             });
@@ -37,7 +37,7 @@ describe('Parser', () => {
                 expect(root.first.first.type).to.eql('rule');
                 expect(root.first.first.selector).to.eql('.mixin-name');
                 expect(root.first.params).to.be.an('undefined');
-                expect(root.first.first.ruleWithoutBody).to.eql(true);
+                expect(root.first.first.empty).to.eql(true);
                 expect(root.first.first.nodes).to.be.an('undefined');
             });
         });
@@ -134,7 +134,7 @@ describe('Parser', () => {
                 expect(root.first.selector).to.eql('header');
                 expect(root.first.first.selector).to.eql(ruleSet);
                 expect(root.first.first.params).to.eql(params, 'Mixin rule set. Invalid params');
-                expect(root.first.first.ruleWithoutBody).to.eql(true);
+                expect(root.first.first.empty).to.eql(true);
                 expect(root.first.first.nodes).to.be.an('undefined');
             });
 
