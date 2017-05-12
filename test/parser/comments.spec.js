@@ -15,6 +15,7 @@ describe('Parser', () => {
                 before: '\n',
                 content: '// here is the first comment ',
                 begin: '//',
+                inline: true,
                 left: ' ',
                 right: ' '
             });
@@ -27,6 +28,7 @@ describe('Parser', () => {
                 before: '\n',
                 content: '/* here is the second comment */',
                 begin: '/*',
+                inline: false,
                 left: ' ',
                 right: ' '
             });
@@ -43,6 +45,7 @@ describe('Parser', () => {
                 before: ' ',
                 begin: '//',
                 content: '//',
+                inline: true,
                 left: '',
                 right: ''
             });
@@ -54,6 +57,7 @@ describe('Parser', () => {
                 before: '\n',
                 begin: '//',
                 content: '// ',
+                inline: true,
                 left: ' ',
                 right: ''
             });
@@ -72,6 +76,7 @@ describe('Parser', () => {
                 before: ' ',
                 begin: '/*',
                 content: comment.trim(),
+                inline: false,
                 left: '   ',
                 right: ' '
             });
