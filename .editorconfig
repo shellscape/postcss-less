@@ -1,21 +1,15 @@
-# EditorConfig helps developers define and maintain consistent
-# coding styles between different editors and IDEs
-# http://editorconfig.org
-
 root = true
 
 [*]
-# Don't modify any files by default (opt-in below)
-trim_trailing_whitespace = false
-insert_final_newline = false
-
-[{lib/,test/,./*}]
-# Change these settings to your own preference
 indent_style = space
-indent_size = 2
-
-# We recommend you to keep these unchanged
+indent_size = 4
 end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
+
+[*.{json,yml}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false

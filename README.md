@@ -57,8 +57,11 @@ If you need to support inline comments, please use a [custom PostCSSLess stringi
 
 [PostCSS Rule Node](https://github.com/postcss/postcss/blob/master/docs/api.md#rule-node)
 
-### rule.ruleWithoutBody
-Determines whether or not a rule has a body, or content.
+### rule.empty
+
+Determines whether or not a rule contains declarations.
+
+_Note: Previously `ruleWithoutBody`. This is a breaking change from v0.16.0 to v1.0.0._
 
 ```js
 import postCssLess from 'postcss-less';
@@ -70,14 +73,68 @@ const less = `
 `;
 const root = postCssLess.parse(less);
 
-root.first.nodes[0].ruleWithoutBody // => true for &:extend
-root.first.nodes[1].ruleWithoutBody // => true for calling of mixin
+root.first.nodes[0].empty // => true for &:extend
+root.first.nodes[1].empty // => true for calling of mixin
 ```
+
+### rule.extend
+
+Determines whether or not a rule is [nested](http://lesscss.org/features/#extend-feature-extend-inside-ruleset).
+
+_Note: Previously `extendRule`. This is a breaking change from v0.16.0 to v1.0.0._
+
+```js
+import postCssLess from 'postcss-less';
+const less = `
+    .class2 {
+        &:extend(.class1);
+    }
+`;
+const root = postCssLess.parse(less);
+
+root.first.nodes[0].extend // => true
+```
+
+### rule.important
+
+Determines whether or not a rule is marked as [important](http://lesscss.org/features/#mixins-feature-the-important-keyword).
+
+_Note: This is a breaking change from v0.16.0 to v1.0.0._
+
+```js
+import postCssLess from 'postcss-less';
+const less = `
+    .class {
+        .mixin !important;
+    }
+`;
+const root = postCssLess.parse(less);
+
+root.first.nodes[0].important // => true
+root.first.nodes[0].selector // => '.mixin'
+```
+
+### rule.mixin
+
+Determines whether or not a rule is a [mixin](http://lesscss.org/features/#mixins-feature).
+
+```js
+import postCssLess from 'postcss-less';
+const less = `
+    .class2 {
+        .mixin-name;
+    }
+`;
+const root = postCssLess.parse(less);
+
+root.first.nodes[0].mixin // => true
+```
+
 ### rule.nodes
 
 An `Array` of child nodes.
 
-**Note** that rules without body don't have this property.
+**Note** that `nodes` is `undefined` for rules that don't contain declarations.
 
 ```js
 import postCssLess from 'postcss-less';
@@ -90,24 +147,7 @@ const less = `
 const root = postCssLess.parse(less);
 
 root.first.nodes[0].nodes // => undefined for &:extend
-root.first.nodes[1].nodes // => undefined for mixin calling
-```
-
-### rule.extendRule
-
-Determines whether or not a rule is nested (eg.
- [extended](http://lesscss.org/features/#extend-feature-extend-inside-ruleset)).
-
-```js
-import postCssLess from 'postcss-less';
-const less = `
-    .class2 {
-        &:extend(.class1);
-    }
-`;
-const root = postCssLess.parse(less);
-
-root.first.nodes[0].extendRule // => true
+root.first.nodes[1].nodes // => undefined for mixin
 ```
 
 ## Comment Node

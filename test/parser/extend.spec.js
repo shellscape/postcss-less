@@ -34,8 +34,8 @@ describe('Parser', () => {
             expect(root.first.selector).to.eql('.a');
             expect(root.first.first.selector).to.eql('&:extend(.bucket tr)');
             expect(root.first.first.params).to.eql('(.bucket tr)');
-            expect(root.first.first.extendRule).to.eql(true);
-            expect(root.first.first.toString()).to.be.eql('&:extend(.bucket tr)');
+            expect(root.first.first.extend).to.eql(true);
+            expect(root.first.first.toString()).to.be.eql('&:extend(.bucket tr);');
         });
 
         it('parses :extend() after selector', () => {
