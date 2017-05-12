@@ -61,6 +61,8 @@ If you need to support inline comments, please use a [custom PostCSSLess stringi
 
 Determines whether or not a rule contains declarations.
 
+_Note: Previously `ruleWithoutBody`. This is a breaking change from v0.16.0 to v1.0.0._
+
 ```js
 import postCssLess from 'postcss-less';
 const less = `
@@ -79,6 +81,8 @@ root.first.nodes[1].empty // => true for calling of mixin
 
 Determines whether or not a rule is [nested](http://lesscss.org/features/#extend-feature-extend-inside-ruleset).
 
+_Note: Previously `extendRule`. This is a breaking change from v0.16.0 to v1.0.0._
+
 ```js
 import postCssLess from 'postcss-less';
 const less = `
@@ -95,16 +99,19 @@ root.first.nodes[0].extend // => true
 
 Determines whether or not a rule is marked as [important](http://lesscss.org/features/#mixins-feature-the-important-keyword).
 
+_Note: This is a breaking change from v0.16.0 to v1.0.0._
+
 ```js
 import postCssLess from 'postcss-less';
 const less = `
-    .class2 {
-        &:extend(.class1);
+    .class {
+        .mixin !important;
     }
 `;
 const root = postCssLess.parse(less);
 
-root.first.nodes[0].extend // => true
+root.first.nodes[0].important // => true
+root.first.nodes[0].selector // => '.mixin'
 ```
 
 ### rule.mixin
