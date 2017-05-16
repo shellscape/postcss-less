@@ -1,73 +1,10 @@
 {
+  "extends": "shellscape",
+  "parser": "babel-eslint",
   "parserOptions": {
-    "ecmaVersion": 6,
     "sourceType": "module"
   },
-  "extends": [
-    "strict",
-    "strict/es6",
-    "strict/mocha"
-  ],
   "rules": {
-    // JUSTIFICATION: code cleanliness
-    // separation of variable declarations and logic makes source code more readable
-    "newline-after-var": [
-      "error",
-      "always"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ],
-    "space-before-function-paren": [
-      "error",
-      "always"
-    ],
-    "comma-dangle": [
-      "error",
-      "never"
-    ],
-    "array-bracket-spacing": [
-      "error",
-      "never"
-    ],
-    "object-curly-spacing": [
-      "error",
-      "never"
-    ],
-    "no-trailing-spaces": [
-      "error",
-      {
-        "skipBlankLines": true
-      }
-    ],
-    "indent": [
-      "error",
-      4,
-      {
-        "SwitchCase": 1
-      }
-    ],
-    "eol-last": [
-      "off"
-    ],
-    "no-extra-semi": [
-      "off"
-    ],
-    "no-return-assign": [
-      "off"
-    ],
-    "semi-spacing": [
-      "error",
-      {
-        "before": false,
-        "after": true
-      }
-    ],
-    "quotes": [
-      "error",
-      "single",
-      "avoid-escape"
-    ]
+    "object-curly-spacing": ["error", "always", { "arraysInObjects": true }]
   }
 }
