@@ -39,6 +39,22 @@ describe('Parser', () => {
               }).catch(done);
     });
 
+    it('should parse @imports with a quote-less url function as Import', (done) => {
+      const lessText = '@import url(foo.less);';
+
+      postcss()
+              .process(lessText, { syntax: lessSyntax })
+              .then((result) => {
+                expect(result).to.be.not.null;
+                expect(result.css).to.equal(lessText);
+                expect(result.root.first).to.be.an.instanceof(Import);
+                expect(result.root.first.importPath).to.equal('foo.less');
+                expect(result.root.first.urlFunc).to.equal(true);
+
+                done();
+              }).catch(done);
+    });
+
     it('should parse @imports as Import, no space', (done) => {
       const lessText = '@import"foo.less";';
 
