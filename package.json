@@ -1,6 +1,6 @@
 {
   "name": "postcss-less",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "LESS parser for PostCSS",
   "keywords": [
     "css",
