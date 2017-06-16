@@ -36,9 +36,19 @@ describe('Parser', () => {
 
         expect(root.first.first.type).to.eql('rule');
         expect(root.first.first.selector).to.eql('.mixin-name');
-        expect(root.first.params).to.be.an('undefined');
+        expect(root.first.params).to.be.undefined;
         expect(root.first.first.empty).to.eql(true);
-        expect(root.first.first.nodes).to.be.an('undefined');
+        expect(root.first.first.nodes).to.be.undefined;
+      });
+
+      it('mixin without body and without whitespace #2', () => {
+        const root = parse('.base {.mixin-name}');
+
+        expect(root.first.first.type).to.eql('rule');
+        expect(root.first.first.selector).to.eql('.mixin-name');
+        expect(root.first.params).to.be.undefined;
+        expect(root.first.first.empty).to.eql(true);
+        expect(root.first.first.nodes).to.be.undefined;
       });
     });
 
