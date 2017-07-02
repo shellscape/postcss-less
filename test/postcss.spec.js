@@ -62,4 +62,16 @@ describe('#postcss', () => {
         done();
       }).catch(done);
   });
+
+  it('should create its own Root node stringifier (#82)', (done) => {
+    const lessText = '@import "foo.less"';
+
+    postcss()
+      .process(lessText, { syntax: lessSyntax })
+      .then((result) => {
+        expect(result.root.toString()).to.eql(lessText);
+
+        done();
+      }).catch(done);
+  });
 });
