@@ -2,6 +2,8 @@
   "name": "postcss-less",
   "version": "1.1.0",
   "description": "LESS parser for PostCSS",
+  "license": "MIT",
+  "repository": "webschik/postcss-less",
   "keywords": [
     "css",
     "postcss",
@@ -14,22 +16,14 @@
     "dist"
   ],
   "author": "Denys Kniazevych <webschik@gmail.com>",
-  "contributors": [
-    "Andrew Powell <andrew@shellscape.org>",
-    "Pat Sissons <patricksissons@gmail.com>",
-    "Jeff Lindsey jeffalindsey@gmail.com",
-    "Denys Kniazevych webschik@gmail.com",
-    "Andrey Sitnik andrey@sitnik.ru"
-  ],
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/webschik/postcss-less.git"
+  "maintainer": {
+    "name": "Andrew Powell",
+    "email": "andrew@shellscape.org",
+    "url": "shellscape.org"
   },
-  "bugs": {
-    "url": "https://github.com/webschik/postcss-less/issues"
+  "engines": {
+    "node": ">=4"
   },
-  "homepage": "https://github.com/webschik/postcss-less#readme",
   "scripts": {
     "test": "./node_modules/.bin/gulp test:all",
     "prepublish": "./node_modules/.bin/gulp dist"
