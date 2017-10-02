@@ -136,6 +136,28 @@ describe('Parser', () => {
         expect(root.first.important).to.eql(true);
       });
 
+      it('parses nested mixins with `!important` - insensitive to casing', () => {
+        const code = `
+                    .foo() !IMPoRTant;
+                `;
+
+        const root = parse(code);
+
+        expect(root.first.selector).to.eql('.foo()');
+        expect(root.first.important).to.eql(true);
+      });
+
+      it('parses nested mixins with `!important` - appended without whitespace', () => {
+        const code = `
+                    .foo()!important;
+                `;
+
+        const root = parse(code);
+
+        expect(root.first.selector).to.eql('.foo()');
+        expect(root.first.important).to.eql(true);
+      });
+
       it('parses nested mixins with the rule set', () => {
         const params = '({background-color: red;})';
         const ruleSet = `.desktop-and-old-ie ${ params }`;
