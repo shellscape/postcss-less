@@ -13,6 +13,13 @@ describe('Parser', () => {
       expect(root.first.value).to.eql('1');
     });
 
+    it('parses variables with whitespaces between name and ":"', () => {
+      let root = parse('@onespace : 42;');
+
+      expect(root.first.prop).to.eql('@onespace');
+      expect(root.first.value).to.eql('42');
+    });
+
     it('parses string variables', () => {
       const root = parse('@var: "test";');
 
