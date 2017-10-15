@@ -158,6 +158,23 @@ describe('Parser', () => {
         expect(root.first.important).to.eql(true);
       });
 
+      it('parses nested mixins with `! important`', () => {
+        const code = `
+                    .foo() ! important;
+                    .bar()! important;
+                `;
+
+        const root = parse(code);
+
+        expect(root.first.selector).to.eql('.foo()');
+        expect(root.first.important).to.eql(true);
+        expect(root.first.raws.important).to.eql(' ! important');
+
+        expect(root.last.selector).to.eql('.bar()');
+        expect(root.last.important).to.eql(true);
+        expect(root.last.raws.important).to.eql('! important');
+      });
+
       it('parses nested mixins with the rule set', () => {
         const params = '({background-color: red;})';
         const ruleSet = `.desktop-and-old-ie ${ params }`;
