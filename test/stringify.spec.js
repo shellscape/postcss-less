@@ -119,5 +119,19 @@ describe('#stringify()', () => {
         done(error);
       });
     });
+
+    it('stringifies mixin with !important', (done) => {
+      const less = '.foo { .mix() ! important; }';
+
+      postcss().process(less, {
+        syntax: postcssLess,
+        stringifier: stringify
+      }).then((result) => {
+        expect(result.content).to.eql(less);
+        done();
+      }).catch((error) => {
+        done(error);
+      });
+    });
   });
 });
