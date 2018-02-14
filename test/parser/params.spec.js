@@ -15,5 +15,13 @@ describe('Parser', () => {
       expect(root.first.params).to.be.undefined;
     });
 
+    it('should not assign parameters for bracket selectors', () => {
+      const code = '.test1,.test2[test=test] {}';
+      const root = parse(code);
+
+      expect(root.first.selector).to.eql('.test1,.test2[test=test]');
+      expect(root.first.params).to.be.undefined;
+    });
+
   });
 });
