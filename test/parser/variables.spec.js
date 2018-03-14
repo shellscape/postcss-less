@@ -14,6 +14,20 @@ describe('Parser', () => {
     });
 
     it('parses variables with whitespaces between name and ":"', () => {
+      let root = parse('@onespace : 42;');
+
+      expect(root.first.prop).to.eql('@onespace');
+      expect(root.first.value).to.eql('42');
+    });
+
+    it('parses variables with no whitespace between ":" and value', () => {
+      const root = parse('@var :42;');
+
+      expect(root.first.prop).to.eql('@var');
+      expect(root.first.value).to.eql('42');
+    });
+
+    it('parses mutliple variables with whitespaces between name and ":"', () => {
       const root = parse('@foo  : 42; @bar : 35;');
 
       expect(root.first.prop).to.eql('@foo');
@@ -22,7 +36,7 @@ describe('Parser', () => {
       expect(root.nodes[1].value).to.eql('35');
     });
 
-    it('parses variables with no whitespace between ":" and value', () => {
+    it('parses multiple variables with no whitespace between ":" and value', () => {
       const root = parse('@foo  :42; @bar :35');
 
       expect(root.first.prop).to.eql('@foo');
