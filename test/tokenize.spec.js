@@ -169,5 +169,24 @@ describe('#tokenize()', () => {
         [')', ')', 1, 7]
       ]);
     });
+
+    it('tokenizes @page with extra whitespace', () => {
+      testTokens('@page   :left { margin: 0; }', [
+        [ 'at-word', '@page', 1, 1, 1, 5 ],
+        [ 'space', '   ' ],
+        [ ':', ':', 1, 9 ],
+        [ 'word', 'left', 1, 10, 1, 13 ],
+        [ 'space', ' ' ],
+        [ '{', '{', 1, 15 ],
+        [ 'space', ' ' ],
+        [ 'word', 'margin', 1, 17, 1, 22 ],
+        [ ':', ':', 1, 23 ],
+        [ 'space', ' ' ],
+        [ 'word', '0', 1, 25, 1, 25 ],
+        [ ';', ';', 1, 26 ],
+        [ 'space', ' ' ],
+        [ '}', '}', 1, 28 ]
+      ]);
+    });
   });
 });
