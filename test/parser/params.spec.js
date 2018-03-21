@@ -15,6 +15,14 @@ describe('Parser', () => {
       expect(root.first.params).to.be.undefined;
     });
 
+    // sanity check from issue #99
+    it('should not assign parameters for bracket selectors', () => {
+      const code = '@media only screen and ( max-width: ( @narrow - 1px ) ) {\n  padding: 10px 24px 20px;\n}';
+      const root = parse(code);
+
+      expect(root.first.type).to.eql('atrule');
+    });
+
     it('should not assign parameters for bracket selectors', () => {
       const code = '.test1,.test2[test=test] {}';
       const root = parse(code);
@@ -22,6 +30,5 @@ describe('Parser', () => {
       expect(root.first.selector).to.eql('.test1,.test2[test=test]');
       expect(root.first.params).to.be.undefined;
     });
-
   });
 });

@@ -1,0 +1,179 @@
+@import '../../widgets/common/ext.cx.common.less';
+@import 'mediawiki.mixins';
+
+.cx-dashboard {
+	color: @colorGray2;
+	max-width: @max-dashboard-width;
+	margin: 0 auto;
+	padding: 10px 40px 20px;
+
+	@media only screen and ( max-width: ( @narrow - 1px ) ) {
+		padding: 10px 24px 20px;
+	}
+
+	@media only screen and ( max-width: ( @very-narrow - 1px ) ) {
+		padding: 10px 12px 20px;
+	}
+
+	/* Clearfix */
+	&:after {
+		// Non empty content value avoids an Opera bug that creates space around
+		// clearfixed elements if the contenteditable attribute is also present
+		// somewhere in the HTML.
+		content: ' ';
+		visibility: hidden;
+		display: block;
+		height: 0;
+		clear: both;
+	}
+}
+
+.cx-dashboard-sidebar {
+	// Separation between sidebar (which is at the bottom on smaller screen sizes)
+	// and bottom of the document should be 48px.
+	// Dashboard has 20px bottom padding, and with adding 28px for bottom margin, we get desired 48px
+	margin-bottom: 28px;
+	line-height: 1;
+
+	@media only screen and ( min-width: @wide ) {
+		.mw-ui-one-third;
+		padding: 0 0 0 30px;
+
+		position: -webkit-sticky;
+		position: sticky;
+		top: 10px;
+	}
+
+	ul {
+		margin: 0;
+
+		li {
+			list-style: none;
+			margin: 0;
+
+			// Following styles should support possible additions to help card
+			&:not( :last-child ) {
+				margin-bottom: 16px;
+			}
+
+			&:first-child {
+				padding-top: 4px;
+			}
+
+			&:last-child {
+				padding-bottom: 4px;
+			}
+		}
+	}
+
+	&__link,
+	&__link:visited {
+		background-position: center left;
+		background-repeat: no-repeat;
+		background-size: 16px;
+		color: @colorProgressive;
+		padding-left: 24px;
+	}
+
+	&__link {
+		&--information {
+			.background-image-svg('../images/cx-information.svg', '../images/cx-information.png');
+		}
+
+		&--stats {
+			.background-image-svg('../images/cx-stats.svg', '../images/cx-stats.png');
+		}
+
+		&--feedback {
+			.background-image-svg('../images/cx-discuss.svg', '../images/cx-discuss.png');
+		}
+	}
+
+	&__help {
+		background-color: #fff;
+		.box-sizing( border-box );
+		border-radius: @borderRadius;
+		padding: 16px;
+		.box-shadow-card;
+		font-size: 16px;
+
+		.cx-translator--visible ~ & {
+			@media only screen and ( min-width: @narrow ) and ( max-width: ( @wide - 1px ) ) {
+				display: inline-block;
+				width: 47.5%;
+				margin-left: 5%;
+				vertical-align: top;
+			}
+		}
+
+		&-title {
+			color: @colorGray5;
+			margin-bottom: 16px;
+			font-weight: bold;
+		}
+	}
+}
+
+.cx-translationlist-container {
+	background-color: @colorGray14;
+	margin-bottom: 48px;
+	padding: 0;
+
+	@media only screen and ( min-width: @wide ) {
+		.mw-ui-two-thirds;
+		padding: 0;
+		// This is needed so sidebar doesn't wiggle
+		width: 66.667%;
+	}
+}
+
+.translation-filter {
+	background-color: @colorGray14;
+	padding: 10px 5px 20px 5px;
+	margin: -10px -5px 0 -5px;
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+	z-index: 1;
+
+	.flex-center-justify;
+
+	> .oo-ui-buttonWidget > .oo-ui-buttonElement-button {
+		height: 2.34375em;
+		padding-right: 0.46875em;
+
+		@media only screen and ( min-width: 380px ) {
+			height: auto;
+			padding-right: 0.9375em;
+		}
+
+		> .oo-ui-labelElement-label {
+			// Hide text and show only '+' icon on "New translation" button for screen sizes below 380px
+			display: none;
+
+			@media only screen and ( min-width: 380px ) {
+				display: inline;
+			}
+		}
+	}
+}
+
+.oo-ui-popupWidget {
+	// We need popup widgets to stay above .translation-filter
+	z-index: 2;
+}
+
+.cx-header-infobar {
+	float: none;
+	max-width: @max-dashboard-width;
+	margin: 0 auto;
+	padding: 0 40px;
+
+	@media only screen and ( max-width: ( @narrow - 1px ) ) {
+		padding: 0 24px;
+	}
+
+	@media only screen and ( max-width: ( @very-narrow - 1px ) ) {
+		padding: 0 12px;
+	}
+}

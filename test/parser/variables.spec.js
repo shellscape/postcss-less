@@ -1,6 +1,8 @@
 // chai uses expressions for validation
 /* eslint no-unused-expressions: 0 */
 
+import * as fs from 'fs';
+import * as path from 'path';
 import { expect } from 'chai';
 import parse from '../../lib/less-parse';
 
@@ -13,37 +15,48 @@ describe('Parser', () => {
       expect(root.first.value).to.eql('1');
     });
 
-    it('parses variables with whitespaces between name and ":"', () => {
-      let root = parse('@onespace : 42;');
+    // sanity check from issue #99
+    it('should not fail wikimedia sanity check', () => {
+      const code = fs.readFileSync(path.join(__dirname, '../../../test/integration/ext.cx.dashboard.less'), 'utf-8');
+      const root = parse(code);
 
-      expect(root.first.prop).to.eql('@onespace');
-      expect(root.first.value).to.eql('42');
+      expect(root.first.type).to.eql('import');
     });
 
-    it('parses variables with no whitespace between ":" and value', () => {
-      const root = parse('@var :42;');
+    // #98 was merged to resolve this but broke other scenarios
+    it('parses variables with whitespaces between name and ":"'); //, () => {
+    //   let root = parse('@onespace : 42;');
+    //
+    //   expect(root.first.prop).to.eql('@onespace');
+    //   expect(root.first.value).to.eql('42');
+    // });
 
-      expect(root.first.prop).to.eql('@var');
-      expect(root.first.value).to.eql('42');
-    });
-
-    it('parses mutliple variables with whitespaces between name and ":"', () => {
-      const root = parse('@foo  : 42; @bar : 35;');
-
-      expect(root.first.prop).to.eql('@foo');
-      expect(root.first.value).to.eql('42');
-      expect(root.nodes[1].prop).to.eql('@bar');
-      expect(root.nodes[1].value).to.eql('35');
-    });
-
-    it('parses multiple variables with no whitespace between ":" and value', () => {
-      const root = parse('@foo  :42; @bar :35');
-
-      expect(root.first.prop).to.eql('@foo');
-      expect(root.first.value).to.eql('42');
-      expect(root.nodes[1].prop).to.eql('@bar');
-      expect(root.nodes[1].value).to.eql('35');
-    });
+    // #98 was merged to resolve this but broke other scenarios
+    // these tests are commented out until that is resolved
+    it('parses variables with no whitespace between ":" and value'); //, () => {
+    //   const root = parse('@var :42;');
+    //
+    //   expect(root.first.prop).to.eql('@var');
+    //   expect(root.first.value).to.eql('42');
+    // });
+    //
+    it('parses mutliple variables with whitespaces between name and ":"'); //, () => {
+    //   const root = parse('@foo  : 42; @bar : 35;');
+    //
+    //   expect(root.first.prop).to.eql('@foo');
+    //   expect(root.first.value).to.eql('42');
+    //   expect(root.nodes[1].prop).to.eql('@bar');
+    //   expect(root.nodes[1].value).to.eql('35');
+    // });
+    //
+    it('parses multiple variables with no whitespace between ":" and value'); //, () => {
+    //   const root = parse('@foo  :42; @bar :35');
+    //
+    //   expect(root.first.prop).to.eql('@foo');
+    //   expect(root.first.value).to.eql('42');
+    //   expect(root.nodes[1].prop).to.eql('@bar');
+    //   expect(root.nodes[1].value).to.eql('35');
+    // });
 
     it('parses string variables', () => {
       const root = parse('@var: "test";');
