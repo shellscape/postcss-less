@@ -169,24 +169,55 @@ describe('#tokenize()', () => {
         [')', ')', 1, 7]
       ]);
     });
-    //
-    // it('tokenizes @page with extra whitespace', () => {
-    //   testTokens('@page   :left { margin: 0; }', [
-    //     [ 'at-word', '@page', 1, 1, 1, 5 ],
-    //     [ 'space', '   ' ],
-    //     [ ':', ':', 1, 9 ],
-    //     [ 'word', 'left', 1, 10, 1, 13 ],
-    //     [ 'space', ' ' ],
-    //     [ '{', '{', 1, 15 ],
-    //     [ 'space', ' ' ],
-    //     [ 'word', 'margin', 1, 17, 1, 22 ],
-    //     [ ':', ':', 1, 23 ],
-    //     [ 'space', ' ' ],
-    //     [ 'word', '0', 1, 25, 1, 25 ],
-    //     [ ';', ';', 1, 26 ],
-    //     [ 'space', ' ' ],
-    //     [ '}', '}', 1, 28 ]
-    //   ]);
-    // });
+
+    it('tokenizes @page with extra whitespace', () => {
+      testTokens('@page   :left { margin: 0; }', [
+        [ 'at-word', '@page', 1, 1, 1, 5 ],
+        [ 'space', '   ' ],
+        [ ':', ':', 1, 9 ],
+        [ 'word', 'left', 1, 10, 1, 13 ],
+        [ 'space', ' ' ],
+        [ '{', '{', 1, 15 ],
+        [ 'space', ' ' ],
+        [ 'word', 'margin', 1, 17, 1, 22 ],
+        [ ':', ':', 1, 23 ],
+        [ 'space', ' ' ],
+        [ 'word', '0', 1, 25, 1, 25 ],
+        [ ';', ';', 1, 26 ],
+        [ 'space', ' ' ],
+        [ '}', '}', 1, 28 ]
+      ]);
+    });
+
+    it('tokenizes at-words with extra whitespace around colons', () => {
+      testTokens('@supports (display : flex) { body { display : flex; } }', [
+        [ 'at-word', '@supports', 1, 1, 1, 9 ],
+        [ 'space', ' ' ],
+        [ 'brackets', '(display : flex)', 1, 11, 1, 26 ],
+        [ 'space', ' ' ],
+        [ '{', '{', 1, 28 ],
+        [ 'space', ' ' ],
+        [ 'word', 'body', 1, 30, 1, 33 ],
+        [ 'space', ' ' ],
+        [ '{', '{', 1, 35 ],
+        [ 'space', ' ' ],
+        [ 'word', 'display', 1, 37, 1, 43 ],
+        [ 'space', ' ' ],
+        [ ':', ':', 1, 45 ],
+        [ 'space', ' ' ],
+        [ 'word', 'flex', 1, 47, 1, 50 ],
+        [ ';', ';', 1, 51 ],
+        [ 'space', ' ' ],
+        [ '}', '}', 1, 53 ],
+        [ 'space', ' ' ],
+        [ '}', '}', 1, 55 ]
+      ]);
+      testTokens('@import "weird  :  filename.css";', [
+        [ 'at-word', '@import', 1, 1, 1, 7 ],
+        [ 'space', ' ' ],
+        [ 'string', '"weird  :  filename.css"', 1, 9, 1, 32 ],
+        [ ';', ';', 1, 33 ]
+      ]);
+    });
   });
 });
