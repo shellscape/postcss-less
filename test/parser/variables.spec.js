@@ -24,39 +24,69 @@ describe('Parser', () => {
     });
 
     // #98 was merged to resolve this but broke other scenarios
-    it('parses variables with whitespaces between name and ":"'); //, () => {
-    //   let root = parse('@onespace : 42;');
-    //
-    //   expect(root.first.prop).to.eql('@onespace');
-    //   expect(root.first.value).to.eql('42');
-    // });
+    it('parses variables with whitespaces between name and ":"', () => {
+      let root = parse('@onespace : 42;');
+
+      expect(root.first.prop).to.eql('@onespace');
+      expect(root.first.value).to.eql('42');
+    });
 
     // #98 was merged to resolve this but broke other scenarios
     // these tests are commented out until that is resolved
-    it('parses variables with no whitespace between ":" and value'); //, () => {
-    //   const root = parse('@var :42;');
-    //
-    //   expect(root.first.prop).to.eql('@var');
-    //   expect(root.first.value).to.eql('42');
-    // });
-    //
-    it('parses mutliple variables with whitespaces between name and ":"'); //, () => {
-    //   const root = parse('@foo  : 42; @bar : 35;');
-    //
-    //   expect(root.first.prop).to.eql('@foo');
-    //   expect(root.first.value).to.eql('42');
-    //   expect(root.nodes[1].prop).to.eql('@bar');
-    //   expect(root.nodes[1].value).to.eql('35');
-    // });
-    //
-    it('parses multiple variables with no whitespace between ":" and value'); //, () => {
-    //   const root = parse('@foo  :42; @bar :35');
-    //
-    //   expect(root.first.prop).to.eql('@foo');
-    //   expect(root.first.value).to.eql('42');
-    //   expect(root.nodes[1].prop).to.eql('@bar');
-    //   expect(root.nodes[1].value).to.eql('35');
-    // });
+    it('parses variables with no whitespace between ":" and value', () => {
+      const root = parse('@var :42;');
+
+      expect(root.first.prop).to.eql('@var');
+      expect(root.first.value).to.eql('42');
+    });
+
+    it('parses mutliple variables with whitespaces between name and ":"', () => {
+      const root = parse('@foo  : 42; @bar : 35;');
+
+      expect(root.first.prop).to.eql('@foo');
+      expect(root.first.value).to.eql('42');
+      expect(root.nodes[1].prop).to.eql('@bar');
+      expect(root.nodes[1].value).to.eql('35');
+    });
+
+    it('parses multiple variables with no whitespace between ":" and value', () => {
+      const root = parse('@foo  :42; @bar :35');
+
+      expect(root.first.prop).to.eql('@foo');
+      expect(root.first.value).to.eql('42');
+      expect(root.nodes[1].prop).to.eql('@bar');
+      expect(root.nodes[1].value).to.eql('35');
+    });
+
+    it('parses @pagexxx like variable but not @page selector', () => {
+      const root = parse('@pageWidth: "test";');
+
+      expect(root.first.prop).to.eql('@pageWidth');
+      expect(root.first.value).to.eql('"test"');
+
+      const root2 = parse('@page-width: "test";');
+
+      expect(root2.first.prop).to.eql('@page-width');
+      expect(root2.first.value).to.eql('"test"');
+    });
+
+    it('parses @pagexxx like variable with whitespaces between name and ":"', () => {
+      const root = parse('@pageWidth :"test";');
+
+      expect(root.first.prop).to.eql('@pageWidth');
+      expect(root.first.value).to.eql('"test"');
+
+      const root2 = parse('@page-width :"test";');
+
+      expect(root2.first.prop).to.eql('@page-width');
+      expect(root2.first.value).to.eql('"test"');
+
+      const root3 = parse('@page-width : "test";');
+
+      expect(root3.first.prop).to.eql('@page-width');
+      expect(root3.first.value).to.eql('"test"');
+    });
+
 
     it('parses string variables', () => {
       const root = parse('@var: "test";');
