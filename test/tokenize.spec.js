@@ -188,5 +188,11 @@ describe('#tokenize()', () => {
     //     [ '}', '}', 1, 28 ]
     //   ]);
     // });
+    it('tokenizes @var next to !important separately', () => {
+      testTokens('@var!important', [
+        ['at-word', '@var', 1, 1, 1, 4],
+        ['word', '!important', 1, 5, 1, 14]
+      ]);
+    });
   });
 });
