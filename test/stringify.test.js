@@ -1,27 +1,9 @@
 const test = require('ava');
 const postcss = require('postcss');
-const cases = require('postcss-parser-tests');
 
 const postcssLess = require('../lib');
 const parse = require('../lib/less-parse');
 const stringify = require('../lib/less-stringify');
-
-cases.each((name, css) => {
-  if (name === 'bom.css') {
-    return;
-  }
-
-  test(`stringifies ${ name }`, (t) => {
-    const root = parse(css);
-    let result = '';
-
-    stringify(root, (i) => {
-      result += i;
-    });
-
-    t.is(result, css);
-  });
-});
 
 test('stringifies inline comment', (t) => {
   const root = parse('// comment\na {}');
