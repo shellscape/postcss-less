@@ -25,9 +25,9 @@ jobs:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
-  node-v8-latest:
+  node-v10-latest:
     docker:
-      - image: rollupcabal/circleci-node-v8:latest
+      - image: rollupcabal/circleci-node-v10:latest
     steps:
       - checkout
       - restore_cache:
@@ -42,9 +42,13 @@ jobs:
           name: Submit coverage data to codecov.
           command: bash <(curl -s https://codecov.io/bash)
           when: on_success
-  node-v10-latest:
+  node-v8-latest:
     docker:
-      - image: rollupcabal/circleci-node-v10:latest
+      - image: rollupcabal/circleci-node-v8:latest
+    <<: *unit_tests
+  node-v6-latest:
+    docker:
+      - image: rollupcabal/circleci-node-v6:latest
     <<: *unit_tests
   analysis:
     docker:
@@ -94,6 +98,12 @@ workflows:
           filters:
             tags:
               only: /.*/
+      - node-v6-latest:
+          requires:
+            - analysis
+          filters:
+            tags:
+              only: /.*/
       - node-v8-latest:
           requires:
             - analysis
@@ -108,6 +118,7 @@ workflows:
               only: /.*/
       - publish:
           requires:
+            - node-v6-latest
             - node-v8-latest
             - node-v10-latest
           filters:
