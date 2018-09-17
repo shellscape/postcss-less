@@ -18,10 +18,10 @@ describe('Parser', () => {
             `;
       const root = parse(code);
 
-      expect(root.first.prop).to.eql('@testVar');
-      expect(root.first.value).to.eql('10px');
-      expect(root.last.first.first.prop).to.eql('height');
-      expect(root.last.first.first.value).to.eql('calc(~"100vh - @{testVar}")');
+      expect(root.first.prop, '@testVar');
+      expect(root.first.value, '10px');
+      expect(root.last.first.first.prop, 'height');
+      expect(root.last.first.first.value, 'calc(~"100vh - @{testVar}")');
     });
 
     it('parses escaping inside nested rules', () => {
@@ -42,12 +42,12 @@ describe('Parser', () => {
             `;
       const root = parse(code);
 
-      expect(root.nodes[0].first.first.prop).to.eql('prop1');
-      expect(root.nodes[0].first.first.value).to.eql('function(~"@{variable}")');
-      expect(root.nodes[1].first.prop).to.eql('prop2');
-      expect(root.nodes[1].first.value).to.eql('function(~`@{test}`)');
-      expect(root.nodes[2].first.prop).to.eql('filter');
-      expect(root.nodes[2].first.value).to.eql('~"alpha(opacity=\'@{opacity}\')"');
+      expect(root.nodes[0].first.first.prop, 'prop1');
+      expect(root.nodes[0].first.first.value, 'function(~"@{variable}")');
+      expect(root.nodes[1].first.prop, 'prop2');
+      expect(root.nodes[1].first.value, 'function(~`@{test}`)');
+      expect(root.nodes[2].first.prop, 'filter');
+      expect(root.nodes[2].first.value, '~"alpha(opacity=\'@{opacity}\')"');
     });
   });
 });

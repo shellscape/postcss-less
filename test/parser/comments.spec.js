@@ -10,7 +10,7 @@ describe('Parser', () => {
       const root = parse('\n// here is the first comment \n/* here is the second comment */');
 
       expect(root.nodes.length).to.eql(2);
-      expect(root.first.text).to.equal('here is the first comment');
+      expect(root.first.text, 'here is the first comment');
       expect(root.first.raws).to.eql({
         before: '\n',
         content: '// here is the first comment ',
@@ -18,9 +18,9 @@ describe('Parser', () => {
         left: ' ',
         right: ' '
       });
-      expect(root.first.inline).to.equal(true);
-      expect(root.first.block).to.equal(false);
-      expect(root.first.toString()).to.equal('/* here is the first comment */');
+      expect(root.first.inline, true);
+      expect(root.first.block, false);
+      expect(root.first.toString(), '/* here is the first comment */');
 
       expect(root.last.text).to.eql('here is the second comment');
       expect(root.last.raws).to.eql({
@@ -30,9 +30,9 @@ describe('Parser', () => {
         left: ' ',
         right: ' '
       });
-      expect(root.last.inline).to.equal(false);
-      expect(root.last.block).to.equal(true);
-      expect(root.last.toString()).to.equal('/* here is the second comment */');
+      expect(root.last.inline, false);
+      expect(root.last.block, true);
+      expect(root.last.toString(), '/* here is the second comment */');
     });
 
     it('parses empty inline comments', () => {
@@ -46,8 +46,8 @@ describe('Parser', () => {
         left: '',
         right: ''
       });
-      expect(root.last.inline).to.equal(true);
-      expect(root.last.block).to.equal(false);
+      expect(root.last.inline, true);
+      expect(root.last.block, false);
 
       expect(root.last.text).to.eql('');
       expect(root.last.raws).to.eql({
@@ -57,8 +57,8 @@ describe('Parser', () => {
         left: ' ',
         right: ''
       });
-      expect(root.last.inline).to.equal(true);
-      expect(root.last.block).to.equal(false);
+      expect(root.last.inline, true);
+      expect(root.last.block, false);
     });
 
     it('parses multiline comments', () => {
@@ -75,9 +75,9 @@ describe('Parser', () => {
         left: '   ',
         right: ' '
       });
-      expect(root.first.inline).to.equal(false);
-      expect(root.first.block).to.equal(true);
-      expect(root.first.toString()).to.equal(`/*   ${ text } */`);
+      expect(root.first.inline, false);
+      expect(root.first.block, true);
+      expect(root.first.toString(), `/*   ${ text } */`);
     });
 
     it('does not parse pseudo-comments constructions inside parentheses', () => {

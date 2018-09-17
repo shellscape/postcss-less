@@ -20,20 +20,20 @@ describe('Parser', () => {
         const root = parse(code, { from: name });
         const parsed = cases.jsonify(root);
 
-        expect(parsed).to.eql(json);
+        expect(parsed, json);
       });
     });
 
     it('parses nested rules', () => {
       const root = parse('a { b {} }');
 
-      expect(root.first.first.selector).to.eql('b');
+      expect(root.first.first.selector, 'b');
     });
 
     it('parses at-rules inside rules', () => {
       const root = parse('a { @media {} }');
 
-      expect(root.first.first.name).to.eql('media');
+      expect(root.first.first.name, 'media');
     });
   });
 });

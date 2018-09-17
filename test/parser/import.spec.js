@@ -15,9 +15,9 @@ describe('Parser', () => {
         .process(lessText, { syntax: lessSyntax })
         .then((result) => {
           expect(result).to.be.not.null;
-          expect(result.css).to.equal(lessText);
+          expect(result.css, lessText);
           expect(result.root.first).to.be.an.instanceof(Import);
-          expect(result.root.first.importPath).to.equal('"foo.less"');
+          expect(result.root.first.importPath, '"foo.less"');
 
           done();
         }).catch(done);
@@ -30,10 +30,10 @@ describe('Parser', () => {
         .process(lessText, { syntax: lessSyntax })
         .then((result) => {
           expect(result).to.be.not.null;
-          expect(result.css).to.equal(lessText);
+          expect(result.css, lessText);
           expect(result.root.first).to.be.an.instanceof(Import);
-          expect(result.root.first.importPath).to.equal('"foo.less"');
-          expect(result.root.first.urlFunc).to.equal(true);
+          expect(result.root.first.importPath, '"foo.less"');
+          expect(result.root.first.urlFunc, true);
 
           done();
         }).catch(done);
@@ -46,10 +46,10 @@ describe('Parser', () => {
         .process(lessText, { syntax: lessSyntax })
         .then((result) => {
           expect(result).to.be.not.null;
-          expect(result.css).to.equal(lessText);
+          expect(result.css, lessText);
           expect(result.root.first).to.be.an.instanceof(Import);
-          expect(result.root.first.importPath).to.equal('foo.less');
-          expect(result.root.first.urlFunc).to.equal(true);
+          expect(result.root.first.importPath, 'foo.less');
+          expect(result.root.first.urlFunc, true);
 
           done();
         }).catch(done);
@@ -62,9 +62,9 @@ describe('Parser', () => {
         .process(lessText, { syntax: lessSyntax })
         .then((result) => {
           expect(result).to.be.not.null;
-          expect(result.css).to.equal(lessText);
+          expect(result.css, lessText);
           expect(result.root.first).to.be.an.instanceof(Import);
-          expect(result.root.first.importPath).to.equal('"foo.less"');
+          expect(result.root.first.importPath, '"foo.less"');
           expect(result.root.first.raws.afterName).to.be.undefined;
 
           done();
@@ -78,10 +78,10 @@ describe('Parser', () => {
         .process(lessText, { syntax: lessSyntax })
         .then((result) => {
           expect(result).to.be.not.null;
-          expect(result.css).to.equal(lessText);
+          expect(result.css, lessText);
           expect(result.root.first).to.be.an.instanceof(Import);
-          expect(result.root.first.directives).to.equal('(inline)');
-          expect(result.root.first.importPath).to.equal('"foo.less"');
+          expect(result.root.first.directives, '(inline)');
+          expect(result.root.first.importPath, '"foo.less"');
 
           done();
         }).catch(done);

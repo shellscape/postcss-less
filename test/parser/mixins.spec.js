@@ -11,11 +11,11 @@ describe('Parser', () => {
       const selector = `.foo ${ params }`;
       const root = parse(`${ selector } { border: @{baz}; }`);
 
-      expect(root.first.type).to.eql('rule', 'Basic mixin. Invalid node type');
-      expect(root.first.selector).to.eql(selector, 'Basic mixin. Invalid selector');
-      expect(root.first.params).to.eql(params, 'Basic mixin. Invalid params');
-      expect(root.first.first.prop).to.eql('border');
-      expect(root.first.first.value).to.eql('@{baz}');
+      expect(root.first.type, 'rule', 'Basic mixin. Invalid node type');
+      expect(root.first.selector, selector, 'Basic mixin. Invalid selector');
+      expect(root.first.params, params, 'Basic mixin. Invalid params');
+      expect(root.first.first.prop, 'border');
+      expect(root.first.first.value, '@{baz}');
     });
 
     describe('Mixins without body', () => {
@@ -23,10 +23,10 @@ describe('Parser', () => {
         const less = '.mixin-name (#FFF);';
         const root = parse(less);
 
-        expect(root.first.type).to.eql('rule');
-        expect(root.first.selector).to.eql('.mixin-name (#FFF)');
-        expect(root.first.params).to.eql('(#FFF)');
-        expect(root.first.empty).to.eql(true);
+        expect(root.first.type, 'rule');
+        expect(root.first.selector, '.mixin-name (#FFF)');
+        expect(root.first.params, '(#FFF)');
+        expect(root.first.empty, true);
         expect(root.first.nodes).to.be.an('undefined');
         expect(root.first.toString()).to.be.eql('.mixin-name (#FFF);');
       });
@@ -34,20 +34,20 @@ describe('Parser', () => {
       it('mixin without body #2', () => {
         const root = parse('.base { .mixin-name }');
 
-        expect(root.first.first.type).to.eql('rule');
-        expect(root.first.first.selector).to.eql('.mixin-name');
+        expect(root.first.first.type, 'rule');
+        expect(root.first.first.selector, '.mixin-name');
         expect(root.first.params).to.be.undefined;
-        expect(root.first.first.empty).to.eql(true);
+        expect(root.first.first.empty, true);
         expect(root.first.first.nodes).to.be.undefined;
       });
 
       it('mixin without body and without whitespace #2', () => {
         const root = parse('.base {.mixin-name}');
 
-        expect(root.first.first.type).to.eql('rule');
-        expect(root.first.first.selector).to.eql('.mixin-name');
+        expect(root.first.first.type, 'rule');
+        expect(root.first.first.selector, '.mixin-name');
         expect(root.first.params).to.be.undefined;
-        expect(root.first.first.empty).to.eql(true);
+        expect(root.first.first.empty, true);
         expect(root.first.first.nodes).to.be.undefined;
       });
     });
@@ -78,19 +78,19 @@ describe('Parser', () => {
 
         const root = parse(code);
 
-        expect(root.nodes[0].first.selector).to.eql('.a(#FFF)', '.a: invalid selector');
-        expect(root.nodes[0].first.params).to.eql('(#FFF)', '.a: invalid params');
+        expect(root.nodes[0].first.selector, '.a(#FFF)', '.a: invalid selector');
+        expect(root.nodes[0].first.params, '(#FFF)', '.a: invalid params');
 
-        expect(root.nodes[1].first.selector).to.eql('#b (@param1; @param2)', '#b: invalid selector');
-        expect(root.nodes[1].first.params).to.eql('(@param1; @param2)', '#b: invalid params');
+        expect(root.nodes[1].first.selector, '#b (@param1; @param2)', '#b: invalid selector');
+        expect(root.nodes[1].first.params, '(@param1; @param2)', '#b: invalid params');
 
-        expect(/\.mixin1\s\(\s+\)/.test(root.nodes[2].nodes[0].selector)).to.eql(
+        expect(/\.mixin1\s\(\s+\)/.test(root.nodes[2].nodes[0].selector),
           true,
           '.mixin1: invalid selector'
         );
-        expect(/\(\s+\)/.test(root.nodes[2].nodes[0].params)).to.eql(true, '.mixin1: invalid params');
+        expect(/\(\s+\)/.test(root.nodes[2].nodes[0].params), true, '.mixin1: invalid params');
 
-        expect(root.nodes[2].nodes[1].selector).to.eql('.mixin2', '.mixin2: invalid selector');
+        expect(root.nodes[2].nodes[1].selector, '.mixin2', '.mixin2: invalid selector');
         expect(root.nodes[2].nodes[1].params).to.be.an('undefined', '.mixin2: invalid params');
       });
 
@@ -104,8 +104,8 @@ describe('Parser', () => {
 
         const root = parse(code);
 
-        expect(root.first.selector).to.eql('.c');
-        expect(root.first.nodes.length).to.eql(2);
+        expect(root.first.selector, '.c');
+        expect(root.first.nodes.length, 2);
       });
 
       it('parses nested mixins with guarded namespaces', () => {
@@ -121,8 +121,8 @@ describe('Parser', () => {
 
         const root = parse(code);
 
-        expect(root.nodes[0].first.selector).to.eql('.mixin()');
-        expect(root.nodes[1].first.selector).to.eql('.mixin() when (@mode=huge)');
+        expect(root.nodes[0].first.selector, '.mixin()');
+        expect(root.nodes[1].first.selector, '.mixin() when (@mode=huge)');
       });
 
       it('parses nested mixins with `!important`', () => {
@@ -132,8 +132,8 @@ describe('Parser', () => {
 
         const root = parse(code);
 
-        expect(root.first.selector).to.eql('.foo()');
-        expect(root.first.important).to.eql(true);
+        expect(root.first.selector, '.foo()');
+        expect(root.first.important, true);
       });
 
       it('parses nested mixins with `!important` - insensitive to casing', () => {
@@ -143,8 +143,8 @@ describe('Parser', () => {
 
         const root = parse(code);
 
-        expect(root.first.selector).to.eql('.foo()');
-        expect(root.first.important).to.eql(true);
+        expect(root.first.selector, '.foo()');
+        expect(root.first.important, true);
       });
 
       it('parses nested mixins with `!important` - appended without whitespace', () => {
@@ -154,8 +154,8 @@ describe('Parser', () => {
 
         const root = parse(code);
 
-        expect(root.first.selector).to.eql('.foo()');
-        expect(root.first.important).to.eql(true);
+        expect(root.first.selector, '.foo()');
+        expect(root.first.important, true);
       });
 
       it('parses nested mixins with `! important`', () => {
@@ -166,13 +166,13 @@ describe('Parser', () => {
 
         const root = parse(code);
 
-        expect(root.first.selector).to.eql('.foo()');
-        expect(root.first.important).to.eql(true);
-        expect(root.first.raws.important).to.eql(' ! important');
+        expect(root.first.selector, '.foo()');
+        expect(root.first.important, true);
+        expect(root.first.raws.important, ' ! important');
 
-        expect(root.last.selector).to.eql('.bar()');
-        expect(root.last.important).to.eql(true);
-        expect(root.last.raws.important).to.eql('! important');
+        expect(root.last.selector, '.bar()');
+        expect(root.last.important, true);
+        expect(root.last.raws.important, '! important');
       });
 
       it('parses nested mixins with the rule set', () => {
@@ -180,10 +180,10 @@ describe('Parser', () => {
         const ruleSet = `.desktop-and-old-ie ${ params }`;
         const root = parse(`header { ${ ruleSet }; }`);
 
-        expect(root.first.selector).to.eql('header');
-        expect(root.first.first.selector).to.eql(ruleSet);
-        expect(root.first.first.params).to.eql(params, 'Mixin rule set. Invalid params');
-        expect(root.first.first.empty).to.eql(true);
+        expect(root.first.selector, 'header');
+        expect(root.first.first.selector, ruleSet);
+        expect(root.first.first.params, params, 'Mixin rule set. Invalid params');
+        expect(root.first.first.empty, true);
         expect(root.first.first.nodes).to.be.an('undefined');
       });
 
@@ -240,7 +240,7 @@ describe('Parser', () => {
 
         const root = parse(code);
 
-        expect(root.nodes.length).to.eql(3);
+        expect(root.nodes.length, 3);
       });
     });
   });

@@ -11,7 +11,7 @@ describe('Parser', () => {
       const code = '.test2:not(.test3) {}';
       const root = parse(code);
 
-      expect(root.first.selector).to.eql('.test2:not(.test3)');
+      expect(root.first.selector, '.test2:not(.test3)');
       expect(root.first.params).to.be.undefined;
     });
 
@@ -20,14 +20,14 @@ describe('Parser', () => {
       const code = '@media only screen and ( max-width: ( @narrow - 1px ) ) {\n  padding: 10px 24px 20px;\n}';
       const root = parse(code);
 
-      expect(root.first.type).to.eql('atrule');
+      expect(root.first.type, 'atrule');
     });
 
     it('should not assign parameters for bracket selectors', () => {
       const code = '.test1,.test2[test=test] {}';
       const root = parse(code);
 
-      expect(root.first.selector).to.eql('.test1,.test2[test=test]');
+      expect(root.first.selector, '.test1,.test2[test=test]');
       expect(root.first.params).to.be.undefined;
     });
   });
