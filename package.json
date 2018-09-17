@@ -29,7 +29,7 @@
     "prepublish": "./node_modules/.bin/gulp dist"
   },
   "dependencies": {
-    "postcss": "^5.2.16"
+    "postcss": "^7.0.2"
   },
   "devDependencies": {
     "babel-core": "^6.7.2",
