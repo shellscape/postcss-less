@@ -36,7 +36,8 @@ test.tokens('tokenizes css hash colors', 'a { border: 1px solid #c0c0c0; }', [
   ['space', ' '],
   ['word', 'solid', 1, 17, 1, 21],
   ['space', ' '],
-  ['word', '#c0c0c0;', 1, 23, 1, 30],
+  ['word', '#c0c0c0', 1, 23, 1, 29],
+  [';', ';', 1, 30],
   ['space', ' '],
   ['}', '}', 1, 32]
 ]);
@@ -54,7 +55,8 @@ test.tokens('tokenizes multiple comma separated values without a space in betwee
     ['word', 'serif', 1, 18, 1, 22],
     ['word', ',', 1, 23, 1, 24],
     ['space', ' '],
-    ['word', 'sans-serif;', 1, 25, 1, 35],
+    ['word', 'sans-serif', 1, 25, 1, 34],
+    [';', ';', 1, 35],
     ['space', ' '],
     ['}', '}', 1, 37]
   ]);
@@ -69,7 +71,8 @@ test.tokens('tokenizes unpadded fractional numbers', 'a { transition: all .2s; }
   ['space', ' '],
   ['word', 'all', 1, 17, 1, 19],
   ['space', ' '],
-  ['word', '.2s;', 1, 21, 1, 24],
+  ['word', '.2s', 1, 21, 1, 23],
+  [';', ';', 1, 24],
   ['space', ' '],
   ['}', '}', 1, 26]
 ]);
@@ -100,14 +103,16 @@ test.tokens('tokenizes variables', '@var: 1;', [
   ['word', '@var', 1, 1, 1, 4],
   [':', ':', 1, 5],
   ['space', ' '],
-  ['word', '1;', 1, 7, 1, 8]
+  ['word', '1', 1, 7, 1, 7],
+  [';', ';', 1, 8]
 ]);
 
 test.tokens('tokenizes mixins', '.foo (@bar; @baz...) { border: @{baz}; }', [
   ['word', '.foo', 1, 1, 1, 4],
   ['space', ' '],
   ['(', '(', 1, 6],
-  ['at-word', '@bar;', 1, 7, 1, 11],
+  ['at-word', '@bar', 1, 7, 1, 10],
+  [';', ';', 1, 11],
   ['space', ' '],
   ['at-word', '@baz...', 1, 13, 1, 19],
   [')', ')', 1, 20],
@@ -153,7 +158,8 @@ test.tokens('tokenizes @page with extra whitespace', '@page   :left { margin: 0;
   [ 'word', 'margin', 1, 17, 1, 22 ],
   [ ':', ':', 1, 23 ],
   [ 'space', ' ' ],
-  [ 'word', '0;', 1, 25, 1, 26 ],
+  [ 'word', '0', 1, 25, 1, 25 ],
+  [';', ';', 1, 26],
   [ 'space', ' ' ],
   [ '}', '}', 1, 28 ]
 ]);
