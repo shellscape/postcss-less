@@ -11,9 +11,11 @@
     "parser",
     "less"
   ],
-  "main": "dist/less-syntax.js",
+  "main": "lib/index.js",
   "files": [
-    "dist"
+    "lib",
+    "README.md",
+    "LICENSE"
   ],
   "author": "Denys Kniazevych <webschik@gmail.com>",
   "maintainer": {
@@ -25,10 +27,10 @@
     "node": ">=6.14.4"
   },
   "scripts": {
-    "ci:coverage": "echo 'no coverage'",
+    "ci:coverage": "nyc npm run test && nyc report --reporter=text-lcov > coverage.lcov",
     "ci:lint": "npm run lint && npm run security",
     "ci:lint:commits": "commitlint --from=${CIRCLE_BRANCH} --to=${CIRCLE_SHA1}",
-    "ci:test": "npm run test -- --runInBand",
+    "ci:test": "npm run test",
     "commitlint": "commitlint",
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "lint": "tslint --project . --fix 'src/**/*.ts' && eslint --cache .",
@@ -51,6 +53,7 @@
     "less": "^2.6.1",
     "lint-staged": "^7.2.2",
     "node-fetch": "^2.2.0",
+    "nyc": "^13.0.1",
     "postcss-parser-tests": "^5.0.11",
     "pre-commit": "^1.2.2",
     "standard-version": "^4.4.0",
