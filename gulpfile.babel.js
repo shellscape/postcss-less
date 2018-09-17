@@ -35,10 +35,10 @@ const config = {
 
 function lint (srcPath) {
   return gulp
-        .src(srcPath)
-        .pipe(eslint())
-        .pipe(eslint.format())
-        .pipe(eslint.failAfterError());
+    .src(srcPath)
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
 }
 
 gulp.task('default', ['test']);
@@ -55,26 +55,26 @@ gulp.task('clean:all', ['clean:build', 'clean:dist']);
 
 gulp.task('clean:lib', () => {
   return gulp
-        .src(path.join(config.dirs.build, config.builds.lib), { read: false })
-        .pipe(clean());
+    .src(path.join(config.dirs.build, config.builds.lib), { read: false })
+    .pipe(clean());
 });
 
 gulp.task('clean:test', () => {
   return gulp
-        .src(path.join(config.dirs.build, config.builds.test), { read: false })
-        .pipe(clean());
+    .src(path.join(config.dirs.build, config.builds.test), { read: false })
+    .pipe(clean());
 });
 
 gulp.task('clean:build', () => {
   return gulp
-        .src(config.dirs.build, { read: false })
-        .pipe(clean());
+    .src(config.dirs.build, { read: false })
+    .pipe(clean());
 });
 
 gulp.task('clean:dist', () => {
   return gulp
-        .src(path.join(config.dirs.dist), { read: false })
-        .pipe(clean());
+    .src(path.join(config.dirs.dist), { read: false })
+    .pipe(clean());
 });
 
 // Build
@@ -84,16 +84,16 @@ gulp.task('build:all', ['build:lib', 'build:test']);
 
 gulp.task('build:lib', ['clean:lib'], () => {
   return gulp
-        .src(path.join(config.dirs.lib, '**', '*.js'))
-        .pipe(babel())
-        .pipe(gulp.dest(path.join(config.dirs.build, config.builds.lib)));
+    .src(path.join(config.dirs.lib, '**', '*.js'))
+    .pipe(babel())
+    .pipe(gulp.dest(path.join(config.dirs.build, config.builds.lib)));
 });
 
 gulp.task('build:test', ['clean:test', 'build:lib'], () => {
   return gulp
-        .src(path.join(config.dirs.test, '**', '*.js'))
-        .pipe(babel())
-        .pipe(gulp.dest(path.join(config.dirs.build, config.builds.test)));
+    .src(path.join(config.dirs.test, '**', '*.js'))
+    .pipe(babel())
+    .pipe(gulp.dest(path.join(config.dirs.build, config.builds.test)));
 });
 
 // Lint
@@ -126,63 +126,63 @@ gulp.task('test:run', ['build:test'], () => {
   let mochaError = {};
 
   return gulp
-        .src(path.join(config.dirs.build, config.builds.test, '**', '*.spec.js'), { read: false })
-        .pipe(mocha({
-          reporter: config.test.reporter
-        }))
-        .on('error', function (error) {
-          mochaError = error;
-            // eslint-disable-next-line no-invalid-this
-          this.emit('end');
-        })
-        .on('end', () => {
-          if (mochaError.message) {
-            throw new util.PluginError({
-              plugin: 'gulp-mocha',
-              message: mochaError.message
-            });
-          }
+    .src(path.join(config.dirs.build, config.builds.test, '**', '*.spec.js'), { read: false })
+    .pipe(mocha({
+      reporter: config.test.reporter
+    }))
+    .on('error', function (error) {
+      mochaError = error;
+      // eslint-disable-next-line no-invalid-this
+      this.emit('end');
+    })
+    .on('end', () => {
+      if (mochaError.message) {
+        throw new util.PluginError({
+          plugin: 'gulp-mocha',
+          message: mochaError.message
         });
+      }
+    });
 });
 
 gulp.task('test:integration', ['build:lib'], (done) => {
-    // this require is only available after running the build:lib task
-    // eslint-disable-next-line global-require
+  // this require is only available after running the build:lib task
+  // eslint-disable-next-line global-require
   const lessSyntax = require('./build/lib/less-syntax').default;
 
   real(done, (css) => {
     return postcss()
-            .process(css, {
-              parser: lessSyntax,
-              map: { annotation: false }
-            });
+      .process(css, {
+        parser: lessSyntax,
+        map: { annotation: false }
+      });
   });
 });
 
 gulp.task('test:integration:local', ['build:lib'], () => {
-    // create file in root source directory called integration.css to process
+  // create file in root source directory called integration.css to process
 
-    // this require is only available after running the build:lib task
-    // eslint-disable-next-line global-require
+  // this require is only available after running the build:lib task
+  // eslint-disable-next-line global-require
   const lessSyntax = require('./build/lib/less-syntax').default;
 
   return gulp
-        .src(path.join(__dirname, 'integration.css'))
-        .pipe(through((file) => {
-          try {
-                // we need to access .css as it is a lazy property
-                // eslint-disable-next-line no-unused-vars
-            const css = postcss().process(file.contents.toString(), {
-              parser: lessSyntax,
-              map: { annotation: false }
-            }).css;
+    .src(path.join(__dirname, 'integration.css'))
+    .pipe(through((file) => {
+      try {
+        // we need to access .css as it is a lazy property
+        // eslint-disable-next-line no-unused-vars
+        const css = postcss().process(file.contents.toString(), {
+          parser: lessSyntax,
+          map: { annotation: false }
+        }).css;
 
-            util.log(util.colors.green('VALID'));
-          }
-          catch (err) {
-            util.log(util.colors.red('ERROR'), err.message, err.stack);
-          }
-        }));
+        util.log(util.colors.green('VALID'));
+      }
+      catch (err) {
+        util.log(util.colors.red('ERROR'), err.message, err.stack);
+      }
+    }));
 });
 
 // Watch
@@ -191,31 +191,31 @@ gulp.task('watch', ['watch:test']);
 
 gulp.task('watch:lint', ['lint'], () => {
   return gulp
-        .watch([
-          path.join(config.dirs.lib, '**', '*.js'),
-          path.join(config.dirs.test, '**', '*.js'),
-          path.join(__dirname, '*.js')
-        ], ['lint']);
+    .watch([
+      path.join(config.dirs.lib, '**', '*.js'),
+      path.join(config.dirs.test, '**', '*.js'),
+      path.join(__dirname, '*.js')
+    ], ['lint']);
 });
 
 gulp.task('watch:test', ['test:run'], () => {
   return gulp
-        .watch([
-          path.join(config.dirs.lib, '**', '*.js'),
-          path.join(config.dirs.test, '**', '*.js')
-        ], ['test:run']);
+    .watch([
+      path.join(config.dirs.lib, '**', '*.js'),
+      path.join(config.dirs.test, '**', '*.js')
+    ], ['test:run']);
 });
 
 // Dist
 
 gulp.task('dist', ['build:lib'], () => {
   gulp
-        .src(path.join(config.dirs.build, config.builds.lib, '**', '*.js'))
-        .pipe(gulp.dest(config.dirs.dist));
+    .src(path.join(config.dirs.build, config.builds.lib, '**', '*.js'))
+    .pipe(gulp.dest(config.dirs.dist));
 
   gulp
-        .src(path.join(config.dirs.build, config.builds.lib, '**', '*.js'))
-        .pipe(uglify())
-        .pipe(rename({ suffix: '.min' }))
-        .pipe(gulp.dest(config.dirs.dist));
+    .src(path.join(config.dirs.build, config.builds.lib, '**', '*.js'))
+    .pipe(uglify())
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(gulp.dest(config.dirs.dist));
 });

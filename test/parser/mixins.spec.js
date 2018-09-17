@@ -53,7 +53,7 @@ describe('Parser', () => {
     });
 
     describe('Nested mixin', () => {
-            /* eslint-disable no-multiple-empty-lines */
+      /* eslint-disable no-multiple-empty-lines */
       it('parses nested mixins with class and id selectors', () => {
         const code = `
                     .mixin-class {
@@ -85,9 +85,9 @@ describe('Parser', () => {
         expect(root.nodes[1].first.params).to.eql('(@param1; @param2)', '#b: invalid params');
 
         expect(/\.mixin1\s\(\s+\)/.test(root.nodes[2].nodes[0].selector)).to.eql(
-                    true,
-                    '.mixin1: invalid selector'
-                );
+          true,
+          '.mixin1: invalid selector'
+        );
         expect(/\(\s+\)/.test(root.nodes[2].nodes[0].params)).to.eql(true, '.mixin1: invalid params');
 
         expect(root.nodes[2].nodes[1].selector).to.eql('.mixin2', '.mixin2: invalid selector');

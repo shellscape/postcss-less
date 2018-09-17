@@ -7,8 +7,8 @@ import parse from '../../lib/less-parse';
 describe('Parser', () => {
   describe('CSS for PostCSS', () => {
     cases.each((name, code, json) => {
-          /* eslint no-console: 0 */
-            /**
+      /* eslint no-console: 0 */
+      /**
              * @description
              *  - Skip comments.css, because we have an extended Comment node
              */
