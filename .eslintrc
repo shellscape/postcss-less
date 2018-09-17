@@ -1,6 +1,5 @@
 {
   "extends": "shellscape",
-  "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module"
   },
