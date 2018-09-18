@@ -1,5 +1,9 @@
 /* eslint no-await-in-loop: off */
 
+// TODO: enable when interpolation has been fixed
+// const { readFileSync } = require('fs');
+// const { join } = require('path');
+
 const test = require('ava');
 const cheerio = require('cheerio');
 const isAbsoluteUrl = require('is-absolute-url');
@@ -45,10 +49,10 @@ for (const site of sites) {
 }
 
 // sanity check - issue #99
-// TODO" when the rest of the tests are up and running
+// TODO: enable when interpolation has been fixed
 // test('should not fail wikimedia sanity check', (t) => {
-//   const code = fs.readFileSync(path.join(__dirname, './integration/ext.cx.dashboard.less'), 'utf-8');
-//   const root = parse(code);
+//   const less = readFileSync(join(__dirname, './integration/ext.cx.dashboard.less'), 'utf-8');
+//   const root = syntax.parse(less);
 //
 //   t.is(root.first.type, 'import');
 // });

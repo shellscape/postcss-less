@@ -1,40 +1,46 @@
 const test = require('ava');
 const Comment = require('postcss/lib/comment');
 
-const { parse } = require('../../lib');
+const { parse, nodeToString } = require('../../lib');
 
 test('inline comment', (t) => {
-  const root = parse('// batman');
+  const less = '// batman';
+  const root = parse(less);
   const { first } = root;
 
   t.truthy(root);
   t.true(first instanceof Comment);
   t.true(first.inline);
   t.is(first.text, 'batman');
+  t.is(nodeToString(root), less);
 });
 
 test('close empty', (t) => {
-  const root = parse('// \n//');
+  const less = '// \n//';
+  const root = parse(less);
   const { first, last } = root;
 
   t.truthy(root.nodes.length);
   t.is(first.text, '');
   t.is(last.text, '');
+  t.is(nodeToString(root), less);
 });
 
 test('close inline and block', (t) => {
-  const root = parse('// batman\n/* cleans the batcave */');
+  const less = '// batman\n/* cleans the batcave */';
+  const root = parse(less);
   const { first, last } = root;
 
   t.truthy(root.nodes.length);
   t.is(first.text, 'batman');
   t.is(last.text, 'cleans the batcave');
+  t.is(nodeToString(root), less);
 });
 
 test('parses multiline comments', (t) => {
   const text = 'batman\n   robin\n   joker';
-  const comment = ` /* ${text} */ `;
-  const root = parse(comment);
+  const less = ` /* ${text} */ `;
+  const root = parse(less);
   const { first } = root;
 
   t.is(root.nodes.length, 1);
@@ -45,10 +51,14 @@ test('parses multiline comments', (t) => {
     right: ' '
   });
   t.falsy(first.inline);
+  t.is(nodeToString(root), less);
 });
 
 test('ignores pseudo-comments constructions', (t) => {
-  const { first } = parse('a { cursor: url(http://site.com) }');
+  const less = 'a { cursor: url(http://site.com) }';
+  const root = parse(less);
+  const { first } = root;
 
   t.false(first instanceof Comment);
+  t.is(nodeToString(root), less);
 });

@@ -2,17 +2,11 @@ const test = require('ava');
 
 const syntax = require('../lib');
 
-const { parse, stringify } = syntax;
+const { parse, nodeToString } = syntax;
 
 const run = (less) => {
   const root = parse(less);
-  let result = '';
-
-  stringify(root, (bit) => {
-    result += bit;
-  });
-
-  return result;
+  return nodeToString(root);
 };
 
 test('inline comment', (t) => {
