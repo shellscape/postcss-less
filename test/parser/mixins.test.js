@@ -268,3 +268,12 @@ test('should parse nested mixin', (t) => {
   t.is(root.nodes.length, 3);
   t.is(nodeToString(root), less);
 });
+
+test('mixin missing semicolon (#110)', (t) => {
+  const less = '.foo{.bar("baz")}';
+  const root = parse(less);
+  const { first } = root;
+
+  t.is(first.first.name, 'bar');
+  t.is(nodeToString(root), less);
+});
