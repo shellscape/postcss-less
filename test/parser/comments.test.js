@@ -1,83 +1,54 @@
 const test = require('ava');
+const Comment = require('postcss/lib/comment');
 
-const parse = require('../../lib/less-parse');
+const { parse } = require('../../lib');
 
-test('parses inline comments', (t) => {
-  const root = parse('\n// here is the first comment \n/* here is the second comment */');
+test('inline comment', (t) => {
+  const root = parse('// batman');
+  const { first } = root;
 
-  t.is(root.nodes.length, 2);
-  t.is(root.first.text, 'here is the first comment');
-  t.deepEqual(root.first.raws, {
-    before: '\n',
-    content: '// here is the first comment ',
-    begin: '//',
-    left: ' ',
-    right: ' '
-  });
-  t.is(root.first.inline, true);
-  t.is(root.first.block, false);
-  t.is(root.first.toString(), '/* here is the first comment */');
-
-  t.is(root.last.text, 'here is the second comment');
-  t.deepEqual(root.last.raws, {
-    before: '\n',
-    content: '/* here is the second comment */',
-    begin: '/*',
-    left: ' ',
-    right: ' '
-  });
-  t.is(root.last.inline, false);
-  t.is(root.last.block, true);
-  t.is(root.last.toString(), '/* here is the second comment */');
+  t.truthy(root);
+  t.true(first instanceof Comment);
+  t.true(first.inline);
+  t.is(first.text, 'batman');
 });
 
-test('parses empty inline comments', (t) => {
-  const root = parse(' //\n// ');
+test('close empty', (t) => {
+  const root = parse('// \n//');
+  const { first, last } = root;
 
-  t.is(root.first.text, '');
-  t.deepEqual(root.first.raws, {
-    before: ' ',
-    begin: '//',
-    content: '//',
-    left: '',
-    right: ''
-  });
-  t.is(root.last.inline, true);
-  t.is(root.last.block, false);
+  t.truthy(root.nodes.length);
+  t.is(first.text, '');
+  t.is(last.text, '');
+});
 
-  t.is(root.last.text, '');
-  t.deepEqual(root.last.raws, {
-    before: '\n',
-    begin: '//',
-    content: '// ',
-    left: ' ',
-    right: ''
-  });
-  t.is(root.last.inline, true);
-  t.is(root.last.block, false);
+test('close inline and block', (t) => {
+  const root = parse('// batman\n/* cleans the batcave */');
+  const { first, last } = root;
+
+  t.truthy(root.nodes.length);
+  t.is(first.text, 'batman');
+  t.is(last.text, 'cleans the batcave');
 });
 
 test('parses multiline comments', (t) => {
-  const text = 'Hello!\n I\'m a multiline \n comment!';
-  const comment = ` /*   ${ text }*/ `;
+  const text = 'batman\n   robin\n   joker';
+  const comment = ` /* ${text} */ `;
   const root = parse(comment);
+  const { first } = root;
 
   t.is(root.nodes.length, 1);
-  t.is(root.first.text, text);
-  t.deepEqual(root.first.raws, {
+  t.is(first.text, text);
+  t.deepEqual(first.raws, {
     before: ' ',
-    begin: '/*',
-    content: comment.trim(),
-    left: '   ',
+    left: ' ',
     right: ' '
   });
-  t.is(root.first.inline, false);
-  t.is(root.first.block, true);
-  t.is(root.first.toString(), `/*   ${ text } */`);
+  t.falsy(first.inline);
 });
 
-test('does not parse pseudo-comments constructions inside parentheses', (t) => {
-  const root = parse('a { cursor: url(http://site.com) }');
+test('ignores pseudo-comments constructions', (t) => {
+  const { first } = parse('a { cursor: url(http://site.com) }');
 
-  t.is(root.first.first.value, 'url(http://site.com)');
+  t.false(first instanceof Comment);
 });

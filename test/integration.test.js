@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 const test = require('ava');
 const cheerio = require('cheerio');
 const isAbsoluteUrl = require('is-absolute-url');
@@ -6,6 +9,7 @@ const postcss = require('postcss');
 const urljoin = require('url-join');
 
 const syntax = require('../lib');
+const { parse } = require('../lib');
 
 const sites = [
   'https://github.com',
@@ -34,10 +38,20 @@ for (const site of sites) {
 
       await postcss().process(css, {
         parser: syntax,
-        map: { annotation: false }
+        map: { annotation: false },
+        from: null
       });
     }
 
     t.pass();
   });
 }
+
+// sanity check - issue #99
+// TODO" when the rest of the tests are up and running
+// test('should not fail wikimedia sanity check', (t) => {
+//   const code = fs.readFileSync(path.join(__dirname, './integration/ext.cx.dashboard.less'), 'utf-8');
+//   const root = parse(code);
+//
+//   t.is(root.first.type, 'import');
+// });

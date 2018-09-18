@@ -2,32 +2,27 @@ const test = require('ava');
 const postcss = require('postcss');
 const CssSyntaxError = require('postcss/lib/css-syntax-error');
 
-const Import = require('../lib/import');
-const lessSyntax = require('../lib');
+const syntax = require('../lib');
+const { parser } = syntax;
+
+// silence the rediculously verbose "You did not set any plugins, parser, or
+// stringifier" warnings in PostCSS.
+console.warn = () => {};
 
 test('should process LESS syntax',  async (t) => {
-  const lessText = 'a { b {} }';
-  const result = await postcss().process(lessText, { syntax: lessSyntax });
+  const less = 'a { b {} }';
+  const result = await postcss().process(less, { syntax, parser });
 
   t.truthy(result);
-  t.is(result.css, lessText);
-  t.is(result.content, lessText);
-});
-
-test('should parse LESS mixins as at rules',  async (t) => {
-  const lessText = '.foo (@bar; @baz...) { border: @{baz}; }';
-  const result = await postcss().process(lessText, { syntax: lessSyntax });
-
-  t.truthy(result);
-  t.is(result.css, lessText);
-  t.is(result.content, lessText);
+  t.is(result.css, less);
+  t.is(result.content, less);
 });
 
 test('should not parse invalid LESS (#64)',  async (t) => {
-  const lessText = '.foo';
+  const less = '.@{]';
 
   try {
-    await postcss().process(lessText, { syntax: lessSyntax });
+    await postcss().process(less, { syntax });
   }
   catch (e) {
     t.true(e instanceof CssSyntaxError);
@@ -35,8 +30,8 @@ test('should not parse invalid LESS (#64)',  async (t) => {
 });
 
 test('should create its own Root node stringifier (#82)',  async (t) => {
-  const lessText = '@const "foo.less"';
-  const result = await postcss().process(lessText, { syntax: lessSyntax });
+  const less = '@const "foo.less"';
+  const result = await postcss().process(less, { syntax });
 
-  t.is(result.root.toString(), lessText);
+  t.is(result.root.toString(), less);
 });

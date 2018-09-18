@@ -1,6 +1,6 @@
 const test = require('ava');
 
-const parse = require('../../lib/less-parse');
+const { parse } = require('../../lib');
 
 test('should allow case-insensitive !important (#89)', (t) => {
   const code = 'a{k: v !IMPORTANT;}';

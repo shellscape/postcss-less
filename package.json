@@ -39,7 +39,7 @@
     "test": "ava"
   },
   "dependencies": {
-    "postcss": "^5.2.16"
+    "postcss": "^7.0.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.1.2",

@@ -1,6 +1,6 @@
 const test = require('ava');
 
-const parse = require('../../lib/less-parse');
+const { parse } = require('../../lib');
 
 test('should not assign parameters for pseudo-selectors (#56)', (t) => {
   const code = '.test2:not(.test3) {}';

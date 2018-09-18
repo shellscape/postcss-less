@@ -1,6 +1,6 @@
 const test = require('ava');
 
-const parse = require('../../lib/less-parse');
+const { parse } = require('../../lib');
 
 test('parses escaped string', (t) => {
   const code = `
@@ -14,7 +14,7 @@ test('parses escaped string', (t) => {
 `;
   const root = parse(code);
 
-  t.is(root.first.prop, '@testVar');
+  t.is(root.first.name, 'testVar');
   t.is(root.first.value, '10px');
   t.is(root.last.first.first.prop, 'height');
   t.is(root.last.first.first.value, 'calc(~"100vh - @{testVar}")');

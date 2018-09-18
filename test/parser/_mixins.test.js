@@ -234,3 +234,12 @@ test('should parse nested mixin', (t) => {
 
   t.is(root.nodes.length, 3);
 });
+
+test('should parse LESS mixins as at rules',  async (t) => {
+  const lessText = '.foo (@bar; @baz...) { border: @{baz}; }';
+  const result = await postcss().process(lessText, { syntax });
+
+  t.truthy(result);
+  t.is(result.css, lessText);
+  t.is(result.content, lessText);
+});

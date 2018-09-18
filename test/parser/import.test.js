@@ -1,105 +1,80 @@
 const test = require('ava');
-const postcss = require('postcss');
 const AtRule = require('postcss/lib/at-rule');
 
-const Import = require('../../lib/import');
-const lessSyntax = require('../../lib');
+const { parse } = require('../../lib');
 
-test('should parse @at-rules and @imports differently',  async (t) => {
-  const lessText = '@const (inline) "foo.less";';
-  const result = await postcss().process(lessText, { syntax: lessSyntax });
-
-  t.truthy(result);
-  t.is(result.css, lessText);
-  t.true(result.root.first instanceof AtRule);
-});
-
-test('should parse @imports as Import', async (t) => {
-  const lessText = '@import "foo.less";';
-  const result = await postcss().process(lessText, { syntax: lessSyntax });
+test('@at-rules != @imports',  async (t) => {
+  const less = '@const "foo.less";';
+  const result = parse(less);
+  const { first, source: { input } } = result;
 
   t.truthy(result);
-  t.is(result.css, lessText);
-  t.true(result.root.first instanceof Import);
-  t.is(result.root.first.filename, '"foo.less"');
+  t.is(input.css, less);
+  t.true(first instanceof AtRule);
+  t.falsy(first.import);
 });
 
-test('should parse @imports with a url function as Import', async (t) => {
-  const lessText = '@import url("foo.less");';
-
-  const result = await postcss().process(lessText, { syntax: lessSyntax });
+test('@imports',  async (t) => {
+  const less = '@import "foo.less";';
+  const result = parse(less);
+  const { first, source: { input } } = result;
 
   t.truthy(result);
-  t.is(result.css, lessText);
-  t.true(result.root.first instanceof Import);
-  t.is(result.root.first.filename, '"foo.less"');
-  t.is(result.root.first.urlFunc, true);
+  t.is(input.css, less);
+  t.true(first.import);
+  t.is(first.filename, '"foo.less"');
 });
 
-test('should parse @imports with a quote-less url function as Import', async (t) => {
-  const lessText = '@import url(foo.less);';
-  const result = await postcss().process(lessText, { syntax: lessSyntax });
+test('import options',  async (t) => {
+  const less = '@import (inline) "foo.less";';
+  const { first } = parse(less);
 
-  t.truthy(result);
-  t.is(result.css, lessText);
-  t.true(result.root.first instanceof Import);
-  t.is(result.root.first.filename, 'foo.less');
-  t.is(result.root.first.urlFunc, true);
+  t.is(first.options, '(inline)');
 });
 
-test('should parse @imports as Import, no space', async (t) => {
-  const lessText = '@import"foo.less";';
-  const result = await postcss().process(lessText, { syntax: lessSyntax });
+test('multiple import options',  async (t) => {
+  const less = '@import (inline, once, optional) "foo.less";';
+  const { first } = parse(less);
 
-  t.truthy(result);
-  t.is(result.css, lessText);
-  t.true(result.root.first instanceof Import);
-  t.is(result.root.first.filename, '"foo.less"');
-  t.falsy(result.root.first.raws.afterName);
+  t.is(first.options, '(inline, once, optional)');
 });
 
-test('should parse @imports with a directive', async (t) => {
-  const lessText = '@import (inline) "foo.less";';
-  const result = await postcss().process(lessText, { syntax: lessSyntax });
+test('url("filename")',  async (t) => {
+  const less = '@import url("foo.less");';
+  const { first } = parse(less);
 
-  t.truthy(result);
-  t.is(result.css, lessText);
-  t.true(result.root.first instanceof Import);
-  t.is(result.root.first.directives, '(inline)');
-  t.is(result.root.first.filename, '"foo.less"');
+  t.is(first.filename, '"foo.less"');
 });
 
-test('should parse @imports with multiple directives', async (t) => {
-  const lessText = '@import (inline, optional) "foo.less";';
-  const result = await postcss().process(lessText, { syntax: lessSyntax });
+test('url(filename)',  async (t) => {
+  const less = '@import url(foo.less);';
+  const { first } = parse(less);
 
-  t.truthy(result);
-  t.is(result.css, lessText);
-  t.true(result.root.first instanceof Import);
-  t.is(result.root.first.directives, '(inline, optional)');
-  t.is(result.root.first.filename, '"foo.less"');
+  t.is(first.filename, 'foo.less');
 });
 
-test('should parse @imports with malformed filename (#88)', async (t) => {
-  const lessText = '@import missing "missing" "not missing";';
-  const result = await postcss().process(lessText, { syntax: lessSyntax });
+test('no spaces',  async (t) => {
+  const less = '@import"foo.less";';
+  const { first } = parse(less);
 
-  t.truthy(result);
-  t.is(result.css, lessText);
-  t.true(result.root.first instanceof Import);
-  t.is(result.root.first.filename, 'missing "missing" "not missing"');
+  t.is(first.filename, '"foo.less"');
 });
 
-test('should parse @imports with mmissing semicolon (#88)', async (t) => {
-  const lessText = `
+test('malformed filename (#88)',  async (t) => {
+  const less = '@import missing "missing" "not missing";';
+  const { first } = parse(less);
+
+  t.is(first.filename, 'missing "missing" "not missing"');
+});
+
+test('mmissing semicolon (#88)',  async (t) => {
+  const less = `
 @import "../assets/font/league-gothic/league-gothic.css"
 
 .ManagerPage {
   height: 100%;
 }`;
-  const result = await postcss().process(lessText, { syntax: lessSyntax });
+  const { first } = parse(less);
 
-  t.truthy(result);
-  t.true(result.root.first instanceof Import);
-  t.is(result.root.first.filename, '"../assets/font/league-gothic/league-gothic.css"\n\n.ManagerPage');
+  t.is(first.filename, '"../assets/font/league-gothic/league-gothic.css"\n\n.ManagerPage');
 });
