@@ -4,8 +4,8 @@ const { parse } = require('../../lib');
 
 test('basic', (t) => {
   const params = '(  1, 2, 3; something, else; ...) when (@mode=huge)';
-  const selector = `.foo ${ params }`;
-  const { first } = parse(`${ selector } { border: baz; }`);
+  const selector = `.foo ${params}`;
+  const { first } = parse(`${selector} { border: baz; }`);
 
   t.is(first.type, 'rule');
   t.is(first.selector, selector);
@@ -72,7 +72,9 @@ test('class and id selectors', (t) => {
     }
 `;
 
-  const { nodes: [first, second, last] } = parse(less);
+  const {
+    nodes: [first, second, last]
+  } = parse(less);
 
   t.is(first.first.name, 'a');
   t.is(first.first.params, '(#FFF)');
@@ -147,7 +149,7 @@ test('!important, no whitespace', (t) => {
                     .foo()!important;
                 `;
 
-  const { first }  = parse(less);
+  const { first } = parse(less);
 
   t.is(first.name, 'foo');
   t.is(first.params, '()');
@@ -160,7 +162,7 @@ test('! important', (t) => {
   .bar()! important;
 `;
 
-  const { first, last }  = parse(less);
+  const { first, last } = parse(less);
 
   t.is(first.name, 'foo');
   t.is(first.params, '()');
@@ -173,8 +175,8 @@ test('! important', (t) => {
 
 test('parses nested mixins with the rule set', (t) => {
   const params = '({background-color: red;})';
-  const ruleSet = `.desktop-and-old-ie ${ params }`;
-  const { first }  = parse(`header { ${ ruleSet }; }`);
+  const ruleSet = `.desktop-and-old-ie ${params}`;
+  const { first } = parse(`header { ${ruleSet}; }`);
 
   t.is(first.selector, 'header');
   t.is(first.first.name, 'desktop-and-old-ie');

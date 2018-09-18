@@ -1,5 +1,4 @@
-const fs = require('fs');
-const path = require('path');
+/* eslint no-await-in-loop: off */
 
 const test = require('ava');
 const cheerio = require('cheerio');
@@ -9,12 +8,8 @@ const postcss = require('postcss');
 const urljoin = require('url-join');
 
 const syntax = require('../lib');
-const { parse } = require('../lib');
 
-const sites = [
-  'https://github.com',
-  'https://news.ycombinator.com'
-];
+const sites = ['https://github.com', 'https://news.ycombinator.com'];
 
 for (const site of sites) {
   test(`integration: ${site}`, async (t) => {
@@ -22,22 +17,24 @@ for (const site of sites) {
     const html = await res.text();
     const $ = cheerio.load(html);
 
-    const hrefs = $('head link[rel=stylesheet]').map((index, sheet) => {
-      let { href } = sheet.attribs;
+    const hrefs = $('head link[rel=stylesheet]')
+      .map((index, sheet) => {
+        let { href } = sheet.attribs;
 
-      if (!isAbsoluteUrl(href)) {
-        href = urljoin(site, href);
-      }
+        if (!isAbsoluteUrl(href)) {
+          href = urljoin(site, href);
+        }
 
-      return href;
-    }).get();
+        return href;
+      })
+      .get();
 
     for (const href of hrefs) {
       const req = await fetch(href);
       const css = await req.text();
 
       await postcss().process(css, {
-        parser: syntax,
+        parser: syntax.parse,
         map: { annotation: false },
         from: null
       });

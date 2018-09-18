@@ -1,6 +1,6 @@
 const test = require('ava');
 
-const parse = require('../../lib/less-parse');
+const { parse } = require('../../lib');
 
 test('parses interpolation', (t) => {
   const root = parse('@{selector}:hover { @{prop}-size: @{color} }');

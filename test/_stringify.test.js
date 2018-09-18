@@ -1,9 +1,11 @@
 const test = require('ava');
 const postcss = require('postcss');
 
-const postcssLess = require('../lib');
-const parse = require('../lib/less-parse');
-const stringify = require('../lib/less-stringify');
+const syntax = require('../lib');
+
+const { parse } = syntax;
+// require('../lib/less-stringify');
+const stringify = {};
 
 test('stringifies inline comment', (t) => {
   const root = parse('// comment\na {}');
@@ -27,10 +29,10 @@ test('stringifies inline comment in the end of file', (t) => {
   t.is(result, '// comment');
 });
 
-test('stringifies mixin without body. #1',  async (t) => {
+test('stringifies mixin without body. #1', async (t) => {
   const less = '.selector:extend(.f, .g)  {&:extend(.a);}';
   const result = await postcss().process(less, {
-    syntax: postcssLess,
+    syntax,
     stringifier: stringify
   });
 
@@ -48,17 +50,17 @@ test('stringifies mixins', (t) => {
   t.is(result, '.foo (@bar; @baz...) { border: @{baz}; }');
 });
 
-test('stringifies mixin without body. #2',  async (t) => {
+test('stringifies mixin without body. #2', async (t) => {
   const less = '.mix() {color: red} .selector {.mix()}';
   const result = await postcss().process(less, {
-    syntax: postcssLess,
+    syntax,
     stringifier: stringify
   });
 
   t.is(result.content, less);
 });
 
-test('stringifies mixin without body. #3',  async (t) => {
+test('stringifies mixin without body. #3', async (t) => {
   const less = `
   .container {
       .mixin-1();
@@ -74,18 +76,18 @@ test('stringifies mixin without body. #3',  async (t) => {
 `;
 
   const result = await postcss().process(less, {
-    syntax: postcssLess,
+    syntax,
     stringifier: stringify
   });
 
   t.is(result.content, less);
 });
 
-test('stringifies mixin with !important',  async (t) => {
+test('stringifies mixin with !important', async (t) => {
   const less = '.foo { .mix() ! important; }';
 
   const result = await postcss().process(less, {
-    syntax: postcssLess,
+    syntax,
     stringifier: stringify
   });
 

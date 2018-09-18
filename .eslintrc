@@ -1,9 +1,3 @@
 {
-  "extends": "shellscape",
-  "parserOptions": {
-    "sourceType": "module"
-  },
-  "rules": {
-    "object-curly-spacing": ["error", "always", { "arraysInObjects": true }]
-  }
+  "extends": "shellscape"
 }

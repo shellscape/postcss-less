@@ -1,6 +1,3 @@
-const fs = require('fs');
-const path = require('path');
-
 const test = require('ava');
 const AtRule = require('postcss/lib/at-rule');
 
@@ -52,8 +49,9 @@ test('multiple variables with no whitespace between ":" and value', (t) => {
 });
 
 test('@pagexxx like variable but not @page selector', (t) => {
-  let root = parse('@pageWidth: "test";'),
-    { first } = root;
+  let root = parse('@pageWidth: "test";');
+
+  let { first } = root;
 
   t.is(first.name, 'pageWidth');
   t.is(first.value, '"test"');
@@ -66,8 +64,9 @@ test('@pagexxx like variable but not @page selector', (t) => {
 });
 
 test('@pagexxx like variable with whitespaces between name and ":"', (t) => {
-  let root = parse('@pageWidth :"test";'),
-    { first } = root;
+  let root = parse('@pageWidth :"test";');
+
+  let { first } = root;
 
   t.is(first.name, 'pageWidth');
   t.is(first.value, '"test"');
@@ -95,7 +94,7 @@ test('string values', (t) => {
 
 test('mixed variables', (t) => {
   const propValue = '(   \n( ((@line-height))) * (@lines-to-show) )em';
-  const root = parse(`h1 { max-height: ${ propValue }; }`);
+  const root = parse(`h1 { max-height: ${propValue}; }`);
   const { first } = root;
 
   t.is(first.selector, 'h1');

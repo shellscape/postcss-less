@@ -12,7 +12,8 @@ test('should not assign parameters for pseudo-selectors (#56)', (t) => {
 
 // sanity check = require(issue #99
 test('should not assign parameters for bracket selectors', (t) => {
-  const code = '@media only screen and ( max-width: ( @narrow - 1px ) ) {\n  padding: 10px 24px 20px;\n}';
+  const code =
+    '@media only screen and ( max-width: ( @narrow - 1px ) ) {\n  padding: 10px 24px 20px;\n}';
   const root = parse(code);
 
   t.is(root.first.type, 'atrule');
