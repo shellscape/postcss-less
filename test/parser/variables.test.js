@@ -133,3 +133,18 @@ test('color (hash) variables', (t) => {
   t.is(first.value, '#fff');
   t.is(nodeToString(root), less);
 });
+
+test('multiline position (#108)', (t) => {
+  const less = `@var: '
+foo
+bar
+';
+`;
+  const root = parse(less);
+  const { first } = root;
+
+  t.is(first.name, 'var');
+  t.is(first.value, `'\nfoo\nbar\n'`);
+  t.is(first.source.end.line, 4);
+  t.is(nodeToString(root), less);
+});

@@ -1,7 +1,7 @@
 const test = require('ava');
 const tests = require('postcss-parser-tests');
 
-const { parse, stringify } = require('../../lib');
+const { nodeToString, parse, stringify } = require('../../lib');
 
 tests.each((name, code, json) => {
   // Skip comments.css, because we have an extended Comment node
@@ -43,3 +43,32 @@ test('parses at-rules inside rules', (t) => {
 
   t.is(root.first.first.name, 'media');
 });
+
+test('nested media query with import (#103)', (t) => {
+  const less = `@media screen {
+	@import "basic";
+}`;
+  const root = parse(less);
+  const { first } = root;
+
+  t.is(first.first.name, 'import');
+  t.is(nodeToString(root), less);
+});
+
+// TODO: fix. likely same issue as #102
+// test('detached ruleset (#86)', (t) => {
+//   const less = `.test({
+// 	.hello {
+// 		.test {
+// 		}
+// 	}
+//
+// 	.fred {
+// 	}
+// })`;
+//   const root = parse(less);
+//   const { first } = root;
+//
+//   t.is(first.first.name, 'bar');
+//   t.is(nodeToString(root), less);
+// });

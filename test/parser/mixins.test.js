@@ -277,3 +277,18 @@ test('mixin missing semicolon (#110)', (t) => {
   t.is(first.first.name, 'bar');
   t.is(nodeToString(root), less);
 });
+
+// TODO: fix
+// test('important in parameters (#102)', (t) => {
+//   const less = `.f(
+// 	@a : {
+// 		color : red !important;
+// 		background : blue;
+// 	}
+// );`;
+//   const root = parse(less);
+//   const { first } = root;
+//
+//   t.is(first.first.name, 'a');
+//   t.is(nodeToString(root), less);
+// });
