@@ -1,7 +1,7 @@
 const test = require('ava');
 const tests = require('postcss-parser-tests');
 
-const { parse } = require('../../lib');
+const { parse, stringify } = require('../../lib');
 
 tests.each((name, code, json) => {
   // Skip comments.css, because we have an extended Comment node
@@ -20,17 +20,16 @@ tests.each((name, code, json) => {
     return; // eslint-disable-line no-useless-return
   }
 
-  // TODO: enable once stringifying is put in place
-  // test(`stringifies ${name}`, (t) => {
-  //   const root = parse(code);
-  //   let result = '';
-  //
-  //   stringify(root, (i) => {
-  //     result += i;
-  //   });
-  //
-  //   t.is(result, code);
-  // });
+  test(`stringifies ${name}`, (t) => {
+    const root = parse(code);
+    let result = '';
+
+    stringify(root, (i) => {
+      result += i;
+    });
+
+    t.is(result, code);
+  });
 });
 
 test('parses nested rules', (t) => {

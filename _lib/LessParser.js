@@ -69,7 +69,6 @@ module.exports = class LessParser extends Parser {
     const tokens = this.tokens.slice(options.start, this.pos + 1);
 
     // fixes #89. PostCSS v5.x doesn't account for non-lowercase !important
-    // TODO: check v7.x once we migrate to see if this can be removed
     for (const token of tokens) {
       if (importantPattern.test(token[1])) {
         token[1] = token[1].replace(importantPattern, '$1').toLowerCase();
