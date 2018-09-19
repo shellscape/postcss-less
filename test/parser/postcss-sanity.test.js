@@ -55,20 +55,22 @@ test('nested media query with import (#103)', (t) => {
   t.is(nodeToString(root), less);
 });
 
-// TODO: fix. likely same issue as #102
-// test('detached ruleset (#86)', (t) => {
-//   const less = `.test({
-// 	.hello {
-// 		.test {
-// 		}
-// 	}
-//
-// 	.fred {
-// 	}
-// })`;
-//   const root = parse(less);
-//   const { first } = root;
-//
-//   t.is(first.first.name, 'bar');
-//   t.is(nodeToString(root), less);
-// });
+test('detached ruleset (#86)', (t) => {
+  const params = `({
+  .hello {
+    .test {
+    }
+  }
+
+  .fred {
+  }
+})`;
+  const less = `.test${params}`;
+  const root = parse(less);
+  const { first } = root;
+
+  t.true(first.mixin);
+  t.is(first.name, 'test');
+  t.is(first.params, params);
+  t.is(nodeToString(root), less);
+});

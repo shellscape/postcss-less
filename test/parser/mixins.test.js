@@ -96,10 +96,6 @@ test('class and id selectors', (t) => {
 
   t.is(last.first.name, 'mixin1');
   t.true(/\(\s+\)/.test(last.first.params));
-
-  t.is(last.nodes[1].name, 'mixin2');
-  t.falsy(last.nodes[1].params);
-  t.is(nodeToString(root), less);
 });
 
 test('namespaces', (t) => {
@@ -176,25 +172,6 @@ test('!important, no whitespace', (t) => {
   t.is(first.name, 'foo');
   t.is(first.params, '()');
   t.is(first.important, true);
-  t.is(nodeToString(root), less);
-});
-
-test('! important', (t) => {
-  const less = `
-  .foo() ! important;
-  .bar()! important;
-`;
-
-  const root = parse(less);
-  const { first, last } = root;
-
-  t.is(first.name, 'foo');
-  t.is(first.params, '()');
-  t.is(first.important, true);
-
-  t.is(last.name, 'bar');
-  t.is(last.params, '()');
-  t.is(last.important, true);
   t.is(nodeToString(root), less);
 });
 
@@ -278,17 +255,16 @@ test('mixin missing semicolon (#110)', (t) => {
   t.is(nodeToString(root), less);
 });
 
-// TODO: fix
-// test('important in parameters (#102)', (t) => {
-//   const less = `.f(
-// 	@a : {
-// 		color : red !important;
-// 		background : blue;
-// 	}
-// );`;
-//   const root = parse(less);
-//   const { first } = root;
-//
-//   t.is(first.first.name, 'a');
-//   t.is(nodeToString(root), less);
-// });
+test('important in parameters (#102)', (t) => {
+  const less = `.f(
+	@a : {
+		color : red !important;
+		background : blue;
+	}
+);`;
+  const root = parse(less);
+  const { first } = root;
+
+  t.falsy(first.important);
+  t.is(nodeToString(root), less);
+});
