@@ -3,26 +3,12 @@
   "version": "2.0.0",
   "description": "LESS parser for PostCSS",
   "license": "MIT",
-  "repository": "webschik/postcss-less",
-  "keywords": [
-    "css",
-    "postcss",
-    "postcss-syntax",
-    "parser",
-    "less"
-  ],
-  "main": "lib/index.js",
-  "files": [
-    "lib",
-    "README.md",
-    "LICENSE"
-  ],
+  "repository": "shellscape/postcss-less",
   "author": "Denys Kniazevych <webschik@gmail.com>",
-  "maintainer": {
-    "name": "Andrew Powell",
-    "email": "andrew@shellscape.org",
-    "url": "shellscape.org"
-  },
+  "maintainer": "Andrew Powell <andrew@shellscape.org>",
+  "homepage": "https://github.com/shellscape/postcss-less",
+  "bugs": "https://github.com/shellscape/postcss-less/issues",
+  "main": "lib/index.js",
   "engines": {
     "node": ">=6.14.4"
   },
@@ -38,6 +24,11 @@
     "security": "npm audit",
     "test": "ava"
   },
+  "files": [
+    "lib",
+    "README.md",
+    "LICENSE"
+  ],
   "dependencies": {
     "postcss": "^7.0.2"
   },
@@ -59,6 +50,13 @@
     "standard-version": "^4.4.0",
     "url-join": "^4.0.0"
   },
+  "keywords": [
+    "css",
+    "postcss",
+    "postcss-syntax",
+    "parser",
+    "less"
+  ],
   "pre-commit": "lint-staged",
   "lint-staged": {
     "*.js": [

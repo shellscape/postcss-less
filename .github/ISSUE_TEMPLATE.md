@@ -6,6 +6,7 @@
 
 * Node Version:
 * NPM Version:
+* postcss Version:
 * postcss-less Version:
 
 If you have a large amount of code to share which demonstrates the problem you're experiencing, please provide a link to your
