@@ -27,6 +27,18 @@ test('inline comment without leading space', (t) => {
   t.is(nodeToString(root), less);
 });
 
+test('inline comment with unclosed characters', (t) => {
+  const less = `// unclosed ' test { test ( test /*`;
+  const root = parse(less);
+  const { first } = root;
+
+  t.truthy(root);
+  t.true(first instanceof Comment);
+  t.true(first.inline);
+  t.is(first.text, less.slice(3));
+  t.is(nodeToString(root), less);
+});
+
 test('close empty', (t) => {
   const less = '// \n//';
   const root = parse(less);
