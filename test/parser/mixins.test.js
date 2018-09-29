@@ -175,6 +175,34 @@ test('!important, no whitespace', (t) => {
   t.is(nodeToString(root), less);
 });
 
+test('!important, whitespace between', (t) => {
+  const less = `
+                    .foo()! important;
+                `;
+
+  const root = parse(less);
+  const { first } = root;
+
+  t.is(first.name, 'foo');
+  t.is(first.params, '()');
+  t.is(first.important, true);
+  t.is(nodeToString(root), less);
+});
+
+test('!important, whitespace before and between', (t) => {
+  const less = `
+                    .foo() ! important;
+                `;
+
+  const root = parse(less);
+  const { first } = root;
+
+  t.is(first.name, 'foo');
+  t.is(first.params, '()');
+  t.is(first.important, true);
+  t.is(nodeToString(root), less);
+});
+
 test('parses nested mixins with the rule set', (t) => {
   const params = '({background-color: red;})';
   const ruleSet = `.desktop-and-old-ie ${params}`;
