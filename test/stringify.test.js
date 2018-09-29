@@ -61,3 +61,11 @@ test('mixin with !important', async (t) => {
   const result = run(less);
   t.is(result, less);
 });
+
+test('AtRule custom stringifier', async (t) => {
+  const less = '.mix() ! important';
+  const root = parse(less);
+  const result = root.first.toString();
+
+  t.is(result, less);
+});
