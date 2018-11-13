@@ -269,7 +269,7 @@ test('important in parameters (#102)', (t) => {
   t.is(nodeToString(root), less);
 });
 
-test('mixin parameters keyframes (#122)', (t) => {
+test('mixin parameters with functions (#122)', (t) => {
   const less = `.mixin({
   0% {
     transform: rotate(0deg);
