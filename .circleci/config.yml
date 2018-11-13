@@ -9,7 +9,6 @@ unit_tests: &unit_tests
     - run:
         name: Run unit tests.
         command: npm run ci:test
-version: 2
 jobs:
   dependency_cache:
     docker:
