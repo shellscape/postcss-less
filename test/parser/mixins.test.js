@@ -292,3 +292,19 @@ test('important in parameters (#102)', (t) => {
   t.falsy(first.important);
   t.is(nodeToString(root), less);
 });
+
+test('mixin parameters with functions (#122)', (t) => {
+  const less = `.mixin({
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+});`;
+  const root = parse(less);
+  const { first } = root;
+
+  t.is(first.name, 'mixin');
+  t.is(nodeToString(root), less);
+});
