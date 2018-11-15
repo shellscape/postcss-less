@@ -2,27 +2,30 @@ const test = require('ava');
 
 const { parse, nodeToString } = require('../../lib');
 
-test('inline &:extend()', (t) => {
+test('inline :extend()', (t) => {
   const less = '.a:extend(.b) {color: red;}';
   const root = parse(less);
   const { first } = root;
 
   t.is(first.selector, '.a:extend(.b)');
+  t.truthy(first.extend);
   t.is(nodeToString(root), less);
 });
 
-test('inline &:extend() with multiple parameters', (t) => {
+test('inline :extend() with multiple parameters', (t) => {
   const less = '.e:extend(.f, .g) {}';
   const { first } = parse(less);
 
   t.is(first.selector, '.e:extend(.f, .g)');
+  t.truthy(first.extend);
 });
 
-test('inline &:extend() with nested selector in parameters', (t) => {
+test('inline :extend() with nested selector in parameters', (t) => {
   const less = '.e:extend(.a .g, b span) {}';
   const { first } = parse(less);
 
   t.is(first.selector, '.e:extend(.a .g, b span)');
+  t.truthy(first.extend);
 });
 
 test('parses nested &:extend()', (t) => {
@@ -32,6 +35,7 @@ test('parses nested &:extend()', (t) => {
   t.is(first.selector, '.a');
   t.is(first.first.prop, '&');
   t.is(first.first.value, 'extend(.bucket tr)');
+  t.truthy(first.first.extend);
 });
 
 test('parses :extend() after selector', (t) => {
@@ -39,6 +43,7 @@ test('parses :extend() after selector', (t) => {
   const { first } = parse(less);
 
   t.is(first.selector, 'pre:hover:extend(div pre)');
+  t.truthy(first.extend);
 });
 
 test('parses :extend() after selector. 2', (t) => {
@@ -46,6 +51,7 @@ test('parses :extend() after selector. 2', (t) => {
   const { first } = parse(less);
 
   t.is(first.selector, 'pre:hover :extend(div pre)');
+  t.truthy(first.extend);
 });
 
 test('parses multiple extends', (t) => {
@@ -53,6 +59,7 @@ test('parses multiple extends', (t) => {
   const { first } = parse(less);
 
   t.is(first.selector, 'pre:hover:extend(div pre):extend(.bucket tr)');
+  t.truthy(first.extend);
 });
 
 test('parses nth expression in extend', (t) => {
@@ -62,6 +69,7 @@ test('parses nth expression in extend', (t) => {
 
   t.is(first.selector, ':nth-child(1n+3)');
   t.is(last.selector, '.child:extend(:nth-child(n+3))');
+  t.truthy(last.extend);
 });
 
 test('"all"', (t) => {
@@ -69,6 +77,7 @@ test('"all"', (t) => {
   const { first } = parse(less);
 
   t.is(first.selector, '.replacement:extend(.test all)');
+  t.truthy(first.extend);
 });
 
 test('with interpolation', (t) => {
@@ -77,4 +86,5 @@ test('with interpolation', (t) => {
 
   t.is(root.nodes[0].selector, '.bucket');
   t.is(root.nodes[1].selector, '.some-class:extend(@{variable})');
+  t.truthy(root.nodes[1].extend);
 });
