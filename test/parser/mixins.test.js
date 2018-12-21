@@ -308,3 +308,20 @@ test('mixin parameters with functions (#122)', (t) => {
   t.is(first.name, 'mixin');
   t.is(nodeToString(root), less);
 });
+
+test('mixin parameters with multiple parens', (t) => {
+  const less = `.mixin({
+  &__icon {
+      background-image: url('./icon.svg');
+      width: calc(~"100% + 1px");
+  }
+});
+.two {}`;
+
+  const root = parse(less);
+  const { first, last } = root;
+
+  t.is(first.name, 'mixin');
+  t.is(last.selector, '.two');
+  t.is(nodeToString(root), less);
+});
