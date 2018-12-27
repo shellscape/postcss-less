@@ -86,3 +86,13 @@ test('ignores pseudo-comments constructions', (t) => {
   t.false(first instanceof Comment);
   t.is(nodeToString(root), less);
 });
+
+test('newlines are put on the next node', (t) => {
+  const less = '// a comment\n.a {}';
+
+  const root = parse(less);
+  const { first, last } = root;
+
+  t.is(first.raws.right, '');
+  t.is(last.raws.before, '\n');
+});
