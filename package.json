@@ -42,7 +42,7 @@
     "eslint-plugin-filenames": "^1.2.0",
     "is-absolute-url": "^2.1.0",
     "less": "^3.8.1",
-    "lint-staged": "^7.3.0",
+    "lint-staged": "^8.1.0",
     "node-fetch": "^2.2.0",
     "nyc": "^13.0.1",
     "postcss-parser-tests": "^6.3.1",
