@@ -39,6 +39,49 @@ test('inline comment with unclosed characters', (t) => {
   t.is(nodeToString(root), less);
 });
 
+test('inline comment with unclosed characters and future statements', (t) => {
+  const less = `// unclosed ' test { test ( test /* test "\nfoo: 'bar';\nbar: "foo"\nabc: (def)\n foo{}`;
+  const root = parse(less);
+  const { first } = root;
+
+  t.truthy(root);
+  t.true(first instanceof Comment);
+  t.true(first.inline);
+  // first.text should only contain the comment line without the `// `
+  t.is(first.text, less.substring(0, less.indexOf('\n')).slice(3));
+  t.is(nodeToString(root), less);
+});
+
+test('inline comment with closed characters and future statements', (t) => {
+  const less = `// closed '' test {} test () test /* */ test "\nfoo: 'bar';\nbar: "foo"\nabc: (def)\n foo{}`;
+  const root = parse(less);
+  const { first } = root;
+
+  t.truthy(root);
+  t.true(first instanceof Comment);
+  t.true(first.inline);
+  // first.text should only contain the comment line without the `// `
+  t.is(first.text, less.substring(0, less.indexOf('\n')).slice(3));
+  t.is(nodeToString(root), less);
+});
+
+test('two subsequent inline comments with unmatched quotes', (t) => {
+  const less = `// first unmatched '\n// second ' unmatched\nfoo: 'bar';`;
+  const root = parse(less);
+  const [firstComment, secondComment] = root.nodes;
+
+  t.truthy(root);
+  t.true(firstComment instanceof Comment);
+  t.true(secondComment instanceof Comment);
+  t.true(firstComment.inline);
+  t.true(secondComment.inline);
+  // firstComment.text & secondComment.text should only contain the comment line without the `// `
+  const lines = less.split('\n');
+  t.is(firstComment.text, lines[0].slice(3));
+  t.is(secondComment.text, lines[1].slice(3));
+  t.is(nodeToString(root), less);
+});
+
 test('close empty', (t) => {
   const less = '// \n//';
   const root = parse(less);
