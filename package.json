@@ -15,7 +15,6 @@
   "scripts": {
     "ci:coverage": "nyc npm run test && nyc report --reporter=text-lcov > coverage.lcov",
     "ci:lint": "npm run lint && npm run security",
-    "ci:lint:commits": "commitlint --from=${CIRCLE_BRANCH} --to=${CIRCLE_SHA1}",
     "ci:test": "npm run test",
     "commitlint": "commitlint",
     "commitmsg": "commitlint -e $GIT_PARAMS",
