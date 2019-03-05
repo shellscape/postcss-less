@@ -15,6 +15,22 @@ test('inline comment', (t) => {
   t.is(nodeToString(root), less);
 });
 
+test('two-line inline comment with a single quote and windows EOL', (t) => {
+  const less = `// it's first comment (this line should end with Windows new line symbols)\r\n// it's second comment`;
+  const root = parse(less);
+  const [first, second, ...rest] = root.nodes;
+
+  t.truthy(root);
+  t.true(first instanceof Comment);
+  t.true(first.inline);
+  t.is(first.text, `it's first comment (this line should end with Windows new line symbols)`);
+  t.true(second instanceof Comment);
+  t.true(second.inline);
+  t.is(second.text, `it's second comment`);
+  t.is(nodeToString(root), less);
+  t.is(rest.length, 0);
+});
+
 test('inline comment without leading space', (t) => {
   const less = '//batman';
   const root = parse(less);
