@@ -65,24 +65,10 @@ jobs:
       - run:
           name: Run NSP Security Check.
           command: npm run security
-  publish:
-    docker:
-      - image: rollupcabal/circleci-node-base:latest
-    steps:
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: NPM Rebuild
-          command: npm install
-      - run:
-          name: Publish to NPM
-          command: printf "noop running conventional-github-releaser"
-
 version: 2.0
 workflows:
   version: 2
-  validate-publish:
+  validate:
     jobs:
       - dependency_cache
       - analysis:
@@ -109,12 +95,3 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - publish:
-          requires:
-            - node-v6-latest
-            - node-v8-latest
-            - node-v10-latest
-          filters:
-            branches:
-              only:
-                - master
