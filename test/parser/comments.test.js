@@ -155,3 +155,14 @@ test('newlines are put on the next node', (t) => {
   t.is(first.raws.right, '');
   t.is(last.raws.before, '\n');
 });
+
+test('inline comments with asterisk are persisted (#135)', (t) => {
+  const less = '//*batman';
+
+  const root = parse(less);
+  const { first } = root;
+
+  t.is(first.type, 'comment');
+  t.is(first.text, '*batman');
+  t.is(nodeToString(root), less);
+});
