@@ -6,7 +6,7 @@ const syntax = require('../lib');
 
 const { parser } = syntax;
 
-// silence the rediculously verbose "You did not set any plugins, parser, or
+// silence the ridiculously verbose "You did not set any plugins, parser, or
 // stringifier" warnings in PostCSS.
 console.warn = () => {}; // eslint-disable-line no-console
 

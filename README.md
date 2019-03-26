@@ -1,4 +1,4 @@
-[tests]: 	https://img.shields.io/circleci/project/github/shellscape/postcss-less.svg
+[tests]: https://img.shields.io/circleci/project/github/shellscape/postcss-less.svg
 [tests-url]: https://circleci.com/gh/shellscape/postcss-less
 
 [cover]: https://codecov.io/gh/shellscape/postcss-less/branch/master/graph/badge.svg
@@ -39,7 +39,7 @@ Please consider [becoming a patron](https://www.patreon.com/shellscape) if you f
 
 ## Usage
 
-The most common use of `postcss-less` is for applying PostCSS transformations directly to LESS source. eg. ia theme written in LESS which uses [Autoprefixer] to add appropriate vendor prefixes.
+The most common use of `postcss-less` is for applying PostCSS transformations directly to LESS source. eg. a theme written in LESS which uses [Autoprefixer] to add appropriate vendor prefixes.
 
 ```js
 const syntax = require('postcss-less');
