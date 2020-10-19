@@ -1,9 +1,9 @@
 const test = require('ava');
-const tests = require('postcss-parser-tests');
+const { eachTest, jsonify } = require('postcss-parser-tests');
 
 const { nodeToString, parse, stringify } = require('../../lib');
 
-tests.each((name, code, json) => {
+eachTest((name, code, json) => {
   // Skip comments.css, because we have an extended Comment node
   if (name === 'comments.css' || name === 'atrule-no-space.css' || name === 'inside.css') {
     return;
@@ -11,7 +11,7 @@ tests.each((name, code, json) => {
 
   test(`parses ${name}`, (t) => {
     const root = parse(code, { from: name });
-    const parsed = tests.jsonify(root);
+    const parsed = jsonify(root);
 
     t.is(parsed, json);
   });
