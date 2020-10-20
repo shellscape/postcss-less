@@ -20,7 +20,7 @@
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "lint": "eslint --fix --cache lib test",
     "lint-staged": "lint-staged",
-    "security": "npm audit",
+    "security": "npm audit --audit-level=moderate",
     "test": "ava"
   },
   "files": [
@@ -32,20 +32,20 @@
     "postcss": "^8.1.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^8.1.0",
-    "@commitlint/config-conventional": "^8.1.0",
-    "ava": "^2.2.0",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "ava": "^3.13.0",
     "cheerio": "^1.0.0-rc.2",
     "eslint-config-shellscape": "^2.0.2",
     "eslint-plugin-filenames": "^1.2.0",
     "is-absolute-url": "^3.0.0",
     "less": "^3.8.1",
     "lint-staged": "^9.2.0",
-    "node-fetch": "^2.2.0",
-    "nyc": "^14.1.1",
+    "node-fetch": "^2.6.1",
+    "nyc": "^15.1.0",
     "postcss-parser-tests": "^8.3.1",
     "pre-commit": "^1.2.2",
-    "standard-version": "^6.0.1",
+    "standard-version": "^9.0.0",
     "url-join": "^4.0.0"
   },
   "keywords": [
