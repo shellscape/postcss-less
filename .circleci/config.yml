@@ -41,9 +41,9 @@ jobs:
           name: Submit coverage data to codecov.
           command: bash <(curl -s https://codecov.io/bash)
           when: on_success
-  node-v8-latest:
+  node-v14-latest:
     docker:
-      - image: rollupcabal/circleci-node-v8:latest
+      - image: rollupcabal/circleci-node-v14:latest
     <<: *unit_tests
   analysis:
     docker:
@@ -56,10 +56,10 @@ jobs:
           name: NPM Rebuild
           command: npm install
       - run:
-          name: Run linting.
+          name: Run Linting
           command: npm run lint
       - run:
-          name: Run NSP Security Check.
+          name: Run NPM Audit
           command: npm run security
 version: 2.0
 workflows:
@@ -73,7 +73,7 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - node-v8-latest:
+      - node-v14-latest:
           requires:
             - analysis
           filters:
