@@ -10,7 +10,7 @@
   "bugs": "https://github.com/shellscape/postcss-less/issues",
   "main": "lib/index.js",
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "scripts": {
     "ci:coverage": "nyc npm run test && nyc report --reporter=text-lcov > coverage.lcov",
@@ -29,7 +29,7 @@
     "LICENSE"
   ],
   "dependencies": {
-    "postcss": "^7.0.14"
+    "postcss": "^8.1.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
@@ -43,7 +43,7 @@
     "lint-staged": "^9.2.0",
     "node-fetch": "^2.6.1",
     "nyc": "^15.1.0",
-    "postcss-parser-tests": "^6.3.1",
+    "postcss-parser-tests": "^8.3.1",
     "pre-commit": "^1.2.2",
     "standard-version": "^9.0.0",
     "url-join": "^4.0.0"
