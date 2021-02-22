@@ -98,6 +98,19 @@ test('two subsequent inline comments with unmatched quotes', (t) => {
   t.is(nodeToString(root), less);
 });
 
+test('inline comments with quotes and new line(#145)', (t) => {
+  const less = `
+      // batman'
+  `;
+
+  const root = parse(less);
+  const { first } = root;
+
+  t.is(first.type, 'comment');
+  t.is(first.text, `batman'`);
+  t.is(nodeToString(root), less);
+});
+
 test('close empty', (t) => {
   const less = '// \n//';
   const root = parse(less);
