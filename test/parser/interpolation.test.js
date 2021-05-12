@@ -12,6 +12,14 @@ test('parses interpolation', (t) => {
   t.is(root.first.first.value, '@{color}');
 });
 
+test('parses interpolation when there is not space between selector with open bracket', (t) => {
+  const root = parse('@{selector}-title{ @{prop}-size: @{color} }');
+
+  t.is(root.first.selector, '@{selector}-title');
+  t.is(root.first.first.prop, '@{prop}-size');
+  t.is(root.first.first.value, '@{color}');
+});
+
 test('parses mixin interpolation', (t) => {
   const less = '.browser-prefix(@prop, @args) {\n @{prop}: @args;\n}';
   const root = parse(less);
