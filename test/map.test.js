@@ -1,9 +1,11 @@
-const test = require("ava");
-const postcss = require("postcss");
-const { readFileSync } = require("fs");
-const { join } = require("path");
+const { readFileSync } = require('fs');
 
-const syntax = require("../lib");
+const { join } = require('path');
+
+const test = require('ava');
+const postcss = require('postcss');
+
+const syntax = require('../lib');
 
 const { parser } = syntax;
 
@@ -11,11 +13,8 @@ const { parser } = syntax;
 // stringifier" warnings in PostCSS.
 console.warn = () => {}; // eslint-disable-line no-console
 
-test("should parse LESS integration syntax and generate a source map", async t => {
-  const less = readFileSync(
-    join(__dirname, "./integration/ext.cx.dashboard.less"),
-    "utf-8"
-  );
+test('should parse LESS integration syntax and generate a source map', async (t) => {
+  const less = readFileSync(join(__dirname, './integration/ext.cx.dashboard.less'), 'utf-8');
   const result = await postcss().process(less, {
     syntax,
     parser,
@@ -28,7 +27,7 @@ test("should parse LESS integration syntax and generate a source map", async t =
   t.truthy(result.map);
 });
 
-test("should parse LESS inline comment syntax and generate a source map", async t => {
+test('should parse LESS inline comment syntax and generate a source map', async (t) => {
   const less = `
   a {
     //background-color: red;
