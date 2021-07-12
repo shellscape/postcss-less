@@ -10,7 +10,7 @@
   "bugs": "https://github.com/shellscape/postcss-less/issues",
   "main": "lib/index.js",
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "scripts": {
     "ci:coverage": "nyc npm run test && nyc report --reporter=text-lcov > coverage.lcov",
