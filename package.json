@@ -1,6 +1,6 @@
 {
   "name": "postcss-less",
-  "version": "4.0.1",
+  "version": "5.0.0",
   "description": "LESS parser for PostCSS",
   "license": "MIT",
   "repository": "shellscape/postcss-less",
