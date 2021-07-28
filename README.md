@@ -9,7 +9,7 @@
 
 [PostCSS]: https://github.com/postcss/postcss
 [PostCSS-SCSS]: https://github.com/postcss/postcss-scss
-[LESS]: http://lesless.org
+[LESS]: https://lesscss.org/
 [Autoprefixer]: https://github.com/postcss/autoprefixer
 [Stylelint]: http://stylelint.io/
 
