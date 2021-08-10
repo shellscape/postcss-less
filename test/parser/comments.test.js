@@ -180,7 +180,7 @@ test('inline comments with asterisk are persisted (#135)', (t) => {
   t.is(nodeToString(root), less);
 });
 
-test.only('handles single quotes in comments (#163)', (t) => {
+test('handles single quotes in comments (#163)', (t) => {
   const less = `a {\n  // '\n  color: pink;\n}\n\n/** ' */`;
 
   const root = parse(less);
@@ -203,8 +203,7 @@ test.only('handles single quotes in comments (#163)', (t) => {
   t.is(innerCommentNode.source.start.line, 2);
   t.is(innerCommentNode.source.start.column, 3);
   t.is(innerCommentNode.source.end.line, 2);
-  // TODO: this test is failing
-  // t.is(innerCommentNode.source.end.column, 6);
+  t.is(innerCommentNode.source.end.column, 6);
 
   t.is(declarationNode.source.start.line, 3);
   t.is(declarationNode.source.start.column, 3);
