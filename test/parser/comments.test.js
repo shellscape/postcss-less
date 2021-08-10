@@ -179,3 +179,20 @@ test('inline comments with asterisk are persisted (#135)', (t) => {
   t.is(first.text, '*batman');
   t.is(nodeToString(root), less);
 });
+
+test.only('handles single quotes in comments', (t) => {
+  const less = `.a {\n  // '\n  outline-width: 0 !important;\n}\n\n/** ' */`;
+
+  const root = parse(less);
+  const { first } = root;
+
+  const [commentNode, declarationNode] = first.nodes;
+
+  t.is(commentNode.type, 'comment');
+
+  t.is(declarationNode.type, 'decl');
+  t.is(declarationNode.source.start.line, 3);
+  t.is(declarationNode.source.start.column, 3);
+  t.is(declarationNode.source.end.line, 3);
+  t.is(declarationNode.source.end.column, 30);
+});
