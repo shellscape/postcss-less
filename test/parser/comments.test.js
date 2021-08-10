@@ -195,4 +195,6 @@ test.only('handles single quotes in comments', (t) => {
   t.is(declarationNode.source.start.column, 3);
   t.is(declarationNode.source.end.line, 3);
   t.is(declarationNode.source.end.column, 30);
+
+  t.is(nodeToString(root), less);
 });
