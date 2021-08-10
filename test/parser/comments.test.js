@@ -180,7 +180,7 @@ test('inline comments with asterisk are persisted (#135)', (t) => {
   t.is(nodeToString(root), less);
 });
 
-test.only('handles single quotes in comments', (t) => {
+test('handles single quotes in comments', (t) => {
   const less = `.a {\n  // '\n  outline-width: 0 !important;\n}\n\n/** ' */`;
 
   const root = parse(less);
