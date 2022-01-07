@@ -22,6 +22,7 @@ for (const site of sites) {
     const $ = cheerio.load(html);
 
     const hrefs = $('head link[rel=stylesheet]')
+      .filter((index, sheet) => !!sheet.attribs.href)
       .map((index, sheet) => {
         let { href } = sheet.attribs;
 
