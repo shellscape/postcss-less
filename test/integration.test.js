@@ -13,7 +13,7 @@ const urljoin = require('url-join');
 
 const syntax = require('../lib');
 
-const sites = ['https://news.ycombinator.com'];
+const sites = ['https://github.com'];
 
 for (const site of sites) {
   test(`integration: ${site}`, async (t) => {
