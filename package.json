@@ -10,7 +10,8 @@
   "bugs": "https://github.com/shellscape/postcss-less/issues",
   "main": "lib/index.js",
   "engines": {
-    "node": ">=12"
+    "node": ">=14",
+    "npm": ">=9"
   },
   "scripts": {
     "ci:coverage": "nyc npm run test && nyc report --reporter=text-lcov > coverage.lcov",
@@ -28,11 +29,10 @@
     "README.md",
     "LICENSE"
   ],
-  "dependencies": {},
   "devDependencies": {
-    "@commitlint/cli": "^12.1.4",
+    "@commitlint/cli": "^17.6.7",
     "@commitlint/config-conventional": "^12.1.4",
-    "ava": "^3.15.0",
+    "ava": "^5.3.1",
     "cheerio": "^1.0.0-rc.10",
     "eslint-config-shellscape": "^2.0.2",
     "eslint-plugin-filenames": "^1.2.0",
