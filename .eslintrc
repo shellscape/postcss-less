@@ -1,3 +1,10 @@
 {
-  "extends": "shellscape"
+  "extends": "shellscape",
+  "settings": {
+    "import/resolver": {
+      "exports": {
+        "require": true
+      }
+    }
+  }
 }
