@@ -24,7 +24,9 @@ test('parses mixin interpolation', (t) => {
   const less = '.browser-prefix(@prop, @args) {\n @{prop}: @args;\n}';
   const root = parse(less);
 
-  t.is(root.first.selector, '.browser-prefix(@prop, @args)');
+  t.is(root.first.type, 'atrule');
+  t.is(root.first.name, 'browser-prefix');
+  t.is(root.first.params, '(@prop, @args)');
   t.is(root.first.first.prop, '@{prop}');
   t.is(root.first.first.value, '@args');
 });
@@ -77,7 +79,9 @@ test('parses escaping', (t) => {
 
   const root = parse(code);
   const { first } = root;
-  t.is(first.selector, '.m_transition (...)');
+  t.is(first.type, 'atrule');
+  t.is(first.name, 'm_transition');
+  t.is(first.params, '(...)');
   t.is(first.first.name, 'props');
   t.is(first.first.value, '~`"@{arguments}".replace(/[[]]/g, \'\')`');
   t.is(root.nodes[1].first.selector, '& ~ .stock-bar__content .stock-bar__control_pause');

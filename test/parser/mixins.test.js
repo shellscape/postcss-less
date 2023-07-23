@@ -9,8 +9,9 @@ test('basic', (t) => {
   const root = parse(less);
   const { first } = root;
 
-  t.is(first.type, 'rule');
-  t.is(first.selector, selector);
+  t.is(first.type, 'atrule');
+  t.is(first.name, 'foo');
+  t.is(first.params, params);
   t.is(first.first.prop, 'border');
   t.is(first.first.value, 'baz');
   t.is(nodeToString(root), less);
@@ -128,8 +129,15 @@ test('guarded namespaces', (t) => {
   const root = parse(less);
   const { first } = root;
 
-  t.is(first.first.selector, '.mixin()');
-  t.is(first.next().first.selector, '.mixin() when (@mode=huge)');
+  t.is(first.first.type, 'atrule');
+  t.is(first.first.name, 'mixin');
+  t.is(first.first.params, '()');
+
+  const next = first.next();
+  t.is(next.first.type, 'atrule');
+  t.is(next.first.name, 'mixin');
+  t.is(next.first.params, '() when (@mode=huge)');
+
   t.is(nodeToString(root), less);
 });
 
