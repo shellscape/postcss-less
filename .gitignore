@@ -8,3 +8,6 @@ Thumbs.db
 node_modules
 
 s.js
+
+# IntelliJ
+.idea
